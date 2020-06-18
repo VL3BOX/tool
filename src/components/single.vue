@@ -58,10 +58,11 @@
         <div class="m-single-prepend">
             <!-- 警告 -->
             <el-alert
+                v-if="isTool"
                 class="m-single-notice"
                 title="特别说明"
                 type="warning"
-                description="请严格保护个人财产安全，勿轻易任何收费服务，本版不对作者提供的下载资源做任何担保，凡是不受官方认可或疑似辅助以及不符合站内创作公约的作品将无条件删除。"
+                description="请严格保护个人财产安全，勿轻信任何收费服务，本版不对作者提供的下载资源做任何担保，凡是不受官方认可或疑似辅助以及不符合站内创作公约的作品将无条件删除。"
                 show-icon
             >
             </el-alert>
@@ -145,7 +146,7 @@ export default {
             return authorLink(_.get(this.author, "uid"));
         },
         post_subtype : function (){
-            return _.get(this.post, "post_subtype") || "无";
+            return _.get(this.post, "post_subtype") || "0";
         },
         author_name: function() {
             return _.get(this.author, "name") || "匿名";
@@ -171,6 +172,9 @@ export default {
         excerpt: function() {
             return _.get(this.post, "post_excerpt");
         },
+        isTool : function (){
+            return this.post_subtype == '2'
+        }
     },
     methods: {
         formatMeta: function(key) {
