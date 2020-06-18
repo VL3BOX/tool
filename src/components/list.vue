@@ -35,7 +35,7 @@
 
             <!-- 发布按钮 -->
             <a :href="publish_link" class="u-publish el-button el-button--primary el-button--small" >
-                + 发布副本攻略
+                + 发布作品
             </a>
 
             <!-- 角标过滤 -->
