@@ -1,5 +1,5 @@
 {
-  "name": "repo",
+  "name": "tool",
   "private": true,
   "scripts": {
     "dev": "env DEV_SERVER=true vue-cli-service serve",

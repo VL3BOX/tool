@@ -2,23 +2,23 @@
     <div id="app" :class="{ 'p-list': mode == 'list', 'p-single': mode == 'single' }">
         <Header></Header>
         <Breadcrumb
-            name="频道名称"
-            slug="slug"
-            root="/slug"
+            name="教程工具"
+            slug="tool"
+            root="/tool"
             :publishEnable="true"
             :adminEnable="true"
             :feedbackEnable="true"
         >
-            <img slot="logo" svg-inline src="./assets/img/logo.svg" />
+            <img slot="logo" svg-inline src="./assets/img/tool.svg" />
             <Info />
         </Breadcrumb>
         <LeftSidebar>
             <Nav />
         </LeftSidebar>
-        <Main :withoutRight="false">
+        <Main :withoutRight="mode == 'list' ? true : false">
             <single v-if="mode == 'single'" />
             <div class="m-main" v-else>
-                <tabs />
+                <!-- <tabs /> -->
                 <router-view />
             </div>
             <RightSidebar>
@@ -33,7 +33,7 @@
 import Info from "@/components/Info.vue";
 import Nav from "@/components/Nav.vue";
 import Extend from "@/components/Extend.vue";
-import tabs from "@/components/tabs";
+// import tabs from "@/components/tabs";
 import single from "@/components/single.vue";
 const { getRewrite } = require("@jx3box/jx3box-common/js/utils");
 
@@ -55,14 +55,14 @@ export default {
         this.$store.state.mode = this.$store.state.pid ? "single" : "list";
 
         // 根据情况选择subtype取值
-        // this.$store.state.subtype = getRewrite("subtype");
+        this.$store.state.subtype = getRewrite("subtype");
         // this.$store.state.subtype = this.$route.params.subtype;
     },
     components: {
         Info,
         Nav,
         Extend,
-        tabs,
+        // tabs,
         single
     },
 };

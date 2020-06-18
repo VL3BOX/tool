@@ -41,7 +41,7 @@
         border-top:1px solid transparent;
         border-bottom:1px solid transparent;
     }
-    .router-link-exact-active {
+    .router-link-exact-active,.on {
         background-color: #fff;
         color:@darkblue;
         svg{fill:@darkblue;}
@@ -61,5 +61,28 @@
     }
     .p-single{
         .m-list-nav{.db;}
+    }
+}
+
+.m-tool-nav{
+    a{
+
+    }
+    i{
+        .mr(5px);
+        font-size:18px;
+        .y;
+    }
+    b{
+        font-weight:normal;
+    }
+    .on b{
+        .bold;
+    }
+    span{
+        .fr;
+        color:#aaa;
+        font-size:12px;
+        font-weight: normal !important;
     }
 }

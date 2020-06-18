@@ -17,6 +17,7 @@
                     <el-option label="作者" value="authorname"></el-option>
                     <el-option label="标题" value="title"></el-option>
                 </el-select>
+                <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
             <!-- <el-switch
                     class="u-switch u-hasdata"
@@ -103,13 +104,13 @@
                         @click="reorder('podate')"
                         ><i class="el-icon-sort"></i> 最早发布</span
                     >
-                    <span
+                    <!-- <span
                         class="u-mode u-likes"
                         :class="{ on: order == 'likes' }"
                         @click="reorder('likes')"
                         ><i class="el-icon-star-off"></i> 点赞最多</span
-                    >
-                    <span
+                    > -->
+                    <!-- <span
                         class="u-mode u-favs"
                         :class="{ on: order == 'favs' }"
                         @click="reorder('favs')"
@@ -120,7 +121,7 @@
                         :class="{ on: order == 'downs' }"
                         @click="reorder('downs')"
                         ><i class="el-icon-download"></i> 下载最多</span
-                    >
+                    > -->
                 </span>
             </div>
 
@@ -171,7 +172,7 @@
 
                     <!-- 字段 -->
                     <div class="u-content u-desc">
-                        字段内容区
+                        {{item.post.post_excerpt || item.post.post_title}}
                     </div>
 
                     <!-- 作者 -->
@@ -267,7 +268,7 @@ export default {
             loading: false, //加载状态
 
             search : '',
-            searchType : '',
+            searchType : 'title',
 
             data: [], //数据列表
             page: 1, //当前页数
@@ -316,10 +317,10 @@ export default {
 
         // 根据栏目定义
         defaultBanner: function() {
-            return ''
+            return __ossMirror + 'image/banner/null.png'
         },
         publish_link: function(val) {
-            return publishLink("fb");
+            return publishLink("tool");
         },
     },
     methods: {

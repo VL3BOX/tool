@@ -3,10 +3,10 @@
 
         <!-- 群号 -->
         <RightSideMsg>
-            <em>家园玩法交流群</em> :
-            <strong><a href="https://jq.qq.com/?_wv=1027&k=InbtJGcw">658035079</a></strong>
+            <em>工具作者交流群</em> :
+            <strong><a href="https://jq.qq.com/?_wv=1027&k=sW4O1mZ9">658035079</a></strong>
         </RightSideMsg>
-
+        
         <!-- 排行榜 -->
         <div class="m-side-rank">
             <h3 class="c-sidebar-right-title">
