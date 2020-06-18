@@ -1,20 +1,19 @@
 <template>
     <div class="m-single-box" :loading="loading">
-
         <!-- 头部 -->
         <header class="m-single-header">
-
             <!-- 标题 -->
             <div class="m-single-title">
-                <a class="u-title u-sub-block" :href="url">{{title}}</a>
+                <a class="u-title u-sub-block" :href="url">{{ title }}</a>
             </div>
 
             <!-- 信息 -->
             <div class="m-single-info">
-
                 <!-- 用户名 -->
                 <div class="u-author u-sub-block">
-                    <i class="u-author-icon"><img svg-inline src="../assets/img/single/author.svg"/></i>
+                    <i class="u-author-icon"
+                        ><img svg-inline src="../assets/img/single/author.svg"
+                    /></i>
                     <a class="u-name" :href="author_link">{{ author_name }}</a>
                 </div>
 
@@ -28,13 +27,17 @@
 
                 <!-- 发布日期 -->
                 <span class="u-podate u-sub-block" title="发布日期">
-                    <i class="u-icon-podate"><img svg-inline src="../assets/img/single/podate.svg"/></i>
+                    <i class="u-icon-podate"
+                        ><img svg-inline src="../assets/img/single/podate.svg"
+                    /></i>
                     <time>{{ post_date }}</time>
                 </span>
 
                 <!-- 最后更新 -->
                 <span class="u-modate u-sub-block" title="最后更新">
-                    <i class="u-icon-modate"><img svg-inline src="../assets/img/single/modate.svg"/></i>
+                    <i class="u-icon-modate"
+                        ><img svg-inline src="../assets/img/single/modate.svg"
+                    /></i>
                     <time>{{ update_date }}</time>
                 </span>
 
@@ -49,25 +52,35 @@
             <div class="m-single-panel">
                 <Fav />
             </div>
-
         </header>
 
         <!-- 文章前 -->
         <div class="m-single-prepend">
+            <!-- 警告 -->
+            <el-alert
+                class="m-single-notice"
+                title="特别说明"
+                type="warning"
+                description="请严格保护个人财产安全，勿轻易任何收费服务，本版不对作者提供的下载资源做任何担保，凡是不受官方认可或疑似辅助以及不符合站内创作公约的作品将无条件删除。"
+                show-icon
+            >
+            </el-alert>
 
             <!-- 摘要 -->
             <div class="m-single-excerpt" v-if="excerpt">
                 <el-divider content-position="left">Excerpt</el-divider>
                 {{ excerpt }}
             </div>
-
         </div>
 
         <!-- 文章内容 -->
         <div class="m-single-post">
             <el-divider content-position="left">JX3BOX</el-divider>
             <div class="m-single-content">
-                <Article :content="post.post_content" directorybox="#directory"/>
+                <Article
+                    :content="post.post_content"
+                    directorybox="#directory"
+                />
             </div>
         </div>
 
@@ -122,36 +135,39 @@ export default {
         id: function() {
             return this.$store.state.pid;
         },
-        title : function (){
-            return _.get(this.post,'post_title') || '无标题' 
+        title: function() {
+            return _.get(this.post, "post_title") || "无标题";
         },
-        url : function (){
-            return location.href
+        url: function() {
+            return location.href;
         },
         author_link: function() {
-            return authorLink(_.get(this.author,'uid'));
+            return authorLink(_.get(this.author, "uid"));
         },
-        author_name : function (){
-            return _.get(this.author,'name') || '匿名'
+        author_name: function() {
+            return _.get(this.author, "name") || "匿名";
         },
-        post_date : function (){
-            return dateFormat(new Date(_.get(this.post,'post_date')));
+        post_date: function() {
+            return dateFormat(new Date(_.get(this.post, "post_date")));
         },
-        update_date : function (){
-            return dateFormat(new Date(_.get(this.post,'post_modified')));
+        update_date: function() {
+            return dateFormat(new Date(_.get(this.post, "post_modified")));
         },
         edit_link: function() {
-            return editLink(_.get(this.post,'post_type'), _.get(this.post,'ID'));
+            return editLink(
+                _.get(this.post, "post_type"),
+                _.get(this.post, "ID")
+            );
         },
         canEdit: function() {
             return (
-                _.get(this.post,'post_author') == User.getInfo().uid ||
+                _.get(this.post, "post_author") == User.getInfo().uid ||
                 User.getInfo().group > 60
             );
         },
-        excerpt : function (){
-            return _.get(this.post,'post_excerpt')
-        }
+        excerpt: function() {
+            return _.get(this.post, "post_excerpt");
+        },
     },
     methods: {
         formatMeta: function(key) {
@@ -167,7 +183,7 @@ export default {
     created: function() {
         if (this.id) {
             this.loading = true;
-            getPost(this.id,this)
+            getPost(this.id, this)
                 .then((res) => {
                     this.post = this.$store.state.post = res.data.data.post;
                     this.meta = this.$store.state.meta =
