@@ -27,13 +27,16 @@ export default {
             return this.$store.state.author
         },
         uid : function (){
+            // console.log(this.author.uid)
             return this.author.uid
         }
     },
     methods: {
         
     },
-    mounted: function() {},
+    mounted: function() {
+
+    },
 };
 </script>
 

@@ -73,7 +73,7 @@ export default {
         }
     },
     mounted: function() {
-        console.log(this.$store.state.subtype)
+        // console.log(this.$store.state.subtype)
     },
     components : {
         

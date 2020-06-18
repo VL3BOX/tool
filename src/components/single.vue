@@ -18,12 +18,12 @@
                 </div>
 
                 <!-- 自定义字段 -->
-                <div class="u-meta u-sub-block">
-                    <em class="u-label">首领</em>
+                <!-- <div class="u-meta u-sub-block">
+                    <em class="u-label">类型</em>
                     <span class="u-value">
-                        {{ formatMeta("fb_boss") }}
+                        {{post_subtype}}
                     </span>
-                </div>
+                </div> -->
 
                 <!-- 发布日期 -->
                 <span class="u-podate u-sub-block" title="发布日期">
@@ -143,6 +143,9 @@ export default {
         },
         author_link: function() {
             return authorLink(_.get(this.author, "uid"));
+        },
+        post_subtype : function (){
+            return _.get(this.post, "post_subtype") || "无";
         },
         author_name: function() {
             return _.get(this.author, "name") || "匿名";
