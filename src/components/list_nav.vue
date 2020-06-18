@@ -32,20 +32,20 @@ export default {
                 {
                     slug : 1,
                     icon : 'el-icon-collection',
-                    name : '教程心得',
-                    desc : 'Tutorial'
+                    name : '玩法心得',
+                    desc : 'Experience'
                 },
                 {
                     slug : 2,
                     icon : 'el-icon-setting',
-                    name : '实用工具',
+                    name : '工具源码',
                     desc : 'Tool'
                 },
                 {
-                    slug : 3,
-                    icon : 'el-icon-paperclip',
-                    name : '资源分享',
-                    desc : 'Resource'
+                    slug : 6,
+                    icon : 'el-icon-unlock',
+                    name : '技术教程',
+                    desc : 'Tutorial'
                 },
                 {
                     slug : 5,
@@ -54,10 +54,22 @@ export default {
                     desc : 'Help'
                 },
                 {
+                    slug : 3,
+                    icon : 'el-icon-paperclip',
+                    name : '资源分享',
+                    desc : 'Resource'
+                },
+                {
                     slug : 4,
                     icon : 'el-icon-headset',
                     name : '其它',
                     desc : 'Other'
+                },
+                {
+                    slug : 7,
+                    icon : 'el-icon-chat-line-square',
+                    name : '讨论',
+                    desc : 'Discuz'
                 },
             ]
         };
