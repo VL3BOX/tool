@@ -18,12 +18,12 @@
                 </div>
 
                 <!-- 自定义字段 -->
-                <!-- <div class="u-meta u-sub-block">
+                <div class="u-meta u-sub-block">
                     <em class="u-label">类型</em>
                     <span class="u-value">
                         {{post_subtype}}
                     </span>
-                </div> -->
+                </div>
 
                 <!-- 发布日期 -->
                 <span class="u-podate u-sub-block" title="发布日期">
@@ -118,6 +118,12 @@ import { __Links } from "@jx3box/jx3box-common/js/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user.js";
 // 数据服务
 import { getPost } from "../service/post.js";
+const types = {
+    "1" : "工具源码",
+    "2" : "资源分享",
+    "3" : "插件指南",
+    "4" : "帮助文档"
+}
 
 export default {
     name: "single",
@@ -146,7 +152,12 @@ export default {
             return authorLink(_.get(this.author, "uid"));
         },
         post_subtype : function (){
-            return _.get(this.post, "post_subtype") || "0";
+            let subtype = _.get(this.post, "post_subtype");
+            if(subtype){
+                return types[subtype]
+            }else{
+                return ''
+            }
         },
         author_name: function() {
             return _.get(this.author, "name") || "匿名";

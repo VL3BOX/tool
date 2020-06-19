@@ -137,7 +137,7 @@
                         class="u-banner"
                         :href="item.post.ID | postLink"
                         :target="target"
-                        ><img :src="showBanner(item.post.post_banner)"
+                        ><img :src="showBanner(item.post.post_banner,item.post.post_subtype)"
                     /></a>
 
                     <h2 class="u-post" :class="{ isSticky: item.post.sticky }">
@@ -369,8 +369,13 @@ export default {
         showOrder : function (){
             this.order_visible = !this.order_visible;
         },
-        showBanner: function(val) {
-            return val ? showMinibanner(val) : this.defaultBanner;
+        showBanner: function(val,subtype) {
+            if(val){
+                return showMinibanner(val)
+            }else{
+                return __ossMirror + 'image/banner/tool' + subtype + '.png'
+            }
+            return this.defaultBanner;
         },
     },
     filters: {
