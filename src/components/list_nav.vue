@@ -31,45 +31,27 @@ export default {
                 },
                 {
                     slug : 1,
-                    icon : 'el-icon-collection',
-                    name : '玩法心得',
-                    desc : 'Experience'
-                },
-                {
-                    slug : 2,
                     icon : 'el-icon-setting',
                     name : '工具源码',
                     desc : 'Tool'
                 },
                 {
-                    slug : 6,
-                    icon : 'el-icon-unlock',
-                    name : '技术教程',
-                    desc : 'Tutorial'
-                },
-                {
-                    slug : 5,
-                    icon : 'el-icon-warning-outline',
-                    name : '帮助文档',
-                    desc : 'Help'
-                },
-                {
-                    slug : 3,
+                    slug : 2,
                     icon : 'el-icon-paperclip',
                     name : '资源分享',
                     desc : 'Resource'
                 },
                 {
-                    slug : 4,
-                    icon : 'el-icon-headset',
-                    name : '其它',
-                    desc : 'Other'
+                    slug : 3,
+                    icon : 'el-icon-collection',
+                    name : '插件指南',
+                    desc : 'Usage'
                 },
                 {
-                    slug : 7,
-                    icon : 'el-icon-chat-line-square',
-                    name : '讨论',
-                    desc : 'Discuz'
+                    slug : 4,
+                    icon : 'el-icon-warning-outline',
+                    name : '帮助文档',
+                    desc : 'Help'
                 },
             ]
         };
