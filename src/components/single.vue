@@ -173,7 +173,7 @@ export default {
             return _.get(this.post, "post_excerpt");
         },
         isTool : function (){
-            return this.post_subtype == '2'
+            return this.post_subtype == '1'
         }
     },
     methods: {
