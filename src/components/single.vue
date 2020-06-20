@@ -62,7 +62,7 @@
                 class="m-single-notice"
                 title="特别说明"
                 type="warning"
-                description="请严格保护个人财产安全，勿轻信任何收费服务，本版不对作者提供的下载资源做任何担保，凡是不受官方认可或疑似辅助以及不符合站内创作公约的作品将无条件删除。"
+                description="请严格保护个人财产安全，勿轻信任何收费服务，本版不对作者提供的下载资源做任何担保，凡是不受官方认可、或疑似外挂，以及不符合站内创作公约及发布规范的作品予以删除处理，欢迎广大玩家监督与举报。"
                 show-icon
             >
             </el-alert>
@@ -184,7 +184,7 @@ export default {
             return _.get(this.post, "post_excerpt");
         },
         isTool : function (){
-            return this.post_subtype == '1'
+            return this.post.post_subtype == '1'
         }
     },
     methods: {
