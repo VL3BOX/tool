@@ -373,7 +373,7 @@ export default {
             if(val){
                 return showMinibanner(val)
             }else{
-                return __ossMirror + 'image/banner/tool' + subtype + '.png'
+                return __ossMirror + 'image/banner/tool' + subtype + '.png?v=1'
             }
             return this.defaultBanner;
         },
