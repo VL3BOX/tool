@@ -239,7 +239,7 @@
 import _ from "lodash";
 import { getPosts } from "../service/post";
 import dateFormat from "../utils/dateFormat";
-import { __ossMirror } from "@jx3box/jx3box-common/js/jx3box";
+import { __ossMirror,__imgPath } from "@jx3box/jx3box-common/js/jx3box";
 import {
     showAvatar,
     authorLink,
@@ -373,7 +373,7 @@ export default {
             if(val){
                 return showMinibanner(val)
             }else{
-                return __ossMirror + 'image/banner/tool' + subtype + '.png?v=1'
+                return __imgPath + 'image/banner/tool' + subtype + '.png?v=1'
             }
             return this.defaultBanner;
         },
