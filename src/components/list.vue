@@ -130,14 +130,14 @@
         <!-- 列表 -->
         <div class="m-archive-list" v-if="data.length">
             <ul class="u-list">
-                <li class="u-item" v-for="(item, i) in data" :key="i">
+                <li class="u-item" v-for="(item, i) in data" :key="i + item">
 
                     <!-- Banner -->
                     <a
                         class="u-banner"
                         :href="item.post.ID | postLink"
                         :target="target"
-                        ><img :src="showBanner(item.post.post_banner,item.post.post_subtype)"
+                        ><img :src="showBanner(item.post.post_banner,item.post.post_subtype)" :key="i + item"
                     /></a>
 
                     <h2 class="u-post" :class="{ isSticky: item.post.sticky }">
