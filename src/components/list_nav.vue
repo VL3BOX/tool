@@ -1,6 +1,11 @@
 <template>
     <div class="m-list-nav">
 
+        <RightSideMsg>
+            <em>工具作者交流群</em> :
+            <strong><a href="https://jq.qq.com/?_wv=1027&k=Bfj4wm5E">297985102</a></strong>
+        </RightSideMsg>
+
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-tool-nav">
             <a v-for="(item,i) in menu" :href="typeLink(item.slug)" :key="i" :class="{on:item.slug == subtype}"><i :class="item.icon"></i><b>{{item.name}}</b><span>{{item.desc}}</span></a>
