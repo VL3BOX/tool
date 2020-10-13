@@ -9,6 +9,7 @@
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-tool-nav">
             <a v-for="(item,i) in menu" :href="typeLink(item.slug)" :key="i" :class="{on:item.slug == subtype}"><i :class="item.icon"></i><b>{{item.name}}</b><span>{{item.desc}}</span></a>
+            <!-- <a href=""><i class="el-icon-menu"></i><span>站内应用</span></a> -->
         </div>
 
         <!-- <h5 class="u-title">推荐作品</h5>
