@@ -29,7 +29,7 @@
                     class="input-with-select"
                     @change="loadPosts"
                 >
-                    <span slot="prepend">搜索</span>
+                    <span slot="prepend">搜 索</span>
                     <!-- <el-select
                         v-model="searchType"
                         slot="prepend"
