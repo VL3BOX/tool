@@ -29,7 +29,8 @@
                     class="input-with-select"
                     @change="loadPosts"
                 >
-                    <el-select
+                    <span slot="prepend">搜索</span>
+                    <!-- <el-select
                         v-model="searchType"
                         slot="prepend"
                         placeholder="请选择"
@@ -37,7 +38,7 @@
                     >
                         <el-option label="标题" value="title"></el-option>
                         <el-option label="作者" value="authorname"></el-option>
-                    </el-select>
+                    </el-select> -->
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </div>
@@ -160,7 +161,7 @@ export default {
             mark: "", //筛选模式
             
             search: "",
-            searchType: "title",
+            // searchType: "title",
         };
     },
     computed: {
@@ -173,7 +174,7 @@ export default {
                 subtype: this.subtype,
             };
             if (this.search) {
-                params[this.searchType] = this.search;
+                params.search = this.search;
             }
             if (this.order) {
                 params.order = this.order;
