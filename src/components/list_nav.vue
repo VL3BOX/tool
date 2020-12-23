@@ -12,12 +12,8 @@
             <!-- <a href=""><i class="el-icon-menu"></i><span>站内应用</span></a> -->
         </div>
 
-        <!-- <h5 class="u-title">推荐作品</h5>
+        <!-- <h5 class="u-title">应用推荐</h5>
         <div class="m-nav-group">
-            <router-link to="/furniture">
-                <img svg-inline src="../assets/img/logo.svg" />
-                <span>家具图鉴</span>
-            </router-link>
         </div> -->
     </div>
 </template>
