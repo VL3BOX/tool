@@ -17,10 +17,11 @@
         </LeftSidebar>
         <Main :withoutRight="mode == 'list' ? true : false">
             <single v-if="mode == 'single'" />
-            <div class="m-main" v-else>
-                <!-- <tabs /> -->
+            <list class="m-main" v-else />
+            <!-- <div class="m-main" v-else>
+                <tabs />
                 <router-view />
-            </div>
+            </div> -->
             <RightSidebar>
                 <Extend />
             </RightSidebar>
@@ -35,7 +36,9 @@ import Nav from "@/components/Nav.vue";
 import Extend from "@/components/Extend.vue";
 // import tabs from "@/components/tabs";
 import single from "@/components/single.vue";
-const { getRewrite } = require("@jx3box/jx3box-common/js/utils");
+import list from '@/components/list.vue'
+import {getPID,getAppID,getQuery,getAppType} from '@jx3box/jx3box-common/js/utils'
+import {__Root} from '@jx3box/jx3box-common/js/jx3box.json'
 
 export default {
     name: "App",
@@ -50,20 +53,32 @@ export default {
     },
     methods: {},
     beforeCreate: function() {
-        let params = new URLSearchParams(location.search);
-        this.$store.state.pid = params.get("pid") || getRewrite("pid");
-        this.$store.state.mode = this.$store.state.pid ? "single" : "list";
+        let id = getAppID()
+        let pid = getPID()
 
-        // 根据情况选择subtype取值
-        this.$store.state.subtype = getRewrite("subtype");
-        // this.$store.state.subtype = this.$route.params.subtype;
+        // 旧单页链接跳转
+        if(!id && pid){
+            let type = getAppType()
+            let test = __Root + type + '/' + pid
+            location.href = __Root + type + '/' + pid
+        }
+
+        // 处理模式 & 文章ID
+        this.$store.state.mode = id ? 'single' : 'list'
+        this.$store.state.pid = id
+
+        // 捕获subtype
+        if(this.$store.state.mode == 'list'){
+            this.$store.state.subtype = getQuery("subtype");
+        }
     },
     components: {
         Info,
         Nav,
         Extend,
         // tabs,
-        single
+        single,
+        list
     },
 };
 </script>
