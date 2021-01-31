@@ -22,7 +22,7 @@
 <script>
 import singlebox from "@jx3box/jx3box-page/src/cms-single";
 import { getPost } from "../service/post.js";
-import { getStat, postStat } from "../service/stat.js";
+import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import _ from "lodash";
 const types = {
     "1" : "工具源码",
@@ -74,10 +74,10 @@ export default {
                     this.loading = false;
                 });
 
-            getStat(this.id).then((data) => {
-                if (data) this.stat = this.$store.state.stat = data;
+            getStat('tool',this.id).then((res) => {
+                this.stat = this.$store.state.stat = res.data;
             });
-            postStat(this.id);
+            postStat('tool',this.id);
         }
     },
     components : {
