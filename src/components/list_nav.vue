@@ -1,14 +1,24 @@
 <template>
     <div class="m-list-nav">
-
         <RightSideMsg>
             <em>工具作者交流群</em> :
-            <strong><a href="https://jq.qq.com/?_wv=1027&k=Bfj4wm5E">297985102</a></strong>
+            <strong
+                ><a href="https://jq.qq.com/?_wv=1027&k=Bfj4wm5E"
+                    >297985102</a
+                ></strong
+            >
         </RightSideMsg>
 
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-tool-nav">
-            <a v-for="(item,i) in menu" :href="typeLink(item.slug)" :key="i" :class="{on:item.slug == subtype}"><i :class="item.icon"></i><b>{{item.name}}</b><span>{{item.desc}}</span></a>
+            <a
+                v-for="(item, i) in menu"
+                :href="typeLink(item.slug)"
+                :key="i"
+                :class="{ on: item.slug == subtype }"
+                ><i :class="item.icon"></i><b>{{ item.name }}</b
+                ><span>{{ item.desc }}</span></a
+            >
             <!-- <a href=""><i class="el-icon-menu"></i><span>站内应用</span></a> -->
         </div>
 
@@ -22,17 +32,9 @@
                 ><i class="u-app-icon"><img :src="getIcon('icons')"/></i
                 ><span>图标库</span></a
             >
-            <a class="u-app" href="/app/talent"  target="_blank"
+            <a class="u-app" href="/app/talent" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('talent')"/></i
                 ><span>奇穴模拟</span></a
-            >
-            <a class="u-app" href="/app/macroeditor"  target="_blank"
-                ><i class="u-app-icon"><img :src="getIcon('macroeditor')"/></i
-                ><span>宏编辑器</span></a
-            >
-            <a class="u-app" href="/app/translator"  target="_blank"
-                ><i class="u-app-icon"><img :src="getIcon('translator')"/></i
-                ><span>繁體轉換</span></a
             >
             <a class="u-app" href="/team" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('team')"/></i
@@ -41,6 +43,10 @@
             <a class="u-app" href="/dbm" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('dbm')"/></i
                 ><span>数据构建</span></a
+            >
+            <a class="u-app" href="/app/macroeditor" target="_blank"
+                ><i class="u-app-icon"><img :src="getIcon('macroeditor')"/></i
+                ><span>宏编辑器</span></a
             >
             <a class="u-app" href="/fb/#/skill" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('fbdata')"/></i
@@ -62,6 +68,7 @@
                 ><i class="u-app-icon"><img :src="getIcon('price')"/></i
                 ><span>金价走势</span></a
             >
+            <!-- 交易行 -->
             <a class="u-app" href="/app/flower" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('flower')"/></i
                 ><span>花价查询</span></a
@@ -76,75 +83,77 @@
             >
             <a class="u-app" href="https://j3cx.com/serendipity" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('qiyu')"/></i
-                ><span>奇遇查询</span
-                ></a>
+                ><span>奇遇查询</span></a
+            >
             <a class="u-app" href="https://j3cx.com/exam/" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('keju')"/></i
-                ><span>科举题库</span
-                ></a>
+                ><span>科举题库</span></a
+            >
+            <a class="u-app" href="/app/translator" target="_blank"
+                ><i class="u-app-icon"><img :src="getIcon('translator')"/></i
+                ><span>繁體轉換</span></a
+            >
         </div>
     </div>
 </template>
 
 <script>
-import {__imgPath} from '@jx3box/jx3box-common/js/jx3box.json'
+import { __imgPath } from "@jx3box/jx3box-common/js/jx3box.json";
 export default {
     name: "list_nav",
     props: [],
     data: function() {
         return {
-            menu : [
+            menu: [
                 {
-                    slug : '',
-                    icon : 'el-icon-receiving',
-                    name : '全部',
-                    desc : 'All'
+                    slug: "",
+                    icon: "el-icon-receiving",
+                    name: "全部",
+                    desc: "All",
                 },
                 {
-                    slug : 1,
-                    icon : 'el-icon-setting',
-                    name : '工具源码',
-                    desc : 'Tool'
+                    slug: 1,
+                    icon: "el-icon-setting",
+                    name: "工具源码",
+                    desc: "Tool",
                 },
                 {
-                    slug : 2,
-                    icon : 'el-icon-paperclip',
-                    name : '资源分享',
-                    desc : 'Resource'
+                    slug: 2,
+                    icon: "el-icon-paperclip",
+                    name: "资源分享",
+                    desc: "Resource",
                 },
                 {
-                    slug : 3,
-                    icon : 'el-icon-collection',
-                    name : '插件指南',
-                    desc : 'Usage'
+                    slug: 3,
+                    icon: "el-icon-collection",
+                    name: "插件指南",
+                    desc: "Usage",
                 },
                 {
-                    slug : 4,
-                    icon : 'el-icon-warning-outline',
-                    name : '帮助文档',
-                    desc : 'Help'
+                    slug: 4,
+                    icon: "el-icon-warning-outline",
+                    name: "帮助文档",
+                    desc: "Help",
                 },
-            ]
+            ],
         };
     },
     computed: {
-        subtype : function (){
-            return this.$store.state.subtype || ''
-        }
+        subtype: function() {
+            return this.$store.state.subtype || "";
+        },
     },
     methods: {
-        typeLink : function (subtype){
-            return './?subtype=' + subtype
+        typeLink: function(subtype) {
+            return "./?subtype=" + subtype;
         },
-        getIcon : function (key){
-            return __imgPath + 'image/box/' + key + '.svg'
-        }
+        getIcon: function(key) {
+            return __imgPath + "image/box/" + key + ".svg";
+        },
     },
     mounted: function() {
         // console.log(this.$store.state.subtype)
     },
-    components : {
-        
-    }
+    components: {},
 };
 </script>
