@@ -44,6 +44,7 @@
                 ><i class="u-app-icon"><img :src="getIcon('dbm')"/></i
                 ><span>数据构建</span></a
             >
+            <!-- TODO:战斗复盘 -->
             <a class="u-app" href="/app/macroeditor" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('macroeditor')"/></i
                 ><span>宏编辑器</span></a
@@ -58,7 +59,7 @@
             >
             <a class="u-app" href="/fb/#/gem" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('fbgem')"/></i
-                ><span>瑰石查询</span></a
+                ><span>副本瑰石</span></a
             >
             <a class="u-app" href="/app/servers" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('servers')"/></i
@@ -68,7 +69,11 @@
                 ><i class="u-app-icon"><img :src="getIcon('price')"/></i
                 ><span>金价走势</span></a
             >
-            <!-- 交易行 -->
+            <!-- TODO:交易行 -->
+            <a class="u-app" href="/app/translator" target="_blank"
+                ><i class="u-app-icon"><img :src="getIcon('translator')"/></i
+                ><span>繁體轉換</span></a
+            >
             <a class="u-app" href="/app/flower" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('flower')"/></i
                 ><span>花价查询</span></a
@@ -88,10 +93,6 @@
             <a class="u-app" href="https://j3cx.com/exam/" target="_blank"
                 ><i class="u-app-icon"><img :src="getIcon('keju')"/></i
                 ><span>科举题库</span></a
-            >
-            <a class="u-app" href="/app/translator" target="_blank"
-                ><i class="u-app-icon"><img :src="getIcon('translator')"/></i
-                ><span>繁體轉換</span></a
             >
         </div>
     </div>
