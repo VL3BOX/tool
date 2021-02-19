@@ -98,7 +98,7 @@
 
 
 .m-app-box{
-    padding:10px 10px 10px 20px;
+    padding:20px 10px 10px 20px;
     .clearfix;
 
     .u-app{
@@ -109,9 +109,9 @@
         padding:6px;
         .r(4px);
         background-color:#fff;
-        .mr(10px);
-        .mb(10px);
-        .size(64px);
+        .mr(15px);
+        .mb(15px);
+        .size(68px);
         box-sizing: border-box;
 
         color:@bg-black;
@@ -140,5 +140,12 @@
         }
         .tm(0.7);
         .mb(5px);
+    }
+}
+@media screen and (max-width:@notebook){
+    .m-app-box .u-app{
+        .size(64px);
+        .mr(12px);
+        .mb(12px);
     }
 }
