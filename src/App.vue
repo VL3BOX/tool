@@ -38,7 +38,7 @@ import Extend from "@/components/Extend.vue";
 import single from "@/components/single.vue";
 import list from '@/components/list.vue'
 import {getPID,getAppID,getQuery,getAppType} from '@jx3box/jx3box-common/js/utils'
-import {__Root} from '@jx3box/jx3box-common/js/jx3box.json'
+import {__Root} from '@jx3box/jx3box-common/data/jx3box.json'
 
 export default {
     name: "App",

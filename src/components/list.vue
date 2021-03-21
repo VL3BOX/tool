@@ -9,20 +9,14 @@
             @appendPage="appendPage"
             @changePage="changePage"
         >
-            <template slot="filter">
+            <!-- 搜索 -->
+            <div class="m-archive-search" slot="search-before">
                 <a
                     :href="publish_link"
-                    class="u-publish el-button el-button--primary el-button--small"
+                    class="u-publish el-button el-button--primary"
                 >
                     + 发布作品
                 </a>
-                <!-- 角标过滤 -->
-                <markBy @filter="filter"></markBy>
-                <!-- 排序过滤 -->
-                <orderBy @filter="filter"></orderBy>
-            </template>
-            <!-- 搜索 -->
-            <div class="m-archive-search" slot="search-before">
                 <el-input
                     placeholder="请输入搜索内容"
                     v-model="search"
@@ -41,6 +35,14 @@
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </div>
+            <template slot="filter">
+                <!-- 版本过滤 -->
+                <clientBy @filter="filter" type="std"></clientBy>
+                <!-- 角标过滤 -->
+                <markBy @filter="filter"></markBy>
+                <!-- 排序过滤 -->
+                <orderBy @filter="filter"></orderBy>
+            </template>
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data.length">
                 <ul class="u-list">
@@ -131,15 +133,15 @@
 
 <script>
 import listbox from "@jx3box/jx3box-page/src/cms-list.vue";
-import { cms as mark_map } from "@jx3box/jx3box-common/js/mark.json";
+import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
 import _ from "lodash";
 import { getPosts } from "../service/post";
 import dateFormat from "../utils/dateFormat";
-import { __ossMirror, __imgPath } from "@jx3box/jx3box-common/js/jx3box";
+import { __ossMirror, __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import {
     showAvatar,
     authorLink,
-    showMinibanner,
+    showBanner,
     publishLink,
     buildTarget,
     getAppType
@@ -160,6 +162,7 @@ export default {
 
             order: "", //排序模式
             mark: "", //筛选模式
+            client:"",  //版本选择
             
             search: "",
             // searchType: "title",
@@ -183,6 +186,9 @@ export default {
             }
             if (this.mark) {
                 params.mark = this.mark;
+            }
+            if(this.client){
+                params.client = this.client
             }
             return params;
         },
@@ -229,7 +235,7 @@ export default {
         },
         showBanner: function(val, subtype) {
             if (val) {
-                return showMinibanner(val);
+                return showBanner(val);
             } else {
                 return __imgPath + "image/banner/tool" + subtype + ".png?v=1";
             }
