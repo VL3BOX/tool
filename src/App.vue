@@ -8,7 +8,7 @@
             :publishEnable="true"
             :adminEnable="true"
             :feedbackEnable="true"
-        >
+        > 
             <img slot="logo" svg-inline src="./assets/img/tool.svg" />
             <Info />
         </Breadcrumb>
