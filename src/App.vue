@@ -2,7 +2,7 @@
     <div id="app" :class="{ 'p-list': mode == 'list', 'p-single': mode == 'single' }">
         <Header></Header>
         <Breadcrumb
-            name="工具资源"
+            name="教程工具"
             slug="tool"
             root="/tool"
             :publishEnable="true"
