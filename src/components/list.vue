@@ -37,7 +37,7 @@
             </div>
             <template slot="filter">
                 <!-- 版本过滤 -->
-                <clientBy @filter="filter" :type=""></clientBy>
+                <clientBy @filter="filter" :type="client"></clientBy>
                 <!-- 角标过滤 -->
                 <markBy @filter="filter"></markBy>
                 <!-- 排序过滤 -->
