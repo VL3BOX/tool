@@ -131,6 +131,12 @@ export default {
                     desc: "Usage",
                 },
                 {
+                    slug: 5,
+                    icon: "el-icon-attract",
+                    name: "插件下载",
+                    desc: "Plugins",
+                },
+                {
                     slug: 4,
                     icon: "el-icon-warning-outline",
                     name: "魔盒文档",
