@@ -28,6 +28,7 @@
 import list from "@/components/list.vue";
 import Nav from "@/components/list_nav.vue";
 import Side from "@/components/list_side.vue";
+import { getQuery } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
@@ -39,7 +40,10 @@ export default {
     components: {
         Nav,
         list,
-        Side
+        Side,
+    },
+    beforeCreate: function () {
+        this.$store.state.subtype = getQuery("subtype");
     },
 };
 </script>
