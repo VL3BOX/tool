@@ -14,8 +14,8 @@
         <LeftSidebar>
             <Nav class="m-nav" />
         </LeftSidebar>
-        <Main :withoutRight="true">
-            <list class="m-main" />
+        <Main :withoutRight="false">
+            <single />
             <RightSidebar>
                 <Side class="m-extend" />
             </RightSidebar>
@@ -25,22 +25,24 @@
 </template>
 
 <script>
-import list from "@/components/list.vue";
-import Nav from "@/components/list_nav.vue";
-import Side from "@/components/list_side.vue";
+import Nav from "@/components/single_nav.vue";
+import Side from "@/components/single_side.vue";
+import single from "@/components/single.vue";
 export default {
     name: "App",
     props: [],
     data: function () {
         return {};
     },
-    computed: {},
     methods: {},
     components: {
         Nav,
-        list,
-        Side
+        Side,
+        single,
     },
+    beforeCreate : function (){
+        
+    }
 };
 </script>
 

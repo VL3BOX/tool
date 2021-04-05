@@ -2,18 +2,16 @@
     <div class="m-single-side">
         <div id="directory" class="m-single-director"></div>
         <div class="m-single-collection" v-if="collection_id && data">
-            <div class="u-title"><i class="el-icon-connection"></i> 关联</div>
+            <div class="u-title">
+                <i class="el-icon-connection"></i> 关联
+            </div>
             <ul class="u-list" v-if="list && list.length">
                 <li v-for="(item, i) in list" :key="i">
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        :content="item.title"
-                        placement="left"
-                    >
-                        <a :href="item | showLink" target="_blank"
-                            ><i class="el-icon-link"></i> {{ item.title }}</a
-                        >
+                    <el-tooltip class="item" effect="dark" :content="item.title" placement="left">
+                        <a :href="item | showLink" target="_blank">
+                            <i class="el-icon-link"></i>
+                            {{ item.title }}
+                        </a>
                     </el-tooltip>
                 </li>
             </ul>
@@ -23,28 +21,28 @@
 
 <script>
 import { getCollection } from "@/service/helper.js";
-import {getLink} from '@jx3box/jx3box-common/js/utils'
+import { getLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "single_side",
     props: [],
-    data: function() {
+    data: function () {
         return {
             data: "",
         };
     },
     computed: {
-        collection_id: function() {
+        collection_id: function () {
             return this.$store.state.post.post_collection;
         },
-        list: function() {
+        list: function () {
             return this.data.posts || [];
         },
-        collection_title: function() {
+        collection_title: function () {
             return this.data.title || "-";
         },
     },
     watch: {
-        collection_id: function(val) {
+        collection_id: function (val) {
             if (!val || isNaN(val)) return;
             getCollection(this.collection_id).then((res) => {
                 this.data = res.data.data.collection;
@@ -53,15 +51,15 @@ export default {
     },
     methods: {},
     filters: {
-        showLink : function (item){
-            if(item.type == 'custom'){
-                return item.url
-            }else{
-                return getLink(item.type,item.id)
+        showLink: function (item) {
+            if (item.type == "custom") {
+                return item.url;
+            } else {
+                return getLink(item.type, item.id);
             }
-        }
+        },
     },
-    mounted: function() {},
+    mounted: function () {},
 };
 </script>
 
