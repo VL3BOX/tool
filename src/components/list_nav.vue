@@ -165,12 +165,12 @@ export default {
                     name: "游戏指南",
                     desc: "Usage",
                 },
-                {
-                    slug: 5,
-                    icon: "el-icon-attract",
-                    name: "插件下载",
-                    desc: "Plugins",
-                },
+                // {
+                //     slug: 5,
+                //     icon: "el-icon-attract",
+                //     name: "插件下载",
+                //     desc: "Plugins",
+                // },
                 {
                     slug: 4,
                     icon: "el-icon-warning-outline",
