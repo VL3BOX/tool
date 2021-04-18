@@ -43,6 +43,12 @@
                 </i>
                 <span>奇穴模拟</span>
             </a>
+            <a class="u-app" href="/app/meridians" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('meridians')" />
+                </i>
+                <span>经脉模拟</span>
+            </a>
             <a class="u-app" href="/team" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('team')" />
