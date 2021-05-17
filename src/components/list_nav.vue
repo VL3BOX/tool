@@ -61,7 +61,12 @@
                 </i>
                 <span>数据构建</span>
             </a>
-            <!-- TODO:战斗复盘 -->
+            <a class="u-app" href="/battle" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('battle')" />
+                </i>
+                <span>战斗分析</span>
+            </a>
             <a class="u-app" href="/app/macroeditor" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('macroeditor')" />
@@ -97,6 +102,12 @@
                     <img :src="getIcon('price')" />
                 </i>
                 <span>金价走势</span>
+            </a>
+            <a class="u-app" href="/app/sandbox" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('sandbox')" />
+                </i>
+                <span>阵营沙盘</span>
             </a>
             <!-- TODO:交易行 -->
             <a class="u-app" href="/app/translator" target="_blank">
