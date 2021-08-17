@@ -270,7 +270,8 @@ export default {
     },
     watch : {
         subtype : function (){
-            this.search = ''  
+            this.search = '' 
+            this.page = 1
         },
         params : {
             deep : true,
