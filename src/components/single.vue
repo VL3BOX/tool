@@ -16,6 +16,7 @@
             show-icon
         >
         </el-alert>
+        <Thx class="m-thx" slot="single-append" :postId="id" postType="tool" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true"/>
     </singlebox>
 </template>
 
@@ -56,6 +57,9 @@ export default {
         },
         isTool : function (){
             return this.post.post_subtype == '1'
+        },
+        author_id : function (){
+            return this.post?.post_author || 0
         }
     },
     methods: {

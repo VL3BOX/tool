@@ -43,7 +43,7 @@ export default {
         Side,
     },
     beforeCreate: function () {
-        this.$store.state.subtype = getQuery("subtype");
+        // this.$store.state.subtype = getQuery("subtype");
     },
 };
 </script>

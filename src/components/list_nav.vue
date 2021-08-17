@@ -10,7 +10,7 @@
 
         <h5 class="u-title">分类导航</h5>
         <div class="m-nav-group m-tool-nav">
-            <a
+            <!-- <a
                 v-for="(item, i) in menu"
                 :href="typeLink(item.slug)"
                 :key="i"
@@ -19,8 +19,17 @@
                 <i :class="item.icon"></i>
                 <b>{{ item.name }}</b>
                 <span>{{ item.desc }}</span>
-            </a>
-            <!-- <a href=""><i class="el-icon-menu"></i><span>站内应用</span></a> -->
+            </a> -->
+            <router-link
+                v-for="(item,i) in menu"
+                :to="typeLink(item.slug)"
+                :key="i"
+                :class="{on:isActive(item.slug)}"
+            >
+                <i :class="item.icon"></i>
+                <b>{{item.name}}</b>
+                <span>{{item.desc}}</span>
+            </router-link>
         </div>
 
         <h5 class="u-title">魔盒应用</h5>
@@ -199,7 +208,7 @@ export default {
     },
     computed: {
         subtype: function () {
-            return this.$store.state.subtype || "";
+            return this.$route.query.subtype || "";
         },
         client: function () {
             return this.$store.state.client;
@@ -211,6 +220,9 @@ export default {
         },
         getIcon: function (key) {
             return __imgPath + "image/box/" + key + ".svg";
+        },
+        isActive: function (slug) {
+            return this.$route.name == "index" && slug == this.subtype;
         },
     },
     mounted: function () {
