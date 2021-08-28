@@ -3,8 +3,7 @@
         <RightSideMsg>
             <em>工具作者交流群</em> :
             <strong>
-                <a href="https://jq.qq.com/?_wv=1027&k=CAiizina" v-if="client == 'origin'">590349918</a>
-                <a href="https://jq.qq.com/?_wv=1027&k=t1uvYnW1" v-else>297985102</a>
+                <a href="https://jq.qq.com/?_wv=1027&k=t1uvYnW1">297985102</a>
             </strong>
         </RightSideMsg>
 
