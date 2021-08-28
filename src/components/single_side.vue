@@ -46,6 +46,8 @@ export default {
             if (!val || isNaN(val)) return;
             getCollection(this.collection_id).then((res) => {
                 this.data = res.data.data.collection;
+
+                this.$store.commit('SET_COLLECTION', this.data)
             });
         },
     },
