@@ -259,7 +259,7 @@ export default {
         },
         postLink: function(val) {
             // return "./?pid=" + val;
-            return location.origin + '/' + getAppType() + '/' + val;
+            return location.origin + '/tool/' + val;
         },
         isHighlight: function(val) {
             return val ? `color:${val};font-weight:600;` : "";

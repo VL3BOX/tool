@@ -45,11 +45,24 @@
                 </i>
                 <span>图标库</span>
             </a>
+            <a class="u-app" href="/j3pz" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('j3pz')" />
+                </i>
+                <span>在线配装</span>
+            </a>
+
             <a class="u-app" href="/app/talent" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('talent')" />
                 </i>
                 <span>奇穴模拟</span>
+            </a>
+            <a class="u-app" href="/app/talent2" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('talent2')" />
+                </i>
+                <span>镇派模拟</span>
             </a>
             <a class="u-app" href="/app/meridians" target="_blank">
                 <i class="u-app-icon">
@@ -57,6 +70,7 @@
                 </i>
                 <span>经脉模拟</span>
             </a>
+
             <a class="u-app" href="/team" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('team')" />
@@ -75,30 +89,8 @@
                 </i>
                 <span>战斗分析</span>
             </a>
-            <a class="u-app" href="/app/macroeditor" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('macroeditor')" />
-                </i>
-                <span>宏编辑器</span>
-            </a>
-            <a class="u-app" href="/fb/#/skill" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('fbdata')" />
-                </i>
-                <span>副本技能</span>
-            </a>
-            <a class="u-app" href="/fb/#/drop" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('fbdrop')" />
-                </i>
-                <span>副本掉落</span>
-            </a>
-            <a class="u-app" href="/fb/#/gem" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('fbgem')" />
-                </i>
-                <span>副本瑰石</span>
-            </a>
+
+            
             <a class="u-app" href="/app/servers" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('servers')" />
@@ -117,24 +109,18 @@
                 </i>
                 <span>阵营沙盘</span>
             </a>
-            <!-- TODO:交易行 -->
+
+            <a class="u-app" href="/app/macroeditor" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('macroeditor')" />
+                </i>
+                <span>宏编辑器</span>
+            </a>
             <a class="u-app" href="/app/translator" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('translator')" />
                 </i>
                 <span>繁體轉換</span>
-            </a>
-            <a class="u-app" href="/app/flower" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('flower')" />
-                </i>
-                <span>花价查询</span>
-            </a>
-            <a class="u-app" href="/app/furniture" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('furniture')" />
-                </i>
-                <span>家具图鉴</span>
             </a>
             <a class="u-app" href="/app/facedata" target="_blank">
                 <i class="u-app-icon">
@@ -142,6 +128,7 @@
                 </i>
                 <span>妆容解析</span>
             </a>
+
             <a class="u-app" href="https://j3cx.com/serendipity" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('qiyu')" />
@@ -153,6 +140,12 @@
                     <img :src="getIcon('keju')" />
                 </i>
                 <span>科举题库</span>
+            </a>
+            <a class="u-app" href="/app" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('home')" />
+                </i>
+                <span>全部</span>
             </a>
         </div>
     </div>
