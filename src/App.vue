@@ -30,6 +30,7 @@ import list from "@/components/list.vue";
 import Nav from "@/components/list_nav.vue";
 import Side from "@/components/list_side.vue";
 import { getQuery } from "@jx3box/jx3box-common/js/utils";
+import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
@@ -37,7 +38,7 @@ export default {
         return {};
     },
     computed: {},
-    methods: {},
+    methods: {getAppIcon},
     components: {
         Nav,
         list,
@@ -51,4 +52,14 @@ export default {
 
 <style lang="less">
 @import "./assets/css/app.less";
+@media screen and (max-width: @phone) {
+    .c-crumb{
+        .none;
+    }
+    .c-breadcrumb{
+        .u-op{
+            .none;
+        }
+    }
+}
 </style>
