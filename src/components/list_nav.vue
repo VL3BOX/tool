@@ -31,7 +31,7 @@
             </router-link>
         </div>
 
-        <h5 class="u-title">魔盒应用</h5>
+        <h5 class="u-title">魔盒应用<a href="/app" target="_blank" class="u-more">全部&raquo;</a></h5>
         <div class="m-app-box">
             <a class="u-app" href="/app/database" target="_blank">
                 <i class="u-app-icon">
@@ -39,17 +39,17 @@
                 </i>
                 <span>数据库</span>
             </a>
+            <a class="u-app" href="/pz" target="_blank">
+                <i class="u-app-icon">
+                    <img :src="getIcon('pz')" />
+                </i>
+                <span>在线配装</span>
+            </a>
             <a class="u-app" href="/app/icons" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('icons')" />
                 </i>
                 <span>图标库</span>
-            </a>
-            <a class="u-app" href="/j3pz" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('j3pz')" />
-                </i>
-                <span>在线配装</span>
             </a>
 
             <a class="u-app" href="/app/talent" target="_blank">
@@ -89,7 +89,6 @@
                 </i>
                 <span>战斗分析</span>
             </a>
-
             
             <a class="u-app" href="/app/servers" target="_blank">
                 <i class="u-app-icon">
@@ -110,25 +109,12 @@
                 <span>阵营沙盘</span>
             </a>
 
-            <a class="u-app" href="/app/macroeditor" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('macroeditor')" />
-                </i>
-                <span>宏编辑器</span>
-            </a>
-            <a class="u-app" href="/app/translator" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('translator')" />
-                </i>
-                <span>繁體轉換</span>
-            </a>
             <a class="u-app" href="/app/facedata" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('facedata')" />
                 </i>
                 <span>妆容解析</span>
             </a>
-
             <a class="u-app" href="https://j3cx.com/serendipity" target="_blank">
                 <i class="u-app-icon">
                     <img :src="getIcon('qiyu')" />
@@ -140,12 +126,6 @@
                     <img :src="getIcon('keju')" />
                 </i>
                 <span>科举题库</span>
-            </a>
-            <a class="u-app" href="/app" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('home')" />
-                </i>
-                <span>全部</span>
             </a>
         </div>
     </div>
