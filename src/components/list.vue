@@ -282,6 +282,9 @@ export default {
         },
         '$route.query.page' : function (val){
             this.page = ~~val
+        },
+        '$route.query.search' : function (val){
+            this.search = val
         }
     },
     created: function() {

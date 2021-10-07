@@ -7,18 +7,8 @@
             </strong>
         </RightSideMsg>
 
-        <h5 class="u-title">分类导航</h5>
+        <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-tool-nav">
-            <!-- <a
-                v-for="(item, i) in menu"
-                :href="typeLink(item.slug)"
-                :key="i"
-                :class="{ on: item.slug == subtype }"
-            >
-                <i :class="item.icon"></i>
-                <b>{{ item.name }}</b>
-                <span>{{ item.desc }}</span>
-            </a> -->
             <router-link
                 v-for="(item,i) in menu"
                 :to="typeLink(item.slug)"
@@ -29,104 +19,25 @@
                 <b>{{item.name}}</b>
                 <span>{{item.desc}}</span>
             </router-link>
+            <a href="/app" target="_blank">
+                <i class="el-icon-box"></i>
+                <b>魔盒应用</b>
+                <span>Application</span>
+            </a>
         </div>
 
-        <h5 class="u-title">魔盒应用<a href="/app" target="_blank" class="u-more">全部&raquo;</a></h5>
-        <div class="m-app-box">
-            <a class="u-app" href="/app/database" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('database')" />
-                </i>
-                <span>数据库</span>
-            </a>
-            <a class="u-app" href="/pz" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('pz')" />
-                </i>
-                <span>在线配装</span>
-            </a>
-            <a class="u-app" href="/app/icons" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('icons')" />
-                </i>
-                <span>图标库</span>
-            </a>
-
-            <a class="u-app" href="/app/talent" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('talent')" />
-                </i>
-                <span>奇穴模拟</span>
-            </a>
-            <a class="u-app" href="/app/talent2" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('talent2')" />
-                </i>
-                <span>镇派模拟</span>
-            </a>
-            <a class="u-app" href="/app/meridians" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('meridians')" />
-                </i>
-                <span>经脉模拟</span>
-            </a>
-
-            <a class="u-app" href="/team" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('team')" />
-                </i>
-                <span>团队管理</span>
-            </a>
-            <a class="u-app" href="/dbm" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('dbm')" />
-                </i>
-                <span>数据构建</span>
-            </a>
-            <a class="u-app" href="/battle" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('battle')" />
-                </i>
-                <span>战斗分析</span>
-            </a>
-            
-            <a class="u-app" href="/app/servers" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('servers')" />
-                </i>
-                <span>开服监控</span>
-            </a>
-            <a class="u-app" href="/app/price" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('price')" />
-                </i>
-                <span>金价走势</span>
-            </a>
-            <a class="u-app" href="/app/sandbox" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('sandbox')" />
-                </i>
-                <span>阵营沙盘</span>
-            </a>
-
-            <a class="u-app" href="/app/facedata" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('facedata')" />
-                </i>
-                <span>妆容解析</span>
-            </a>
-            <a class="u-app" href="https://j3cx.com/serendipity" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('qiyu')" />
-                </i>
-                <span>奇遇查询</span>
-            </a>
-            <a class="u-app" href="https://j3cx.com/exam/" target="_blank">
-                <i class="u-app-icon">
-                    <img :src="getIcon('keju')" />
-                </i>
-                <span>科举题库</span>
-            </a>
+        <div class="m-nav-tags">
+            <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
+            <div class="u-list">
+                <router-link to="/?search=计算器">计算器</router-link>
+                <a href="/pz" target="_blank">配装器</a>
+                <a href="/team" target="_blank">团队排表</a>
+                <a href="/battle" target="_blank">战斗复盘</a>
+                <a href="/servers" target="_blank">开服监控</a>
+                <a href="/facedata" target="_blank">脸型数据解析</a>
+                <a href="https://j3cx.com/exam/" target="_blank">科举题库</a>
+                <a href="https://j3cx.com/serendipity" target="_blank">奇遇查询</a>
+            </div>
         </div>
     </div>
 </template>
@@ -152,26 +63,20 @@ export default {
                     desc: "Tool",
                 },
                 {
+                    slug: 3,
+                    icon: "el-icon-discover",
+                    name: "游戏指南",
+                    desc: "Usage",
+                },
+                {
                     slug: 2,
                     icon: "el-icon-paperclip",
                     name: "其它资源",
                     desc: "Resource",
                 },
                 {
-                    slug: 3,
-                    icon: "el-icon-collection",
-                    name: "游戏指南",
-                    desc: "Usage",
-                },
-                // {
-                //     slug: 5,
-                //     icon: "el-icon-attract",
-                //     name: "插件下载",
-                //     desc: "Plugins",
-                // },
-                {
                     slug: 4,
-                    icon: "el-icon-warning-outline",
+                    icon: "el-icon-collection",
                     name: "魔盒文档",
                     desc: "Help",
                 },
