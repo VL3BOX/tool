@@ -163,7 +163,6 @@ export default {
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
-            
             search: "",
             // searchType: "title",
         };
@@ -273,6 +272,12 @@ export default {
             this.search = '' 
             this.page = 1
         },
+        '$route.query.page' : function (val){
+            this.page = ~~val
+        },
+        '$route.query.search' : function (val){
+            this.search = val
+        },
         params : {
             deep : true,
             immediate : true,
@@ -280,12 +285,6 @@ export default {
                 this.loadPosts()
             }
         },
-        '$route.query.page' : function (val){
-            this.page = ~~val
-        },
-        '$route.query.search' : function (val){
-            this.search = val
-        }
     },
     created: function() {
         this.page = ~~this.$route.query.page || 1
