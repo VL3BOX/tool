@@ -33,8 +33,8 @@
                 <a href="/pz" target="_blank">配装器</a>
                 <a href="/team" target="_blank">团队排表</a>
                 <a href="/battle" target="_blank">战斗复盘</a>
-                <a href="/servers" target="_blank">开服监控</a>
-                <a href="/facedata" target="_blank">脸型数据解析</a>
+                <a href="/app/servers" target="_blank">开服监控</a>
+                <a href="/app/facedata" target="_blank">脸型数据解析</a>
                 <a href="https://j3cx.com/exam/" target="_blank">科举题库</a>
                 <a href="https://j3cx.com/serendipity" target="_blank">奇遇查询</a>
             </div>
