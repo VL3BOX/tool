@@ -272,6 +272,9 @@ export default {
             this.search = '' 
             this.page = 1
         },
+        search : function (){
+            this.page = 1
+        },
         '$route.query.page' : function (val){
             this.page = ~~val
         },
