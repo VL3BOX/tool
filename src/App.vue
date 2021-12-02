@@ -11,6 +11,7 @@
             :crumbEnable="true"
         >
             <img slot="logo" svg-inline src="./assets/img/tool.svg" />
+            <Info />
         </Breadcrumb>
         <LeftSidebar>
             <Nav class="m-nav" />
@@ -27,6 +28,7 @@
 
 <script>
 import list from "@/components/list.vue";
+import Info from "@/components/Info.vue";
 import Nav from "@/components/list_nav.vue";
 import Side from "@/components/list_side.vue";
 import { getQuery } from "@jx3box/jx3box-common/js/utils";
@@ -43,6 +45,7 @@ export default {
         Nav,
         list,
         Side,
+        Info
     },
     beforeCreate: function () {
         // this.$store.state.subtype = getQuery("subtype");
