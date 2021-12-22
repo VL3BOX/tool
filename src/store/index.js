@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { getAppID } from "@jx3box/jx3box-common/js/utils";
 
 Vue.use(Vuex);
 
@@ -9,20 +8,14 @@ let store = {
         // client
         client: location.href.includes("origin") ? "origin" : "std",
         // post
-        id: getAppID(),
+        id: 0,
         user_id: 0,
         post: "",
-
-        // collections
-        collectionInfo: ''
     },
     mutations: {
         switchClient: function(state, val) {
             state.client = val || "std";
         },
-        SET_COLLECTION: function (state, val) {
-            state.collectionInfo = val
-        }
     },
     getters: {},
     actions: {},

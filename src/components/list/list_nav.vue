@@ -109,5 +109,5 @@ export default {
 };
 </script>
 <style lang="less">
-@import "../assets/css/nav.less";
+@import "../../assets/css/nav.less";
 </style>

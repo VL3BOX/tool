@@ -1,19 +1,11 @@
 <template>
     <div class="v-index">
-        <list />
+        <!-- <list /> -->
     </div>
 </template>
 
 <script>
-import { getPosts } from "../service/post";
-import {
-    authorLink,
-    publishLink,
-    showAvatar,
-    resolveImagePath,
-} from "@jx3box/jx3box-common/js/utils";
-import lodash from "lodash";
-import list from '@/components/list.vue'
+// import list from '@/components/list/list.vue'
 
 export default {
     name: "Index",
@@ -29,7 +21,7 @@ export default {
     created: function() {
     },
     components: {
-        list
+        // list
     },
 };
 </script>
