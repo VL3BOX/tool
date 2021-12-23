@@ -1,5 +1,5 @@
 <template>
-    <singlebox :post="post" :stat="stat" v-loading="loading">
+    <singlebox :post="post" :stat="stat" v-loading="loading" @extendUpdate="updateExtend">
         <!-- 头部子类型 -->
         <div class="u-meta u-sub-block" slot="single-header">
             <em class="u-label">类型</em>
@@ -49,14 +49,21 @@ export default {
             return this.post?.post_subtype == "1";
         },
     },
+    methods : {
+        updateExtend : function (val){
+            this.$store.state.extend = val
+        }
+    },
     mounted: function() {
         if (this.id) {
             this.loading = true;
             getPost(this.id)
                 .then((res) => {
+
                     this.post = this.$store.state.post = res.data.data;
                     this.$store.state.id = this.id;
                     this.$store.state.user_id = this.post?.post_author;
+
                     document.title = this.post.post_title;
                 })
                 .finally(() => {
