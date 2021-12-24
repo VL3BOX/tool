@@ -9,21 +9,16 @@
 
         <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group m-tool-nav">
-            <router-link
-                v-for="(item,i) in menu"
-                :to="typeLink(item.slug)"
-                :key="i"
-                :class="{on:isActive(item.slug)}"
-            >
+            <router-link v-for="(item, i) in menu" :to="{ name: 'index', query: { subtype: item.slug } }" :key="i" :class="{on:isActive(item)}">
                 <i :class="item.icon"></i>
-                <b>{{item.name}}</b>
-                <span>{{item.desc}}</span>
+                <b>{{ item.name }}</b>
+                <span>{{ item.desc }}</span>
             </router-link>
-            <a href="/app" target="_blank">
+            <!-- <a href="/app" target="_blank">
                 <i class="el-icon-box"></i>
                 <b>魔盒应用</b>
                 <span>Application</span>
-            </a>
+            </a> -->
         </div>
 
         <div class="m-nav-tags">
@@ -47,7 +42,7 @@ import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "list_nav",
     props: [],
-    data: function () {
+    data: function() {
         return {
             menu: [
                 {
@@ -83,29 +78,11 @@ export default {
             ],
         };
     },
-    computed: {
-        subtype: function () {
-            return this.$route.query.subtype || "";
-        },
-        client: function () {
-            return this.$store.state.client;
-        },
-    },
-    methods: {
-        typeLink: function (subtype) {
-            return "./?subtype=" + subtype;
-        },
-        getIcon: function (key) {
-            return __imgPath + "image/box/" + key + ".svg";
-        },
-        isActive: function (slug) {
-            return this.$route.name == "index" && slug == this.subtype;
-        },
-    },
-    mounted: function () {
-        // console.log(this.$store.state.subtype)
-    },
-    components: {},
+    methods : {
+        isActive : function (item){
+            return item.slug == this.$route.query.subtype
+        }
+    }
 };
 </script>
 <style lang="less">

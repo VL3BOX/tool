@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="教程工具" slug="tool" root="/tool" :publishEnable="true" :adminEnable="true" :feedbackEnable="true" :crumbEnable="true">
+        <Breadcrumb name="教程工具" slug="tool" root="/tool" :publishEnable="true" :adminEnable="true" :feedbackEnable="true" :crumbEnable="false">
             <img slot="logo" svg-inline src="./assets/img/tool.svg" />
         </Breadcrumb>
         <LeftSidebar>

@@ -1,14 +1,4 @@
-// 列表
-.p-list {
-    .c-sidebar-left {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-.c-sidebar-right-msg {
-    // margin:5px 10px 10px 10px !important;
-    margin: 5px 0 10px 0;
-}
+// 通用样式
 .m-nav {
     padding: 0 10px;
     .u-title {
@@ -28,6 +18,13 @@
         }
     }
 }
+
+// qq群
+.c-sidebar-right-msg {
+    margin: 5px 0 10px 0;
+}
+
+// 导航组
 .m-nav-group {
     margin-top: 5px;
     margin-bottom: 10px;
@@ -82,27 +79,7 @@
         border-bottom: 1px solid #eee;
     }
 }
-
-// 移动端侧边栏显示列表页导航
-.p-single {
-    .m-list-nav {
-        .none;
-    }
-}
-@media screen and (max-width: @ipad) {
-    .m-single-nav {
-        .none;
-    }
-    .p-single {
-        .m-list-nav {
-            .db;
-        }
-    }
-}
-
 .m-tool-nav {
-    a {
-    }
     i {
         .mr(5px);
         font-size: 16px;
@@ -111,7 +88,7 @@
     b {
         font-weight: normal;
     }
-    .on b {
+    .on b,.router-link-exact-active b{
         .bold;
     }
     span {
@@ -123,75 +100,7 @@
     }
 }
 
-.m-app-box {
-    padding: 20px 0 10px 10px;
-    .clearfix;
-
-    .u-app {
-        .db;
-        .fl;
-        .fz(12px, 14px);
-        .x;
-        border: 1px solid #ddd;
-        padding: 6px;
-        .r(4px);
-        background-color: #fff;
-        .mr(12px);
-        .mb(12px);
-        .size(68px);
-        box-sizing: border-box;
-
-        color: @bg-black;
-        transition: border 0.1s ease-in;
-
-        svg {
-            fill: @color;
-        }
-        &:hover,
-        &.on {
-            border-color: #39d45d;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-            // svg{fill:#49c10f;}
-            // color:#49c10f;
-            .u-app-icon {
-                .tm(1);
-            }
-        }
-    }
-    .u-app-icon {
-        margin-top: 3px;
-        .db;
-        .size(24px);
-        .auto(x);
-        svg {
-            .size(100%);
-            fill: @bg-black;
-        }
-        .tm(0.7);
-        .mb(5px);
-    }
-}
-@media screen and (max-width: @notebook) {
-    .m-app-box {
-        padding: 20px 0 10px 10px;
-        .u-app {
-            .size(64px);
-            .mr(12px);
-            .mb(12px);
-        }
-    }
-}
-@media screen and (max-width: @phone) {
-    .m-app-box {
-        // padding-left:10px;
-        padding-right: 0;
-        .u-app {
-            .mr(10px);
-            .mb(10px);
-        }
-    }
-}
-
+// 标签热搜
 .m-nav-tags {
     .mt(20px);
     .clearfix;
