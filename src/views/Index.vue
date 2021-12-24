@@ -12,11 +12,11 @@
         <!-- 筛选 -->
         <div class="m-archive-filter">
             <!-- 版本过滤 -->
-            <clientBy @filter="filterByMeta" :type="client"></clientBy>
+            <clientBy @filter="filterMeta" :type="client"></clientBy>
             <!-- 角标过滤 -->
-            <markBy @filter="filterByMeta"></markBy>
+            <markBy @filter="filterMeta"></markBy>
             <!-- 排序过滤 -->
-            <orderBy @filter="filterByMeta"></orderBy>
+            <orderBy @filter="filterMeta"></orderBy>
         </div>
 
         <!-- 列表 -->
@@ -62,12 +62,14 @@ export default {
             per: 10, //每页条目
             total: 1, //总条目数
             pages: 1, //总页数
+            number_queries: ["per", "page"],
 
             subtype: "", //子类别
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
+
         };
     },
     computed: {
@@ -95,10 +97,6 @@ export default {
         // 重置页码参数
         reset_queries: function() {
             return [this.subtype, this.search];
-        },
-        // 需要处理的路由参数
-        number_queries: function() {
-            return ["per", "page"];
         },
     },
     methods: {
@@ -151,7 +149,7 @@ export default {
                 .catch((err) => {});
         },
         // 条件过滤
-        filterByMeta: function(o) {
+        filterMeta: function(o) {
             this.replaceRoute({ [o["type"]]: o["val"], page: 1 });
         },
         // 翻页加载
@@ -172,6 +170,7 @@ export default {
                 if (Object.keys(query).length) {
                     console.log("[cms-list]", "<route query change>", query);
                     for (let key in query) {
+                        // for:element分页组件兼容性问题
                         if (this.number_queries.includes(key)) {
                             this[key] = ~~query[key];
                         } else {
