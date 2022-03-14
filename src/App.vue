@@ -2,7 +2,6 @@
     <div id="app">
         <Header></Header>
         <Breadcrumb name="教程工具" slug="tool" root="/tool" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="true">
-            <img slot="logo" svg-inline src="./assets/img/tool.svg" />
             <Info />
         </Breadcrumb>
         <LeftSidebar>
@@ -18,7 +17,6 @@
 <script>
 import Info from "@/components/list/Info.vue";
 import Nav from "@/components/list/list_nav.vue";
-import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     props: [],
@@ -26,7 +24,6 @@ export default {
         return {};
     },
     computed: {},
-    methods: { getAppIcon },
     components: {
         Nav,
         Info,
