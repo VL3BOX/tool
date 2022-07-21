@@ -44,8 +44,8 @@ export default {
     },
     methods: {
         init: function () {
-            let suffix = this.client == "origin" ? "-origin" : "";
-            getMenuGroup("tool_rec" + suffix).then((res) => {
+            // let suffix = this.client == "origin" ? "-origin" : "";
+            getMenuGroup("tool_rec").then((res) => {
                 this.data = res.data.data.menu_group.menus || [];
 
                 let _fix = this.data.length % 4;
@@ -55,7 +55,7 @@ export default {
                     }
                 }
             });
-            getBread("tool_ac" + suffix).then((res) => {
+            getBread("tool_ac").then((res) => {
                 this.ac = res.data.data.breadcrumb.html;
             });
         },
