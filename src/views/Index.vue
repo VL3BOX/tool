@@ -19,6 +19,9 @@
             <orderBy @filter="filterMeta"></orderBy>
         </div>
 
+        <!-- 推荐 -->
+		<rec-table v-if="!search && !subtype" />
+
         <!-- 列表 -->
         <div class="m-archive-list" v-if="data && data.length">
             <ul class="u-list">
@@ -50,6 +53,7 @@ import { appKey } from "@/../setting.json";
 import listItem from "@/components/list/list_item.vue";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts } from "@/service/post";
+import recTable from "@/components/list/rec_table.vue";
 export default {
     name: "Index",
     props: [],
@@ -217,6 +221,7 @@ export default {
     mounted: function() {},
     components: {
         listItem,
+        recTable,
     },
 };
 </script>

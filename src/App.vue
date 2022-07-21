@@ -1,3 +1,9 @@
+<!--
+ * @Author: iRuxu
+ * @Date: 2022-05-05 01:50:05
+ * @LastEditTime: 2022-07-22 00:26:17
+ * @Description:
+-->
 <template>
     <div id="app">
         <Header></Header>
@@ -7,8 +13,11 @@
         <LeftSidebar>
             <Nav class="m-nav" />
         </LeftSidebar>
-        <Main :withoutRight="true">
+        <Main :withoutRight="false">
             <router-view class="m-main" />
+            <RightSidebar>
+                <Side class="m-extend" />
+            </RightSidebar>
             <Footer></Footer>
         </Main>
     </div>
@@ -17,6 +26,7 @@
 <script>
 import Info from "@/components/list/Info.vue";
 import Nav from "@/components/list/list_nav.vue";
+import Side from "@/components/list/list_side.vue";
 export default {
     name: "App",
     props: [],
@@ -27,6 +37,7 @@ export default {
     components: {
         Nav,
         Info,
+        Side,
     },
 };
 </script>

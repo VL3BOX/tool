@@ -3,7 +3,7 @@
     padding: 0 10px;
     .u-title {
         padding: 10px 0;
-        border-bottom: 1px solid #eee;
+        // border-bottom: 1px solid #eee;
         margin: 0;
         .pr;
 
@@ -25,78 +25,112 @@
 }
 
 // 导航组
-.m-nav-group {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    a {
-        .db;
-        // border-bottom: 1px solid #eee;
-        .fz(14px, 28px);
-        padding: 5px 10px;
-        color: #555;
-        svg {
-            .y(-3px);
-            .mr(5px);
-            fill: #555;
-            .size(16px);
-        }
+// .m-nav-group {
+//     margin-top: 5px;
+//     margin-bottom: 10px;
+//     a {
+//         .db;
+//         // border-bottom: 1px solid #eee;
+//         border:1px solid @color-link;
+//         background-color:#fff;
+//         .fz(14px, 28px);
+//         padding: 5px 10px;
+//         color: #555;
+//         svg {
+//             .y(-3px);
+//             .mr(5px);
+//             fill: #555;
+//             .size(16px);
+//         }
 
-        .u-fav,
-        .u-pass,
-        .u-user,
-        .u-avatar {
-            .size(14px);
-            .y(-2px);
-        }
-        .u-blank {
-            .mt(7px);
-            .fr;
-            .size(12px);
-        }
+//         .u-fav,
+//         .u-pass,
+//         .u-user,
+//         .u-avatar {
+//             .size(14px);
+//             .y(-2px);
+//         }
+//         .u-blank {
+//             .mt(7px);
+//             .fr;
+//             .size(12px);
+//         }
 
-        &:hover {
-            b {
-                .bold;
-            }
-            color: @darkblue;
-            svg {
-                fill: @darkblue;
-            }
-        }
+//         &:hover {
+//             b {
+//                 .bold;
+//             }
+//             color: @darkblue;
+//             svg {
+//                 fill: @darkblue;
+//             }
+//         }
 
-        border-top: 1px solid transparent;
-        border-bottom: 1px solid transparent;
-    }
-    .router-link-exact-active,
-    .on {
-        background-color: #fff;
-        color: @darkblue;
-        svg {
-            fill: @darkblue;
-        }
-        .bold;
-        border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-    }
-}
+//         // border-top: 1px solid transparent;
+//         // border-bottom: 1px solid transparent;
+//     }
+//     .router-link-exact-active,
+//     .on {
+//         background-color: #fff;
+//         color: @darkblue;
+//         svg {
+//             fill: @darkblue;
+//         }
+//         .bold;
+//         border-top: 1px solid #eee;
+//         border-bottom: 1px solid #eee;
+//     }
+// }
 .m-tool-nav {
-    i {
-        .mr(5px);
-        font-size: 16px;
-        .y;
-    }
-    b {
-        font-weight: normal;
-    }
-    .on b,.router-link-exact-active b{
-        .bold;
-    }
-    span {
-        .fr;
-        color: #aaa;
-        font-size: 12px;
-        font-weight: normal !important;
-        .none;
+    // i {
+    //     .mr(5px);
+    //     font-size: 16px;
+    //     .y;
+    // }
+    // b {
+    //     font-weight: normal;
+    // }
+    // .on b,.router-link-exact-active b{
+    //     .bold;
+    // }
+    // span {
+    //     .fr;
+    //     color: #aaa;
+    //     font-size: 12px;
+    //     font-weight: normal !important;
+    //     .none;
+    // }
+    a{
+        border:1px solid #eee;
+        padding:13px 15px;
+        background-color:#fff;
+        .db;
+        .r(6px);
+        .mb(10px);
+        display: flex;
+        gap:13px;
+        img{
+            .size(40px);
+        }
+        b{color:@color;.db;.fz(14px);}
+        span{
+            .db;.fz(12px,2);
+            color:#035cc1;
+            font-family: 'Consolas';
+        }
+
+        transition: all 0.2s ease-in-out;
+        &.router-link-exact-active{
+            border:1px solid @color-link;
+            background-color:#f2f6fc;
+            &:hover{
+                border:1px solid @color-link;
+            }
+        }
+        &:hover{
+            border:1px dashed @color-link;
+            background-color:#f2f6fc;
+        }
     }
 }
 
