@@ -1,7 +1,7 @@
 <template>
     <div class="m-index-rec">
         <h5 class="u-title">
-            <span>工具版版规与常用文档索引</span>
+            <span>工具版公告与推荐置顶</span>
         </h5>
         <div class="u-ac" v-html="ac" v-if="ac"></div>
         <el-row v-if="data && data.length">
