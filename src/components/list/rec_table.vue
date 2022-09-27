@@ -128,6 +128,9 @@ export default {
             .h(20px);
         }
     }
+    .el-col .u-rec a{
+        .nobreak;
+    }
     .el-col:nth-child(4n) {
         .u-rec {
             border-right: 0;
