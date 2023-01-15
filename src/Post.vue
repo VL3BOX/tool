@@ -3,7 +3,7 @@
         <Header></Header>
         <Breadcrumb name="教程工具" slug="tool" root="/tool" :publishEnable="true" :adminEnable="true" :feedbackEnable="true" :crumbEnable="false">
         </Breadcrumb>
-        <LeftSidebar>
+        <LeftSidebar :uid="user_id">
             <Nav :id="id" class="m-nav" />
         </LeftSidebar>
         <Main :withoutRight="false">
@@ -28,6 +28,11 @@ export default {
         return {
             id: getAppID(),
         };
+    },
+    computed: {
+        user_id: function () {
+            return this.$store.state.user_id;
+        },
     },
     methods: { getAppIcon },
     components: {
