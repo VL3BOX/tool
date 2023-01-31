@@ -69,7 +69,7 @@ export default {
                 {
                     slug: 3,
                     icon: "el-icon-discover",
-                    name: "游戏指南",
+                    name: "操作指南",
                     desc: "游戏调优/插件设置与指南",
                     icon: "game",
                 },
