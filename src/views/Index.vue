@@ -3,9 +3,9 @@
         <!-- 搜索 -->
         <div class="m-archive-search" slot="search-before">
             <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
-            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search">
+            <el-input placeholder="请输入搜索内容" v-model.trim.lazy="search" clearable @clear="onSearch" @keydown.native.enter="onSearch">
                 <span slot="prepend">关键词</span>
-                <el-button slot="append" icon="el-icon-search"></el-button>
+                <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
             </el-input>
         </div>
 
@@ -92,7 +92,6 @@ export default {
                 order: this.order,
                 mark: this.mark,
                 client: this.client,
-                search: this.search,
             };
         },
         // 分页相关参数
@@ -104,10 +103,17 @@ export default {
         },
         // 重置页码参数
         reset_queries: function() {
-            return [this.subtype, this.search];
+            return [this.subtype];
         },
     },
     methods: {
+        onSearch() {
+            if (this.page != 1){
+                this.page = 1
+                return
+            }
+            this.loadData();
+        },
         // 构建最终请求参数
         buildQuery: function(appendMode) {
             if (appendMode) {
@@ -130,6 +136,10 @@ export default {
             // 当指定子类别时启用置顶
             if(_query.subtype){
                 _query.sticky = 1
+            }
+
+            if (this.search) {
+                _query.search = this.search.trim();
             }
 
             return _query;
