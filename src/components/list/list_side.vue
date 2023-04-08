@@ -85,7 +85,7 @@ export default {
 .m-tool-api {
     .u-item {
         .db;
-        padding:0 15px;
+        padding:0 5px;
         .fz(12px,3);
         .x(left);
         border-bottom: 1px dashed #eee;
@@ -94,6 +94,7 @@ export default {
         }
         i {
             color: #666;
+            .mr(3px);
         }
     }
 }
