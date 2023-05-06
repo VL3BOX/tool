@@ -6,26 +6,33 @@
 -->
 <template>
     <div class="m-list-nav">
-        <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
-        <div class="m-nav-group m-tool-nav">
+        <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 工具资源</h5> -->
+        <div class="m-nav-group">
             <router-link
                 v-for="(item, i) in menu"
-                :to="{ name: 'index', query: { subtype: item.slug } }"
+                :to="{ name: item.routeName, query: { subtype: item.slug } }"
                 :key="i"
-                :class="{ on: isActive(item) }"
+                :class="{ on: isActive(item, item.type) }"
+                class="u-item"
             >
-                <i><img :src="getIcon(item.icon)" /></i>
-                <div>
-                    <b>{{ item.name }}</b>
-                    <span>{{ item.desc }}</span>
-                </div>
+                <img :src="getIcon(item.icon)" />
+                <span class="u-text">{{ item.name }}</span>
             </router-link>
-            <!-- <a href="/app" target="_blank">
-                <i class="el-icon-box"></i>
-                <b>魔盒应用</b>
-                <span>Application</span>
-            </a> -->
         </div>
+
+        <!-- <h5 class="u-title">插件数据</h5>
+        <div class="m-nav-group">
+            <router-link
+                v-for="(label, key) in jx3dat_types"
+                :key="label"
+                :to="{ name: 'plugins', query: { subtype: key } }"
+                :class="{ on: isActive(key, 'plugins') }"
+                class="u-item"
+            >
+                <img :src="getIcon(key, '.svg')" />
+                <span class="u-text">{{ label }}</span>
+            </router-link>
+        </div> -->
 
         <div class="m-nav-tags">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
@@ -46,6 +53,7 @@
 
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import { jx3dat_types } from "@/assets/data/types.json";
 export default {
     name: "list_nav",
     props: [],
@@ -53,32 +61,31 @@ export default {
         return {
             menu: [
                 {
-                    slug: "",
-                    icon: "el-icon-receiving",
-                    name: "全部",
-                    desc: "版规与置顶索引",
-                    icon: "all",
-                },
-                {
                     slug: 1,
                     icon: "el-icon-setting",
                     name: "工具资源",
                     desc: "剑三小工具&资源下载",
                     icon: "tool",
+                    type: "tool",
+                    routeName: "index"
+                },
+                {
+                    slug: "",
+                    icon: "el-icon-s-data",
+                    name: "插件数据",
+                    desc: "剑三插件数据",
+                    icon: "data",
+                    type: "jx3dat",
+                    routeName: "jx3dat"
                 },
                 {
                     slug: 3,
                     icon: "el-icon-discover",
-                    name: "操作指南",
+                    name: "教程指南",
                     desc: "游戏调优/插件设置与指南",
                     icon: "game",
-                },
-                {
-                    slug: 2,
-                    icon: "el-icon-paperclip",
-                    name: "技术教程",
-                    desc: "竟然在魔盒学编程？！",
-                    icon: "code",
+                    type: "tool",
+                    routeName: "index"
                 },
                 {
                     slug: 4,
@@ -86,16 +93,20 @@ export default {
                     name: "魔盒文档",
                     desc: "魔盒使用指南&API文档",
                     icon: "api",
+                    type: "tool",
+                    routeName: "index"
                 },
             ],
+
+            jx3dat_types,
         };
     },
     methods: {
-        isActive: function (item) {
-            return item.slug == this.$route.query.subtype;
+        isActive: function (item, routeName) {
+            return item.slug == this.$route.query.subtype && this.$route.name == routeName;
         },
-        getIcon: function (slug) {
-            return require("../../assets/img/nav/" + slug + ".png");
+        getIcon: function (slug, type=".png") {
+            return require("../../assets/img/nav/" + slug + type);
         },
     },
 };

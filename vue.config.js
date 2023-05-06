@@ -13,12 +13,6 @@ module.exports = {
             template : 'public/index.html',
             filename:'index.html',
         },
-        tool : {
-            title : '教程工具 - JX3BOX',
-            entry:'src/post.js',
-            template : 'public/index.html',
-            filename:'post.html',
-        },
     },
 
     //❤️ Porxy ~

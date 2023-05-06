@@ -7,14 +7,8 @@ function getMyPost(params) {
 }
 
 function getPosts(params) {
-    let query = {
-        type: "tool",
-    };
-    if (params) {
-        query = Object.assign(query, params);
-    }
     return $cms().get("/api/cms/posts", {
-        params: query,
+        params,
     });
 }
 function getPost(id) {

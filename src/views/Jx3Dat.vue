@@ -1,6 +1,13 @@
 <template>
     <ListLayout>
+        <el-tabs class="m-fb-tabs" v-model="view">
+
+        </el-tabs>
         <div class="m-archive-box" v-loading="loading">
+            <div class="m-plugins-header">
+                <h1 class="m-plugins-title"><i :class="subtype | showIcon"></i>{{ subtype | showLabel }}</h1>
+            </div>
+
             <!-- 搜索 -->
             <div class="m-archive-search" slot="search-before">
                 <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
@@ -25,9 +32,6 @@
                 <!-- 排序过滤 -->
                 <orderBy @filter="filterMeta"></orderBy>
             </div>
-
-            <!-- 推荐 -->
-            <rec-table v-if="!search && !subtype" />
 
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
@@ -69,7 +73,7 @@ import { appKey } from "@/../setting.json";
 import listItem from "@/components/list/list_item.vue";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts } from "@/service/post";
-import recTable from "@/components/list/rec_table.vue";
+import { jx3dat_types, jx3dat_icons } from "@/assets/data/types.json";
 import ListLayoutVue from "@/layouts/ListLayout.vue";
 export default {
     name: "Index",
@@ -85,11 +89,13 @@ export default {
             pages: 1, //总页数
             number_queries: ["per", "page"],
 
-            subtype: "", //子类别
+            subtype: this.$store.state.client == "std" ? "1" : "5", //子类别
             order: "update", //排序模式
             mark: "", //筛选模式
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
+
+            view: ""
         };
     },
     computed: {
@@ -126,9 +132,9 @@ export default {
         onSearch() {
             if (this.page != 1) {
                 this.page = 1;
-                return;
+            } else {
+                this.loadData();
             }
-            this.loadData();
         },
         // 构建最终请求参数
         buildQuery: function (appendMode) {
@@ -165,7 +171,7 @@ export default {
             let query = this.buildQuery(appendMode);
             console.log("[cms-list]", "<loading data>", query);
 
-            query.type = 'tool'
+            query.type = "jx3dat"
 
             this.loading = true;
             return getPosts(query)
@@ -246,10 +252,17 @@ export default {
             },
         },
     },
+    filters: {
+        showIcon: function (subtype) {
+            return jx3dat_icons[subtype];
+        },
+        showLabel: function (subtype) {
+            return jx3dat_types[subtype];
+        },
+    },
     mounted: function () {},
     components: {
         listItem,
-        recTable,
         ListLayout: ListLayoutVue,
     },
 };
@@ -257,9 +270,5 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/list.less";
-@import "~@/assets/css/index.less";
-
-.m-archive-box {
-    padding:20px 25px;
-}
+@import "~@/assets/css/plugins.less";
 </style>
