@@ -1,12 +1,12 @@
 import { $cms } from "@jx3box/jx3box-common/js/https";
 
-function getMyPost(params) {
+export function getMyPost(params) {
     return $cms().get("/api/cms/posts/my", {
         params: params,
     });
 }
 
-function getPosts(params) {
+export function getPosts(params) {
     let query = {
         type: "tool",
     };
@@ -17,12 +17,15 @@ function getPosts(params) {
         params: query,
     });
 }
-function getPost(id) {
+
+export function getPost(id) {
     return $cms().get(`/api/cms/post/${id}`);
 }
 
-function getMyPostCount() {
+export function getMyPostCount() {
     return $cms().get("/api/cms/posts/user/my/count");
 }
 
-export { getPosts, getPost, getMyPostCount, getMyPost };
+export function getIsSuperAuthor(uid) {
+    return $cms().get(`/api/cms/user/is_super_author/${uid}`);
+}

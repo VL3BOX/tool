@@ -9,19 +9,16 @@
                 </el-radio-group>
             </div>
             <div class="u-keyword">
-                <el-input placeholder="请输入 ID 或 名称" v-model="query.keyword">
-                    <template slot="prepend">ID / 名称</template>
-                </el-input>
+                <div class="u-input-label">ID / 名称</div>
+                <el-input placeholder="请输入 ID 或 名称" v-model="query.keyword"> </el-input>
             </div>
             <div class="u-level">
-                <el-input placeholder="请输入等级" v-model="query.level">
-                    <template slot="prepend">等级</template>
-                </el-input>
+                <div class="u-input-label">等级</div>
+                <el-input placeholder="请输入等级" v-model="query.level"> </el-input>
             </div>
-            <div class="u-map">
-                <el-input placeholder="请输入NPC所在地图" v-model="query.map">
-                    <template slot="prepend">地图</template>
-                </el-input>
+            <div class="u-map" v-if="type == 'npc'">
+                <div class="u-input-label">地图</div>
+                <el-input placeholder="请输入NPC所在地图" v-model="query.map"> </el-input>
             </div>
             <div class="u-opr">
                 <div class="u-strict">
@@ -44,15 +41,8 @@ export default {
             type: String,
             default: "std",
         },
+        query: Object,
     },
-    data: () => ({
-        query: {
-            keyword: "",
-            level: "",
-            map: "",
-            strict: false,
-        },
-    }),
     computed: {
         clientModel: {
             get() {
@@ -79,7 +69,7 @@ export default {
         }
     }
     .m-filters {
-        padding: 10px 0;
+        padding: 10px;
     }
     .m-filters > div {
         .mb(12px);
@@ -88,6 +78,12 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+    .u-input-label {
+        .fz(12px, 14px);
+        .mb(6px);
+        .bold;
+        color: #999;
     }
 }
 </style>

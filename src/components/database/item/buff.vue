@@ -3,7 +3,10 @@
 </template>
 <script>
 export default {
-    name: "",
+    name: "ItemBuff",
+    prop: {
+        data: Object,
+    },
 };
 </script>
 <style lang="less"></style>

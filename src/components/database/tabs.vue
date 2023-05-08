@@ -31,7 +31,9 @@
     </el-tabs>
 </template>
 <script>
+import User from "@jx3box/jx3box-common/js/user";
 import { getStat } from "@/service/node";
+import { getIsSuperAuthor } from "@/service/post";
 
 export default {
     name: "DatabaseTabs",
@@ -76,10 +78,15 @@ export default {
         },
         loadStat() {
             getStat(this.client).then((res) => {
-                const data = res.data
+                const data = res.data;
                 this.stat = data;
             });
         },
+    },
+    mounted() {
+        getIsSuperAuthor(User.getInfo().uid).then((res) => {
+            this.hasRight = this.isSuperAuthor = res.data?.data;
+        });
     },
     watch: {
         client: {
