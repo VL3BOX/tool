@@ -7,8 +7,15 @@
             </template>
             <Info />
         </Breadcrumb>
-        <Main :class="className" :withoutRight="true" :withoutLeft="true">
+        <LeftSidebar>
+            <slot name="left"></slot>
+            <!-- <Nav class="m-nav" /> -->
+        </LeftSidebar>
+        <Main :class="className">
             <slot></slot>
+            <RightSidebar>
+                <slot name="right"></slot>
+            </RightSidebar>
             <Footer></Footer>
         </Main>
     </div>
@@ -16,7 +23,10 @@
 
 <script>
 import Info from "@/components/list/Info.vue";
+
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+import app from "@/assets/data/app.json";
+
 export default {
     name: "AppLayout",
     components: {
@@ -52,5 +62,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/list.less";
+@import "~@/assets/css/layouts/app.less";
 </style>
