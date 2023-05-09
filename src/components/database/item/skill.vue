@@ -1,12 +1,84 @@
 <template>
-    <div class="m-database-item__skill"></div>
+    <div class="m-database-item m-database-item__skill">
+        <img class="u-icon" :title="'IconID:' + data.IconID" :src="iconLink(data.IconID)" />
+        <div class="u-title">
+            <div class="u-name">
+                <span class="u-name-primary">{{ data.Name }}</span>
+                <span class="u-name-secondary" v-if="data.SkillName"> ({{ data.SkillName }})</span>
+            </div>
+            <span class="u-id" title="点击快速复制" @click="copy('SkillID')">ID:{{ data.SkillID }}</span>
+        </div>
+        <div class="u-desc-text">
+            <p class="u-desc-content">{{ filterRaw(data.Desc) }}</p>
+        </div>
+        <div class="u-primary">
+            <span class="u-primary-items">
+                <span class="u-primary-item"> Level: {{ data.Level }} </span>
+                <span class="u-primary-item"> Remark: {{ data.Remark }} </span>
+                <span class="u-primary-item" v-if="data.HelpDesc">HelpDesc : {{ data.HelpDesc }}</span>
+                <span class="u-primary-item" v-if="data.SimpleDesc">SimpleDesc : {{ data.SimpleDesc }}</span>
+                <span class="u-primary-item" v-if="data.SpecialDesc">SpecialDesc : {{ data.SpecialDesc }}</span>
+            </span>
+            <el-button
+                class="u-open-button"
+                :class="{ on: showDetail }"
+                icon="el-icon-view"
+                plain
+                size="mini"
+                @click="toggleDetail"
+                v-if="hasRight"
+            >
+                {{ showDetail ? "收起详情" : "展开详情" }}
+            </el-button>
+        </div>
+        <div class="u-detail" v-if="hasRight" v-show="showDetail">
+            <template v-for="(val, key) in data">
+                <span class="u-prop" :key="key" v-if="propsFilter(key)">
+                    <el-tooltip effect="dark" :content="key" placement="top">
+                        <em :class="{ isAdv: props_skill[key] && props_skill[key]['adv'] }">
+                            {{ (props_skill[key] && props_skill[key]["desc"]) || key }}
+                        </em>
+                    </el-tooltip>
+                    <span>{{ val }}</span>
+                </span>
+            </template>
+        </div>
+    </div>
 </template>
 <script>
+import itemMixin from "./mixin";
+import props_skill from "@/assets/data/database/props_skill.json";
+
 export default {
     name: "ItemSkill",
-    prop: {
-        data: Object,
+    mixins: [itemMixin],
+    data: () => ({
+        props_skill,
+    }),
+    methods: {
+        propsFilter(key) {
+            if (key === "IdKey") return false;
+            if (this.data[key] === null) return false;
+            if (this.props_skill?.[key]?.basic) return false;
+            if (this.props_skill?.[key]?.adv && !this.hasRight) return false;
+            return true;
+        },
     },
 };
 </script>
-<style lang="less"></style>
+<style lang="less">
+@import "~@/assets/css/database/item.less";
+.m-database-item__skill {
+    .u-desc-text {
+        display: flex;
+        align-items: center;
+    }
+
+    .u-desc-content {
+        .fz(13px, 1.8);
+        flex-grow: 1;
+        margin: 0 0 5px 0;
+        white-space: pre-wrap;
+    }
+}
+</style>

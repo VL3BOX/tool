@@ -8,13 +8,15 @@
         </template>
         <div class="v-database" v-loading="loading">
             <!-- Type切换选项卡 -->
-            <database-tabs :client="client" :type.sync="type"></database-tabs>
+            <database-tabs :client="client" :type.sync="type" :hasRight="hasRight"></database-tabs>
             <!-- 列表区域 -->
             <div class="m-list" v-if="data[type].length">
                 <component
-                    :is="item_component[type]"
                     v-for="(item, index) in data[type]"
                     :key="`${type}_${index}`"
+                    :is="item_component[type]"
+                    :hasRight="hasRight"
+                    :data="item"
                 ></component>
                 <!-- 分页 -->
                 <template v-if="multiPage">
@@ -39,7 +41,8 @@
                 </template>
             </div>
             <!-- 为空提示 -->
-            <div v-else class="m-empty">❤ 请在左侧选择筛选条件</div>
+            <div v-else-if="isEmpty" class="m-empty">❤ 请在左侧选择筛选条件</div>
+            <div v-else class="m-empty">QAQ 没有找到符合条件的条目</div>
         </div>
         <template #right>
             <!-- 数据库版本信息 -->
@@ -64,6 +67,9 @@ import ItemDoodad from "@/components/database/item/doodad.vue";
 
 import { debounce } from "lodash";
 import { getResource } from "@/service/node";
+import User from "@jx3box/jx3box-common/js/user";
+import { getIsSuperAuthor } from "@/service/post";
+import item_filter from "@/assets/data/database/item_filter.json";
 
 export default {
     name: "Database",
@@ -103,6 +109,8 @@ export default {
         page: 1,
         total: 0,
         pages: 0,
+
+        hasRight: false,
     }),
     computed: {
         multiPage() {
@@ -110,6 +118,9 @@ export default {
         },
         hasNextPage() {
             return this.total > 0 && this.page < this.pages;
+        },
+        isEmpty() {
+            return !this.loading && !this.query.keyword;
         },
     },
     methods: {
@@ -131,10 +142,18 @@ export default {
                     const data = res.data;
                     this.total = data.total;
                     this.pages = data.pages;
+                    let list = data.list;
+                    const idProp = {
+                        buff: "BuffID",
+                        skill: "SkillID",
+                    };
+                    // 过滤不让显示的BUFF
+                    if (item_filter[this.type])
+                        list = list.filter((item) => !item_filter[this.type].includes(item[idProp[this.type]]));
                     if (append) {
-                        this.data[this.type] = this.data[this.type].concat(data.list);
+                        this.data[this.type] = this.data[this.type].concat(list);
                     } else {
-                        this.data[this.type] = data.list;
+                        this.data[this.type] = list;
                     }
                 })
                 .finally(() => {
@@ -156,6 +175,18 @@ export default {
         debounceSearch: debounce(function () {
             this.search();
         }, 1000),
+        initPermission() {
+            getIsSuperAuthor(User.getInfo().uid).then((res) => {
+                this.hasRight = this.isSuperAuthor = res.data?.data;
+            });
+        },
+        initQuery() {
+            const { query, type, level } = this.$route.query;
+            if (query) this.query.keyword = query;
+            if (type) this.type = type;
+            if (level) this.query.level = level;
+            this.search();
+        },
     },
     watch: {
         type() {
@@ -170,11 +201,8 @@ export default {
         },
     },
     mounted() {
-        const { query, type, level } = this.$route.query;
-        if (query) this.query.keyword = query;
-        if (type) this.type = type;
-        if (level) this.query.level = level;
-        this.search();
+        this.initPermission();
+        this.initQuery();
     },
 };
 </script>
