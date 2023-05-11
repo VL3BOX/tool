@@ -18,7 +18,36 @@
                 <span class="u-primary-item"> Remark: {{ data.Remark }} </span>
             </span>
             <el-button
-                class="u-open-button"
+                v-if="!star_id"
+                class="u-button u-star"
+                icon="el-icon-star-off"
+                plain
+                size="mini"
+                @click="star('buff', data.BuffID, data.Level)"
+            >
+                收藏数据
+            </el-button>
+            <el-button
+                v-else-if="isLogin"
+                class="u-button u-stared"
+                icon="el-icon-star-on"
+                plain
+                size="mini"
+                @click="cancelStar"
+            >
+                取消收藏
+            </el-button>
+            <el-button
+                class="u-button u-to-dbm"
+                icon="el-icon-connection"
+                plain
+                size="mini"
+                @click="toDbm('buff', data.BuffID, data.Level)"
+            >
+                在线构建
+            </el-button>
+            <el-button
+                class="u-button u-open-button"
                 :class="{ on: showDetail }"
                 icon="el-icon-view"
                 plain

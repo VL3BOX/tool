@@ -165,16 +165,40 @@
                     <span class="u-value">{{ ~~data.PoisonMagicHit }}</span>
                 </span>
             </div>
-            <el-button
-                class="u-raw"
-                :class="{ on: showDetail }"
-                icon="el-icon-view"
-                plain
-                size="mini"
-                v-if="hasRight"
-                @click="toggleDetail"
-                >{{ showDetail ? "收起详情" : "展开详情" }}</el-button
-            >
+            <div class="u-buttons">
+                <el-button
+                    class="u-raw"
+                    :class="{ on: showDetail }"
+                    icon="el-icon-view"
+                    plain
+                    size="mini"
+                    v-if="hasRight"
+                    @click="toggleDetail"
+                    >{{ showDetail ? "收起详情" : "展开详情" }}</el-button
+                >
+                <el-button
+                    class="u-button u-to-dbm"
+                    icon="el-icon-connection"
+                    plain
+                    size="mini"
+                    @click="toDbm('npc', data.ID, data.Level)"
+                >
+                    在线构建
+                </el-button>
+                <el-button
+                    v-if="!star_id"
+                    class="u-button u-star"
+                    icon="el-icon-star-off"
+                    plain
+                    size="mini"
+                    @click="star('npc', data.ID)"
+                >
+                    收藏数据
+                </el-button>
+                <el-button v-else-if="isLogin" class="u-button u-stared" icon="el-icon-star-on" plain size="mini" @click="cancelStar">
+                    取消收藏
+                </el-button>
+            </div>
         </div>
         <div class="u-props" :class="{ on: showDetail }" v-if="hasRight">
             <template v-for="(val, key) in data">

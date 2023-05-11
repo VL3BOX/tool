@@ -9,7 +9,7 @@
         <div class="v-database" v-loading="loading">
             <!-- Type切换选项卡 -->
             <database-tabs :client="client" :type.sync="type" :hasRight="hasRight"></database-tabs>
-            <el-alert class="u-alert" v-if="isNewest" type="success" :closable="false">当前显示的是最新的数据</el-alert>
+            <h4 class="u-newest-tip" v-if="isNewest">最新数据</h4>
             <!-- 列表区域 -->
             <div class="m-list" v-if="data[type].length">
                 <component
@@ -17,6 +17,7 @@
                     :key="`${type}_${index}`"
                     :is="item_component[type]"
                     :hasRight="hasRight"
+                    :type="type"
                     :data="item"
                 ></component>
                 <!-- 分页 -->
@@ -48,7 +49,7 @@
             <!-- 数据库版本信息 -->
             <database-versions></database-versions>
             <!-- 收藏数据 -->
-            <database-star></database-star>
+            <database-star v-if="isLogin" :type="type" :client="client"></database-star>
         </template>
     </app-layout>
 </template>
@@ -70,6 +71,7 @@ import { getResource, getNewest } from "@/service/node";
 import User from "@jx3box/jx3box-common/js/user";
 import { getIsSuperAuthor } from "@/service/post";
 import item_filter from "@/assets/data/database/item_filter.json";
+import { mapState } from "vuex";
 
 export default {
     name: "Database",
@@ -114,6 +116,7 @@ export default {
         hasRight: false,
     }),
     computed: {
+        ...mapState(["isLogin"]),
         multiPage() {
             return !this.loading && this.pages > 1;
         },
@@ -185,6 +188,12 @@ export default {
             });
         },
         initQuery() {
+            this.query = {
+                keyword: "",
+                level: "",
+                map: "",
+                strict: false,
+            };
             const { query, type, level } = this.$route.query;
             if (query) this.query.keyword = query;
             if (type) this.type = type;
@@ -198,6 +207,12 @@ export default {
         },
         client() {
             this.search();
+        },
+        "$route.query": {
+            handler: function () {
+                this.initQuery();
+            },
+            deep: true,
         },
         query: {
             handler: function () {

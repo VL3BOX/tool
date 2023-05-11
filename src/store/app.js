@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import User from "@jx3box/jx3box-common/js/user";
 
 Vue.use(Vuex);
 
@@ -8,6 +9,14 @@ let store = {
         // client
         client: location.href.includes("origin") ? "origin" : "std",
         // post
+        // app/database
+        stars: {
+            buff: [],
+            doodad: [],
+            npc: [],
+            skill: [],
+        },
+        isLogin: User.isLogin(),
     },
     mutations: {
         switchClient: function (state, val) {

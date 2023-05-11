@@ -1,6 +1,6 @@
 <template>
     <div class="c-app-nav">
-        <div class="w-card-title">其他应用</div>
+        <!-- <div class="w-card-title">其他应用</div> -->
     </div>
 </template>
 <script>

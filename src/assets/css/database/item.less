@@ -1,3 +1,8 @@
+.star-color {
+    color: #f7ba2a;
+    border-color: #f7ba2a;
+}
+
 .m-database-item {
     .pr;
     border: 1px solid #e1e4e8;
@@ -44,7 +49,7 @@
 
     .u-primary {
         display: flex;
-        gap: 16px;
+        gap: 4px;
         align-items: flex-end;
     }
 
@@ -59,7 +64,7 @@
         color: #aaa;
     }
 
-    .u-open-button {
+    .u-button {
         .size(65px, 12px);
         box-sizing: content-box;
 
@@ -94,6 +99,23 @@
     @media screen and (max-width: @phone) {
         .u-prop {
             width: 100%;
+        }
+    }
+
+    .u-star {
+        &:hover,
+        &:active,
+        &:focus {
+            .star-color;
+        }
+    }
+    .u-stared {
+        .star-color;
+
+        &:hover,
+        &:active,
+        &:focus {
+            .star-color;
         }
     }
 }
@@ -336,8 +358,24 @@
     .u-primary {
         .pr;
     }
-    .u-raw {
-        .pa;
-        .rb(10px);
+    .u-buttons {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 14px;
+    }
+    .u-star {
+        &:hover,
+        &:active,
+        &:focus {
+            .star-color;
+        }
+    }
+    .u-stared {
+        &:hover,
+        &:active,
+        &:focus {
+            .star-color;
+        }
+        .star-color;
     }
 }

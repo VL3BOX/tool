@@ -20,6 +20,35 @@
                 <span class="u-primary-item" v-if="data.SpecialDesc">SpecialDesc : {{ data.SpecialDesc }}</span>
             </span>
             <el-button
+                v-if="!star_id"
+                class="u-button u-star"
+                icon="el-icon-star-off"
+                plain
+                size="mini"
+                @click="star('skill', data.SkillID, data.Level)"
+            >
+                收藏数据
+            </el-button>
+            <el-button
+                v-else-if="isLogin"
+                class="u-button u-stared"
+                icon="el-icon-star-on"
+                plain
+                size="mini"
+                @click="cancelStar"
+            >
+                取消收藏
+            </el-button>
+            <el-button
+                class="u-button u-to-dbm"
+                icon="el-icon-connection"
+                plain
+                size="mini"
+                @click="toDbm('skill', data.SkillID, data.Level)"
+            >
+                在线构建
+            </el-button>
+            <el-button
                 class="u-open-button"
                 :class="{ on: showDetail }"
                 icon="el-icon-view"
