@@ -9,6 +9,7 @@
         <div class="v-database" v-loading="loading">
             <!-- Type切换选项卡 -->
             <database-tabs :client="client" :type.sync="type" :hasRight="hasRight"></database-tabs>
+            <el-alert class="u-alert" v-if="isNewest" type="success" :closable="false">当前显示的是最新的数据</el-alert>
             <!-- 列表区域 -->
             <div class="m-list" v-if="data[type].length">
                 <component
@@ -41,8 +42,7 @@
                 </template>
             </div>
             <!-- 为空提示 -->
-            <div v-else-if="isEmpty" class="m-empty">❤ 请在左侧选择筛选条件</div>
-            <div v-else class="m-empty">QAQ 没有找到符合条件的条目</div>
+            <div v-else-if="isEmpty" class="m-empty">QAQ 没有找到符合条件的条目</div>
         </div>
         <template #right>
             <!-- 数据库版本信息 -->
@@ -66,7 +66,7 @@ import ItemNpc from "@/components/database/item/npc.vue";
 import ItemDoodad from "@/components/database/item/doodad.vue";
 
 import { debounce } from "lodash";
-import { getResource } from "@/service/node";
+import { getResource, getNewest } from "@/service/node";
 import User from "@jx3box/jx3box-common/js/user";
 import { getIsSuperAuthor } from "@/service/post";
 import item_filter from "@/assets/data/database/item_filter.json";
@@ -104,6 +104,7 @@ export default {
             doodad: [],
         },
         loading: false,
+        isNewest: true,
 
         per: 10,
         page: 1,
@@ -120,12 +121,11 @@ export default {
             return this.total > 0 && this.page < this.pages;
         },
         isEmpty() {
-            return !this.loading && !this.query.keyword;
+            return !this.loading && this.query.keyword;
         },
     },
     methods: {
         getData(page = 1, append = false) {
-            if (!this.query.keyword) return;
             const params = {
                 strict: this.query.strict,
                 per: this.per,
@@ -136,8 +136,12 @@ export default {
             if (this.type === "npc" && this.query.map) params.map = this.query.map;
             if (this.query.level) params.level = this.query.level;
             this.loading = true;
+            this.isNewest = !this.query.keyword;
             const mode = isNaN(this.query.keyword) ? "name" : "id";
-            getResource(this.type, mode, this.query.keyword, params)
+            (this.query.keyword
+                ? getResource(this.type, mode, this.query.keyword, params)
+                : getNewest(this.type, params)
+            )
                 .then((res) => {
                     const data = res.data;
                     this.total = data.total;
@@ -170,7 +174,7 @@ export default {
         },
         changePage(page) {
             this.page = page;
-            this.getData();
+            this.getData(this.page);
         },
         debounceSearch: debounce(function () {
             this.search();
@@ -190,6 +194,9 @@ export default {
     },
     watch: {
         type() {
+            this.search();
+        },
+        client() {
             this.search();
         },
         query: {
