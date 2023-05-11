@@ -22,7 +22,12 @@
             </div>
             <div class="u-opr">
                 <div class="u-strict">
-                    <el-switch v-model="query.strict" active-text="精确匹配"></el-switch>
+                    <el-switch
+                        v-model.number="query.strict"
+                        active-text="精确匹配"
+                        :inactive-value="0"
+                        :active-value="1"
+                    ></el-switch>
                 </div>
                 <el-button type="primary">搜索</el-button>
             </div>
