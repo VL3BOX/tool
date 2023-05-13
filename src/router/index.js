@@ -13,7 +13,7 @@ const routes = [
     {
         name: "index",
         path: "/tool",
-        component: () => import("@/views/Index.vue"),
+        component: () => import("@/views/Tool.vue"),
         meta: {
             type: 'tool'
         }

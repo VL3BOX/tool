@@ -5,7 +5,10 @@
         </el-tabs>
         <div class="m-archive-box" v-loading="loading">
             <div class="m-plugins-header">
-                <h1 class="m-plugins-title"><i :class="subtype | showIcon"></i>{{ subtype | showLabel }}</h1>
+                <h1 class="m-plugins-title"><i :class="subtype | showIcon"></i>
+                    <!-- {{ subtype | showLabel }} -->
+                    插件数据
+                </h1>
             </div>
 
             <!-- 搜索 -->
