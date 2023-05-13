@@ -5,40 +5,17 @@
  * @Description:
 -->
 <template>
-    <div id="app">
-        <Header></Header>
-        <Breadcrumb name="教程工具" slug="tool" root="/tool" :publishEnable="true" :adminEnable="false" :feedbackEnable="true" :crumbEnable="true">
-            <Info />
-        </Breadcrumb>
-        <LeftSidebar>
-            <Nav class="m-nav" />
-        </LeftSidebar>
-        <Main :withoutRight="false">
-            <router-view class="m-main" />
-            <RightSidebar>
-                <Side class="m-extend" />
-            </RightSidebar>
-            <Footer></Footer>
-        </Main>
-    </div>
+    <router-view class="m-main" />
 </template>
 
 <script>
-import Info from "@/components/list/Info.vue";
-import Nav from "@/components/list/list_nav.vue";
-import Side from "@/components/list/list_side.vue";
 export default {
     name: "App",
     props: [],
-    data: function() {
+    data: function () {
         return {};
     },
     computed: {},
-    components: {
-        Nav,
-        Info,
-        Side,
-    },
 };
 </script>
 

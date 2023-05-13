@@ -6,17 +6,11 @@ const Setting = require("./setting.json");
 module.exports = {
     //❤️ Multiple pages ~
     pages: {
-        index: {
+        tool: {
             title: "教程工具 - JX3BOX",
             entry: "src/pages/main.js",
             template: "public/index.html",
             filename: "index.html",
-        },
-        tool: {
-            title: "教程工具 - JX3BOX",
-            entry: "src/pages/post.js",
-            template: "public/index.html",
-            filename: "post.html",
         },
         app: {
             title: "教程工具 - JX3BOX",

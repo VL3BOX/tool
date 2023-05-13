@@ -5,7 +5,7 @@
             name="教程工具"
             slug="tool"
             root="/tool"
-            :publishEnable="true"
+            :publishEnable="false"
             :adminEnable="false"
             :feedbackEnable="true"
             :crumbEnable="true"
@@ -16,9 +16,11 @@
             <Nav class="m-nav" />
         </LeftSidebar>
         <Main :withoutRight="false">
-            <slot></slot>
+            <div class="m-main">
+                <slot></slot>
+            </div>
             <RightSidebar>
-                <Side class="m-extend" />
+                <component :is="metaType" class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
         </Main>
@@ -29,17 +31,28 @@
 import Info from "@/components/list/Info.vue";
 import Nav from "@/components/list/list_nav.vue";
 import Side from "@/components/list/list_side.vue";
+import PluginSide from "@/components/list/plugin_list_side.vue";
 export default {
     name: "App",
     props: [],
     data: function () {
-        return {};
+        return {
+        };
+    },
+    computed: {
+        metaType() {
+            return {
+                tool: 'Side',
+                plugins: 'PluginSide',
+            }[this.$route.meta.type];
+        }
     },
     methods: {},
     components: {
         Info,
         Nav,
         Side,
+        PluginSide,
     },
 };
 </script>
