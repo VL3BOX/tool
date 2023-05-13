@@ -5,20 +5,20 @@ const Setting = require("./setting.json");
 
 module.exports = {
     //❤️ Multiple pages ~
-    pages: {
-        tool: {
-            title: "教程工具 - JX3BOX",
-            entry: "src/pages/main.js",
-            template: "public/index.html",
-            filename: "index.html",
-        },
-        app: {
-            title: "教程工具 - JX3BOX",
-            entry: "src/pages/app.js",
-            template: "public/index.html",
-            filename: "app.html",
-        }
-    },
+    // pages: {
+    //     tool: {
+    //         title: "教程工具 - JX3BOX",
+    //         entry: "src/pages/main.js",
+    //         template: "public/index.html",
+    //         filename: "index.html",
+    //     },
+    //     app: {
+    //         title: "教程工具 - JX3BOX",
+    //         entry: "src/pages/app.js",
+    //         template: "public/index.html",
+    //         filename: "app.html",
+    //     }
+    // },
 
     //❤️ Porxy ~
     devServer: {
