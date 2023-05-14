@@ -59,19 +59,20 @@
             </el-button>
         </div>
         <div class="u-detail" v-if="hasRight" v-show="showDetail">
-            <template v-for="(val, key) in data">
-                <span class="u-prop" :key="key" v-if="propsFilter(key)">
-                    <el-tooltip effect="dark" :content="key" placement="top">
-                        <em :class="{ isAdv: props_buff[key] && props_buff[key]['adv'] }">
-                            {{ (props_buff[key] && props_buff[key]["desc"]) || key }}
-                        </em>
-                    </el-tooltip>
-                    <el-tooltip v-if="attrDesc(val)" effect="dark" :content="attrDesc(val)" placement="top">
-                        <span>{{ val }}</span>
-                    </el-tooltip>
-                    <span v-else>{{ val }}</span>
-                </span>
-            </template>
+            <span class="u-prop" v-for="(item, index) in displayProps" :key="index">
+                <el-tooltip v-if="item.keyDesc" effect="dark" :content="item.key" placement="top">
+                    <em class="u-prop-key" :class="{ isAdv: item.isAdv }">
+                        {{ item.keyDesc }}
+                    </em>
+                </el-tooltip>
+                <em v-else class="u-prop-key">{{ item.key }}</em>
+
+                <el-tooltip v-if="item.valueDesc" effect="dark" placement="top">
+                    <div v-html="item.valueDesc" slot="content"></div>
+                    <span>{{ item.value }}</span>
+                </el-tooltip>
+                <span v-else>{{ item.value }}</span>
+            </span>
         </div>
     </div>
 </template>
@@ -94,6 +95,37 @@ export default {
             if (type && this.detach_types[type]) return this.detach_types[type];
             return null;
         },
+        displayProps: function () {
+            const result = [];
+            // buff属性
+            for (let i = 1; i <= 15; i++) {
+                if (this.data[`BeginAttrib${i}`] === null) continue;
+                const attrDesc = this.attrDesc(this.data[`BeginAttrib${i}`]);
+                let value = this.data[`BeginValue${i}A`];
+                if (this.data[`BeginValue${i}B`] !== null) value += ` | ${this.data[`BeginValue${i}B`]}`;
+                const attr = {
+                    key: `BeginAttrib${i}`,
+                    keyDesc: "Buff属性" + i,
+                    value: attrDesc + " | " + value,
+                    valueDesc: `BeginAttrib${i}: ${this.data[`BeginAttrib${i}`]} <br />
+                        BeginValue${i}A: ${this.data[`BeginValue${i}A`]} <br />
+                        BeginValue${i}B: ${this.data[`BeginValue${i}B`] ?? ""}`,
+                };
+                result.unshift(attr);
+            }
+            // 常规属性
+            for (const key in this.data) {
+                if (!this.propsFilter(key)) continue;
+                result.push({
+                    key,
+                    keyDesc: this.props_buff?.[key]?.desc || null,
+                    value: this.data[key],
+                    valueDesc: this.attrDesc(this.data[key]),
+                    isAdv: this.props_buff[key] && this.props_buff[key]["adv"],
+                });
+            }
+            return result;
+        },
     },
     methods: {
         propsFilter(key) {
@@ -101,6 +133,7 @@ export default {
             if (this.data[key] === null) return false;
             if (this.props_buff?.[key]?.basic) return false;
             if (this.props_buff?.[key]?.adv && !this.hasRight) return false;
+            if (["BeginValue", "BeginAttrib"].some((item) => key.startsWith(item))) return false;
             return true;
         },
         attrDesc(attr) {
