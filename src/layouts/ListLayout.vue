@@ -2,9 +2,9 @@
     <div>
         <Header></Header>
         <Breadcrumb
-            name="教程工具"
-            slug="tool"
-            root="/tool"
+            :name="appName"
+            :slug="appKey"
+            :root="`/${appKey}`"
             :publishEnable="false"
             :adminEnable="false"
             :feedbackEnable="true"
@@ -34,7 +34,16 @@ import Side from "@/components/list/list_side.vue";
 import PluginSide from "@/components/list/plugin_list_side.vue";
 export default {
     name: "App",
-    props: [],
+    props: {
+        appName: {
+            type: String,
+            default: "教程工具",
+        },
+        appKey: {
+            type: String,
+            default: "tool",
+        },
+    },
     data: function () {
         return {
         };

@@ -1,7 +1,9 @@
 <template>
     <li class="u-item">
         <!-- Banner -->
-        <a class="u-banner" :href="item.ID | postLink" :target="target"><img :src="getBanner(item.post_banner, item.post_subtype)" :key="item.ID"/></a>
+        <a class="u-banner" :href="postLink(item.ID)" :target="target"
+            ><img :src="getBanner(item.post_banner, item.post_subtype)" :key="item.ID"
+        /></a>
 
         <!-- 标题 -->
         <h2 class="u-post" :class="{ isSticky: item.sticky }">
@@ -9,11 +11,13 @@
             <img class="u-icon" svg-inline src="../../assets/img/list/post.svg" />
 
             <!-- 标题文字 -->
-            <a class="u-title" :style="item.color | showHighlight" :href="item.ID | postLink" :target="target">{{ item.post_title || "无标题" }}</a>
+            <a class="u-title" :style="showHighlight(item.color)" :href="postLink(item.ID)" :target="target">{{
+                item.post_title || "无标题"
+            }}</a>
 
             <!-- 角标 -->
             <span class="u-marks" v-if="item.mark && item.mark.length">
-                <i v-for="mark in item.mark" class="u-mark" :key="mark">{{ mark | showMark }}</i>
+                <i v-for="mark in item.mark" class="u-mark" :key="mark">{{ showMark(mark) }}</i>
             </span>
         </h2>
 
@@ -24,66 +28,64 @@
 
         <!-- 作者 -->
         <div class="u-misc">
-            <img class="u-author-avatar" :src="item.author_info | showAvatar" :alt="item.author_info | showNickname" />
-            <a class="u-author-name" :href="item.post_author | authorLink" target="_blank">{{ item.author_info | showNickname }}</a>
+            <img class="u-author-avatar" :src="showAvatar(item.author_info)" :alt="showNickname(item.author_info)" />
+            <a class="u-author-name" :href="authorLink(item.post_author)" target="_blank">{{
+                showNickname(item.author_info)
+            }}</a>
             <span class="u-date">
                 Updated on
-                <time v-if="order == 'update'">{{ item.post_modified | dateFormat }}</time>
-                <time v-else>{{ item.post_date | dateFormat }}</time>
+                <time v-if="order == 'update'">{{ dateFormat(item.post_modified) }}</time>
+                <time v-else>{{ dateFormat(item.post_date) }}</time>
             </span>
         </div>
     </li>
 </template>
 
 <script>
-import { appKey } from "@/../setting.json";
 import { showAvatar, authorLink, showBanner, buildTarget } from "@jx3box/jx3box-common/js/utils";
 import { __ossMirror, __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import { cms as mark_map } from "@jx3box/jx3box-common/data/mark.json";
-import {showDate} from '@jx3box/jx3box-common/js/moment.js'
+import { showDate } from "@jx3box/jx3box-common/js/moment.js";
 export default {
     name: "ListItem",
-    props: ['item','order'],
+    props: ["item", "order", "type"],
     components: {},
-    data: function() {
+    data: function () {
         return {
-            target : buildTarget(),
+            target: buildTarget(),
         };
     },
-    computed: {
-    },
+    computed: {},
     watch: {},
     methods: {
-        getBanner: function(val, subtype) {
+        getBanner: function (val, subtype) {
             if (val) {
                 return showBanner(val);
             } else {
-                return __imgPath + `image/banner/${appKey}` + subtype + ".png";
+                return __imgPath + `image/banner/${this.type}` + subtype + ".png";
             }
         },
-    },
-    filters: {
         authorLink,
-        postLink: function(val) {
-            return location.origin + `/${appKey}/` + val;
+        postLink: function (val) {
+            return location.origin + `/${this.type}/` + val;
         },
-        showHighlight: function(val) {
+        showHighlight: function (val) {
             return val ? `color:${val};font-weight:600;` : "";
         },
-        showMark: function(val) {
+        showMark: function (val) {
             return mark_map[val] || val;
         },
-        showAvatar: function(userinfo) {
+        showAvatar: function (userinfo) {
             return showAvatar(userinfo?.user_avatar);
         },
-        showNickname : function (userinfo){
-            return userinfo?.display_name || '匿名'
+        showNickname: function (userinfo) {
+            return userinfo?.display_name || "匿名";
         },
-        dateFormat : function (gmt){
-            return showDate(new Date(gmt))
-        }
+        dateFormat: function (gmt) {
+            return showDate(new Date(gmt));
+        },
     },
-    created: function() {},
-    mounted: function() {},
+    created: function () {},
+    mounted: function () {},
 };
 </script>

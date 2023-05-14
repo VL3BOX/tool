@@ -32,7 +32,7 @@
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
                 <ul class="u-list">
-                    <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" />
+                    <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" type="tool" />
                 </ul>
             </div>
 
@@ -258,8 +258,4 @@ export default {
 <style lang="less">
 @import "~@/assets/css/list.less";
 @import "~@/assets/css/index.less";
-
-.m-archive-box {
-    padding:20px 25px;
-}
 </style>

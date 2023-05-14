@@ -30,14 +30,15 @@ import { getPost } from "../../service/post.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import types from "@/assets/data/tool_types.json";
 import { appKey } from "../../../setting.json";
+import { getAppIcon, getAppID } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "single",
-    props: ["id"],
     data: function() {
         return {
             loading: false,
             post: {},
             stat: {},
+            id: getAppID(),
         };
     },
     computed: {

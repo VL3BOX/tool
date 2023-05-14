@@ -1,8 +1,8 @@
 <template>
-    <ListLayout>
-        <el-tabs class="m-fb-tabs" v-model="view">
+    <ListLayout app-key="jx3dat" app-name="数据下载">
+        <!-- <el-tabs class="m-fb-tabs" v-model="view">
 
-        </el-tabs>
+        </el-tabs> -->
         <div class="m-archive-box" v-loading="loading">
             <div class="m-plugins-header">
                 <h1 class="m-plugins-title"><i :class="subtype | showIcon"></i>
@@ -39,7 +39,7 @@
             <!-- 列表 -->
             <div class="m-archive-list" v-if="data && data.length">
                 <ul class="u-list">
-                    <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" />
+                    <list-item v-for="(item, i) in data" :key="i + item" :item="item" :order="order" type="jx3dat" />
                 </ul>
             </div>
 
@@ -72,7 +72,6 @@
     </ListLayout>
 </template>
 <script>
-import { appKey } from "@/../setting.json";
 import listItem from "@/components/list/list_item.vue";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts } from "@/service/post";
@@ -104,7 +103,7 @@ export default {
     computed: {
         // 发布按钮链接
         publish_link: function () {
-            return publishLink(appKey);
+            return publishLink('jx3dat');
         },
         // 是否显示加载更多
         hasNextPage: function () {

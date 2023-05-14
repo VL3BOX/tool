@@ -15,7 +15,7 @@
             <Nav :id="id" class="m-nav" />
         </LeftSidebar>
         <Main :withoutRight="false">
-            <router-view />
+            <slot></slot>
             <RightSidebar>
                 <Side :id="id" class="m-extend" />
             </RightSidebar>

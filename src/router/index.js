@@ -18,6 +18,11 @@ const routes = [
             type: 'tool'
         }
     },
+    {
+        name: "tool_single",
+        path: "/tool/:id",
+        component: () => import("@/views/Single.vue"),
+    },
     // jx3dat
     {
         name: "jx3dat",
@@ -26,6 +31,11 @@ const routes = [
         meta: {
             type: 'jx3dat'
         }
+    },
+    {
+        name: "jx3dat_single",
+        path: "/jx3dat/:id",
+        component: () => import("@/views/Single.vue"),
     },
     // app
     {

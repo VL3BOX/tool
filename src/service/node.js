@@ -1,9 +1,9 @@
 import { $node, axios } from "@jx3box/jx3box-common/js/https";
 
-// const $ = $node();
-const $ = axios.create({
-    baseURL: "http://localhost:7002",
-});
+const $ = $node();
+// const $ = axios.create({
+//     baseURL: "http://localhost:7002",
+// });
 
 export const getStat = async (client) => $.get(`/`, { params: { client } });
 

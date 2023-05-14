@@ -5,7 +5,7 @@
  * @Description:
 -->
 <template>
-    <router-view class="m-main" />
+    <router-view />
 </template>
 
 <script>
