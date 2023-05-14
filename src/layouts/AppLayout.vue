@@ -9,9 +9,8 @@
         </Breadcrumb>
         <LeftSidebar>
             <slot name="left"></slot>
-            <!-- <Nav class="m-nav" /> -->
         </LeftSidebar>
-        <Main :class="className">
+        <Main :class="className" :withoutRight="!hasRight">
             <slot></slot>
             <RightSidebar>
                 <slot name="right"></slot>
@@ -45,17 +44,25 @@ export default {
             type: String,
             default: "",
         },
+        name: {
+            type: String,
+            default: "",
+        },
+        hasRight: {
+            type: Boolean,
+            default: true,
+        },
     },
     computed: {
         root() {
-            return `/pvp/${this.slug}`;
+            return `/app/${this.slug}`;
         },
         logo() {
             const key = this.icon || this.slug;
             return JX3BOX.__imgPath + "image/box/" + key + ".svg";
         },
         title() {
-            return app[this.slug]?.title || "";
+            return app[this.slug]?.title || this.name;
         },
     },
 };

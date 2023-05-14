@@ -43,6 +43,31 @@ const routes = [
         path: "/app/database",
         component: () => import("@/views/Database.vue"),
     },
+    {
+        name: "design",
+        path: "/app/design",
+        component: () => import("@/views/Design.vue"),
+        redirect: {
+            name: "emotion",
+        },
+        children: [
+            {
+                name: "emotion",
+                path: "/app/design/emotion",
+                component: () => import("@/components/design/emotion.vue"),
+            },
+            {
+                name: "icon",
+                path: "/app/design/icon",
+                component: () => import("@/components/design/icons.vue"),
+            },
+            {
+                name: "wallpaper",
+                path: "/app/design/wallpaper",
+                component: () => import("@/components/design/wallpaper.vue"),
+            },
+        ]
+    }
 ];
 
 const router = new VueRouter({

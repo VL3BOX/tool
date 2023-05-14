@@ -23,11 +23,17 @@ let store = {
             skill: [],
         },
         isLogin: User.isLogin(),
+
+        // icons
+        favList: [],
     },
     mutations: {
         switchClient: function(state, val) {
             state.client = val || "std";
         },
+        storeFav(state, list) {
+			state.favList = list;
+		},
     },
     getters: {},
     actions: {},
