@@ -1,24 +1,20 @@
 <template>
     <div>
         <Header></Header>
-        <Breadcrumb
-            name="教程工具"
-            slug="tool"
-            root="/tool"
-            :publishEnable="true"
-            :adminEnable="false"
-            :feedbackEnable="true"
-            :crumbEnable="true"
-        >
+        <Breadcrumb :name="title" :slug="slug" :root="root" :feedbackEnable="true" :crumbEnable="false">
+            <template #logo>
+                <img svg-inline :src="logo" />
+            </template>
             <Info />
         </Breadcrumb>
         <LeftSidebar>
-            <Nav class="m-nav" />
+            <slot name="left"></slot>
+            <!-- <Nav class="m-nav" /> -->
         </LeftSidebar>
-        <Main :withoutRight="false">
+        <Main :class="className">
             <slot></slot>
             <RightSidebar>
-                <Side class="m-extend" />
+                <slot name="right"></slot>
             </RightSidebar>
             <Footer></Footer>
         </Main>
@@ -27,32 +23,44 @@
 
 <script>
 import Info from "@/components/list/Info.vue";
-import Nav from "@/components/list/list_nav.vue";
-import Side from "@/components/list/list_side.vue";
+
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+import app from "@/assets/data/app.json";
+
 export default {
-    name: "App",
-    props: {
-        appName: {
-            type: String,
-            default: "教程工具",
-        },
-        appKey: {
-            type: String,
-            default: "tool",
-        },
-    },
-    data: function () {
-        return {};
-    },
-    methods: {},
+    name: "AppLayout",
     components: {
         Info,
-        Nav,
-        Side,
+    },
+    props: {
+        slug: {
+            type: String,
+            default: "",
+        },
+        icon: {
+            type: String,
+            default: "",
+        },
+        className: {
+            type: String,
+            default: "",
+        },
+    },
+    computed: {
+        root() {
+            return `/pvp/${this.slug}`;
+        },
+        logo() {
+            const key = this.icon || this.slug;
+            return JX3BOX.__imgPath + "image/box/" + key + ".svg";
+        },
+        title() {
+            return app[this.slug]?.title || "";
+        },
     },
 };
 </script>
 
 <style lang="less">
-@import "~@/assets/css/list.less";
+@import "~@/assets/css/layouts/app.less";
 </style>
