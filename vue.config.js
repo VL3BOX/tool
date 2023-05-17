@@ -133,14 +133,14 @@ module.exports = {
     chainWebpack: (config) => {
         //💘 html-webpack-plugin ~
         // Multiple pages disable the block below
-        // config.plugin("html").tap(args => {
-        //     args[0].meta = {                            //------设置SEO信息
-        //         Keywords: Setting.keys,
-        //         Description: Setting.desc
-        //     };
-        //     args[0].title = Setting.title + SEO.title;  //------自动添加标题后缀
-        //     return args;
-        // });
+        config.plugin("html").tap(args => {
+            args[0].meta = {                            //------设置SEO信息
+                Keywords: Setting.keys,
+                Description: Setting.desc
+            };
+            args[0].title = Setting.title + SEO.title;  //------自动添加标题后缀
+            return args;
+        });
 
         //💝 in-line small imgs ~
         config.module

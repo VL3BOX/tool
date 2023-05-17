@@ -12,7 +12,7 @@
                 v-for="(item, i) in menu"
                 :to="{ name: item.routeName, query: { subtype: item.slug } }"
                 :key="i"
-                :class="{ on: isActive(item, item.type) }"
+                :class="{ on: isActive(item, item.routeName) }"
                 class="u-item"
             >
                 <img :src="getIcon(item.icon)" />

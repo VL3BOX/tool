@@ -28,7 +28,7 @@ export default {
 
     },
     mounted() {
-
+        document.title = "设计资源 - JX3BOX";
     },
 };
 </script>

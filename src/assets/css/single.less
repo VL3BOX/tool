@@ -1,3 +1,77 @@
 .m-single-notice {
     .mb(20px);
 }
+
+.m-single-meta{
+    // margin:20px;
+    margin:10px 0 40px 0;
+    border:1px solid @primary;
+    .r(4px);
+    padding:20px;
+    background-color:#faffff;
+
+    .u-data{
+        .fz(13px,24px);
+        .pr;
+        .mb(10px);
+        .clearfix;
+    }
+
+    .u-feed{
+        .y;
+        .mr(10px);
+        .pointer;
+        .dbi;
+        .h(24px);
+    }
+
+    .u-down{
+        .pa;
+        .rt(0);
+    }
+
+    .u-typename{
+        .fz(14px,32px);
+    }
+
+
+    .u-subtype-other{
+        .clearfix;
+    }
+
+    .u-excerpt{
+        .fl;
+    }
+
+    .u-download{
+        .fr;
+        .u-short{
+            .none;
+        }
+    }
+
+    .u-gitee{
+        fill:#fff;
+    }
+}
+
+@media screen and (max-width:@phone){
+    .m-single-meta{
+        .u-data{
+            .u-desc,.u-down{.none;}
+
+            .u-feed{
+                .db;
+            }
+        }
+        .u-data-add{
+            .u-feed {
+                .mb(10px);
+            }
+        }
+        .u-download{
+            .u-long{.none;}
+            .u-short{.di;}
+        }
+    }
+}
