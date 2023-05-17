@@ -9,20 +9,16 @@
         <minirank />
         <!-- 其他链接 -->
         <div class="m-jx3dat-links m-side-links">
-            <h3 class="c-sidebar-right-title" style="border-bottom:none;">
-                <img class="u-icon" svg-inline src="../../assets/img/puzzle.svg" />
-                帮助文档
+            <h3 class="m-side-title" style="border-bottom: none;">
+                <div class="u-title">
+                    <img class="u-icon" svg-inline src="@/assets/img/side/docs.svg" />
+                    帮助文档
+                </div>
             </h3>
             <el-collapse class="u-groups" v-model="activeDocGroup">
                 <el-collapse-item title="入门帮助" name="newbie">
                     <div class="u-docs">
-                        <a
-                            v-for="(item, i) in jx3dat_newbie"
-                            :key="i"
-                            class="u-doc"
-                            :href="item.link"
-                            target="_blank"
-                        >
+                        <a v-for="(item, i) in jx3dat_newbie" :key="i" class="u-doc" :href="item.link" target="_blank">
                             <i class="el-icon-collection"></i>
                             {{ item.label }}
                         </a>
@@ -30,13 +26,7 @@
                 </el-collapse-item>
                 <el-collapse-item title="发布指南" name="senior">
                     <div class="u-docs">
-                        <a
-                            v-for="(item, i) in jx3dat_senior"
-                            :key="i"
-                            class="u-doc"
-                            :href="item.link"
-                            target="_blank"
-                        >
+                        <a v-for="(item, i) in jx3dat_senior" :key="i" class="u-doc" :href="item.link" target="_blank">
                             <i class="el-icon-collection"></i>
                             {{ item.label }}
                         </a>
@@ -56,7 +46,7 @@ export default {
     props: [],
     data: function () {
         return {
-            activeDocGroup: ["newbie", "senior"],
+            activeDocGroup: [],
             jx3dat_newbie: [],
             jx3dat_senior: [],
         };
@@ -78,55 +68,64 @@ export default {
 </script>
 
 <style lang="less">
-.m-side-links {
-    padding: 15px;
 
-    .u-icon {
-        .size(18px);
-        .y(-3px);
-        margin-left: 4px;
-        margin-right: 5px;
-    }
-
+.m-side-title{
+    margin:20px 0 10px 0;
 }
 
 .m-side-links {
-    .u-groups{
-        padding:0 5px;
+
+    .u-title{
+        .flex;
+        align-items: center;
+        gap:10px;
+        .fz(18px);
+    }
+
+    .u-icon {
+        .size(20px);
+    }
+
+    .u-groups {
+        padding: 0 5px;
     }
     .u-doc {
-        .db;
+        .nobreak;
+        .flex;
+        align-items: center;
         .fz(12px, 34px);
-        border-bottom: 1px solid #eee;
+        // border-bottom: 1px solid #eee;
         i {
             .fz(16px);
-            .y(-2px);
-            color:#666;
+            color: #666;
+            .mr(5px);
         }
         &:last-child {
             border-bottom: none;
         }
-        &:hover{
+        &:hover {
             .bold;
+            color: @pink;
         }
     }
 }
 
-@media screen and (max-width:@phone){
-    .m-jx3dat-links{
+@media screen and (max-width: @phone) {
+    .m-side-rank,
+    .m-side-links {
         .none;
     }
 }
 
-.c-sidebar-right-list{
-    .u-item{
-        i{
+.c-sidebar-right-list {
+    .u-item {
+        i {
             .mr(5px);
         }
     }
 }
 
-.c-sidebar-right-title{
+.c-sidebar-right-title {
     font-weight: bold;
 }
 </style>
