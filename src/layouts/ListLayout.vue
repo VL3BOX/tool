@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-layout p-layout--list">
         <Header></Header>
         <Breadcrumb
             :name="appName"

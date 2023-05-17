@@ -40,6 +40,11 @@ const routes = [
     // app
     {
         name: "database",
+        path: "/app",
+        component: () => import("@/views/App.vue"),
+    },
+    {
+        name: "database",
         path: "/app/database",
         component: () => import("@/views/Database.vue"),
     },

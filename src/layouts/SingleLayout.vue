@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-layout p-layout--single">
         <Header></Header>
         <Breadcrumb
             name="教程工具"

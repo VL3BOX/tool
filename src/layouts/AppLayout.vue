@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-layout p-layout--app">
         <Header></Header>
         <Breadcrumb :name="title" :slug="slug" :root="root" :feedbackEnable="true" :crumbEnable="false">
             <template #logo>
@@ -69,5 +69,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/layouts/app.less";
+@import "~@/assets/css/app.less";
 </style>
