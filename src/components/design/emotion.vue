@@ -1,5 +1,6 @@
 <template>
     <div class="m-emotion">
+        <h1 class="m-icons-title">剑三表情包</h1>
         <div class="m-emotion-nav">
             <div
                 class="u-btn"

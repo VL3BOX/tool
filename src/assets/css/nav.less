@@ -87,14 +87,19 @@
 
         cursor: pointer;
         height: 32px;
-        border-top: 1px solid transparent;
-        border-bottom: 1px solid transparent;
+        .flex;
+        align-items: center;
+
+        &.router-link-exact-active,&.on{
+            background-color: #fff;
+            color: @darkblue;
+            font-weight: 700;
+        }
     }
 
     .u-icon {
         .mr(8px);
         .fz(16px);
-        .y(-1px);
     }
 }
 

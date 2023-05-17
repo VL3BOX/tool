@@ -55,7 +55,7 @@ const routes = [
         path: "/app/design",
         component: () => import("@/views/Design.vue"),
         redirect: {
-            name: "emotion",
+            name: "icon",
         },
         children: [
             {
@@ -67,6 +67,11 @@ const routes = [
                 name: "icon",
                 path: "/app/design/icon",
                 component: () => import("@/components/design/icons.vue"),
+            },
+            {
+                name: "icon",
+                path: "/app/design/vector",
+                component: () => import("@/components/design/vector.vue"),
             },
             {
                 name: "wallpaper",

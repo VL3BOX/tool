@@ -14,7 +14,7 @@
                                 :key="size"
                                 target="_blank"
                                 title="点击查看原图"
-                            >{{ size }}</a>
+                            >{{ format(size) }}</a>
                         </div>
                     </figure>
                 </div>
@@ -61,35 +61,13 @@ export default {
                 };
             });
         },
+        format(size){
+            return size?.replace('x', '×')
+        }
     },
 };
 </script>
 
 <style lang="less">
-.m-wallpaper {
-    .m-wallpaper-box {
-        .flex;
-        flex-wrap: wrap;
-        gap: 0px;
-    }
-
-    .m-wallpaper-item {
-        .u-img-name {
-            .x;
-        }
-
-        .u-sizes {
-            max-width: 360px;
-            .flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 4px;
-        }
-
-        .u-size-item {
-            font-size: 12px;
-            padding: 2px 4px;
-        }
-    }
-}
+@import '~@/assets/css/design/wallpaper.less';
 </style>

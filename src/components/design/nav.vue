@@ -8,7 +8,7 @@
                 :class="{ on: isActive(item) }"
                 class="u-item"
             >
-                <!-- <img :src="getIcon(item.icon)" /> -->
+                <i :class="item.icon"></i>
                 <span class="u-text">{{ item.name }}</span>
             </router-link>
         </div>
@@ -24,27 +24,23 @@ export default {
         return {
             menu: [
                 {
-                    icon: "el-icon-setting",
-                    name: "表情包",
-                    desc: "剑三表情包",
+                    icon: "el-icon-grape",
+                    name: "剑三图标库",
+                    routeName: "icon"
+                },
+                {
+                    icon: "el-icon-orange",
+                    name: "剑三表情包",
                     routeName: "emotion"
                 },
                 {
-                    icon: "el-icon-setting",
-                    name: "矢量图标库",
-                    desc: "图标库",
-                    routeName: "icon"
+                    icon: "el-icon-cherry",
+                    name: "魔盒矢量库",
+                    routeName: "vector"
                 },
-                // {
-                //     icon: "el-icon-setting",
-                //     name: "魔盒图标字体库",
-                //     desc: "字体库",
-                //     routeName: "emotion"
-                // },
                 {
-                    icon: "el-icon-setting",
+                    icon: "el-icon-watermelon",
                     name: "魔盒壁纸库",
-                    desc: "壁纸库",
                     routeName: "wallpaper"
                 },
             ],
