@@ -1,10 +1,7 @@
 <template>
     <div class="p-layout p-layout--app">
         <Header></Header>
-        <Breadcrumb :name="title" :slug="slug" :root="root" :feedbackEnable="true" :crumbEnable="false">
-            <template #logo>
-                <img svg-inline :src="logo" />
-            </template>
+        <Breadcrumb :name="title" slug="jx3dat" :root="root" :feedbackEnable="true" :crumbEnable="false">
             <Info />
         </Breadcrumb>
         <LeftSidebar>
