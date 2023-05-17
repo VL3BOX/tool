@@ -1,18 +1,21 @@
-.p-app-index .u-app-index {
-    padding: 2px;
-    box-sizing: border-box;
+.p-app-index {
+    padding-top: @header-height + @bread-height;
+    .u-app-index {
+        padding: 2px;
+        box-sizing: border-box;
+    }
 }
 
-.m-app-index{
-    max-width:1280px;
+.m-app-index {
+    max-width: 1280px;
     .auto(x);
-    padding:40px 20px;
+    padding: 40px 20px;
 }
 
-.m-app-index-title{
+.m-app-index-title {
     .x;
-    font-weight:300;
-    margin:0;
+    font-weight: 300;
+    margin: 0;
     .fz(22px);
 }
 
@@ -23,8 +26,8 @@
         .w(100%);
     }
 
-    .el-col-6{
-        .h(110px);  //保留空占位
+    .el-col-6 {
+        .h(110px); //保留空占位
     }
     a {
         border: 1px solid #eee;
@@ -34,21 +37,21 @@
         .db;
         .mb(20px);
 
-        &:hover{
-            border-color:@color-link;
-            background-color:#f7fbff;
+        &:hover {
+            border-color: @color-link;
+            background-color: #f7fbff;
         }
         .pr;
         .clearfix;
         display: flex;
 
-        &.disabled{
+        &.disabled {
             .tm(0.5);
             cursor: default;
         }
     }
 
-    .u-pic{
+    .u-pic {
         // .fl;
         .x;
         .mr(10px);
@@ -57,7 +60,8 @@
     .u-icon {
         .db;
         // .mb(10px);
-        svg,img {
+        svg,
+        img {
             .db;
             .auto(x);
             .size(48px);
@@ -71,7 +75,7 @@
         display: block;
         // text-align: center;
         .nobreak;
-        color:@color;
+        color: @color;
         // .mr(20px);
         // .w(120px);
     }
@@ -86,25 +90,26 @@
         .nobreak;
     }
 
-    .u-blank{
-        .pa;.rt(10px);
+    .u-blank {
+        .pa;
+        .rt(10px);
     }
 }
-@media screen and (max-width:@ipad-y){
-    .m-app-index{
-        .el-col{
+@media screen and (max-width: @ipad-y) {
+    .m-app-index {
+        .el-col {
             .w(50%);
         }
     }
 }
-@media screen and (max-width:@phone){
-    .m-app-index{
+@media screen and (max-width: @phone) {
+    .m-app-index {
         .pt(10px);
-        .el-col{
+        .el-col {
             .w(100%);
         }
     }
-    .m-app-index-title{
+    .m-app-index-title {
         .none;
     }
 }

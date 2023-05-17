@@ -257,5 +257,4 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/list.less";
-@import "~@/assets/css/index.less";
 </style>

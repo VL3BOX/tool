@@ -12,7 +12,7 @@
                 <el-row :gutter="20">
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="./database/" target="_blank">
+                            <a href="/app/database/" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('database')" />
@@ -27,7 +27,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="./icons" target="_blank">
+                            <a href="/app/design" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('icons')" />
@@ -132,21 +132,6 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/calendar" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('calendar')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">剑三日历</span>
-                                    <span class="u-desc">剑三编年史</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="u-item">
                             <a href="/topic" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
@@ -198,7 +183,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="./macroeditor" target="_blank">
+                            <a href="/macro/macroeditor" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('macroeditor')" />
@@ -213,7 +198,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="./talent" target="_blank">
+                            <a href="/macro/talent" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('talent')" />
@@ -228,7 +213,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="./talent2" target="_blank">
+                            <a href="/macro/talent2" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('talent2')" />
@@ -258,7 +243,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/bps/#/raw" target="_blank">
+                            <a href="/bps/raw" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('bps-raw')" />
@@ -273,7 +258,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/bps/#/recipe" target="_blank">
+                            <a href="/bps/recipe" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('bps-recipe')" />
@@ -288,7 +273,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/bps/#/collection" target="_blank">
+                            <a href="/bps/kungfu" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('bps-collection')" />
@@ -333,7 +318,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/bps/#/haste" target="_blank">
+                            <a href="/bps/haste" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('haste')" />
@@ -348,7 +333,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/bps/#/dps" target="_blank">
+                            <a href="/bps/dps" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('dps')" />
@@ -378,22 +363,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/exam" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('exam')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">剑三考试</span>
-                                    <span class="u-desc">趣味题目/试卷</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="u-item">
-                            <a href="./meridians" target="_blank">
+                            <a href="/macro/meridians" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('meridians')" />
@@ -406,7 +376,7 @@
                             </a>
                         </div>
                     </el-col>
-                    <el-col :span="6">
+                    <!-- <el-col :span="6">
                         <div class="u-item">
                             <a href="./translator" target="_blank">
                                 <span class="u-pic">
@@ -420,7 +390,7 @@
                                 </span>
                             </a>
                         </div>
-                    </el-col>
+                    </el-col> -->
                 </el-row>
             </div>
 
@@ -474,7 +444,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/dbm" target="_blank" class="disabled">
+                            <a href="/dbm" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('dbm')" />
@@ -489,7 +459,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/npc" target="_blank">
+                            <a href="/fb/npc" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-boss')" />
@@ -504,7 +474,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/skill" target="_blank">
+                            <a href="/fb/skill" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-skill')" />
@@ -519,7 +489,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/attr" target="_blank">
+                            <a href="/fb/attr" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-attr')" />
@@ -534,7 +504,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/drop" target="_blank">
+                            <a href="/fb/drop" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-drop')" />
@@ -549,7 +519,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/gem" target="_blank">
+                            <a href="/fb/gem" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-gem')" />
@@ -564,7 +534,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/story" target="_blank">
+                            <a href="/fb/story" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-story')" />
@@ -577,9 +547,9 @@
                             </a>
                         </div>
                     </el-col>
-                    <el-col :span="6">
+                    <!-- <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/map" target="_blank">
+                            <a href="/fb/map" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('fb-map')" />
@@ -591,7 +561,7 @@
                                 </span>
                             </a>
                         </div>
-                    </el-col>
+                    </el-col> -->
                     <el-col :span="6">
                         <div class="u-item">
                             <a href="/battle" target="_blank">
@@ -624,10 +594,10 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/#/baizhan" target="_blank">
+                            <a href="/fb/baizhan" target="_blank" class="disabled">
                                 <span class="u-pic">
                                     <i class="u-icon">
-                                        <img svg-inline :src="getIcon('baizhan')" />
+                                        <img svg-inline :src="getIcon('bhhj')" />
                                     </i>
                                 </span>
                                 <span class="u-features">
@@ -704,6 +674,21 @@
                         </div>
                     </el-col>
 
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvx/exam" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('exam')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">剑三考试</span>
+                                    <span class="u-desc">趣味题目/试卷</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
                     <el-col :span="6">
                         <div class="u-item">
                             <a href="https://j3cx.com/exam/" target="_blank">
@@ -918,6 +903,21 @@
                             </a>
                         </div>
                     </el-col>
+                    <!-- <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/calendar" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('calendar')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">剑三日历</span>
+                                    <span class="u-desc">剑三编年史</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col> -->
 
                     <el-col :span="6">
                         <div class="u-item">
@@ -936,22 +936,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/item/#/plan_list" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('item_plan')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">物品清单</span>
-                                    <span class="u-desc">自定义清单物品清单</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="u-item">
-                            <a href="./servers2" target="_blank">
+                            <a href="/pvg/gonggao/server" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('servers')" />
@@ -967,15 +952,15 @@
 
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="./price" target="_blank">
+                            <a href="/pvg/price" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('price')" />
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">全服金价</span>
-                                    <span class="u-desc">全服金价走势</span>
+                                    <span class="u-name">价格走势</span>
+                                    <span class="u-desc">全服金价物价</span>
                                 </span>
                             </a>
                         </div>
@@ -1016,6 +1001,21 @@
             <div class="m-app-index-block">
                 <el-divider content-position="left"><i class="el-icon-box"></i> PVP·竞技</el-divider>
                 <el-row :gutter="20">
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvp" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('pvp')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">武学研习</span>
+                                    <span class="u-desc">竞技全攻略</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
                     <el-col :span="6">
                         <div class="u-item">
                             <a href="/pvp/sandbox" target="_blank">
@@ -1073,5 +1073,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/index.less";
+@import "~@/assets/css/app/index.less";
 </style>
