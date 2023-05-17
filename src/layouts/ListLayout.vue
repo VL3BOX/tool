@@ -52,7 +52,7 @@ export default {
         metaType() {
             return {
                 tool: 'Side',
-                plugins: 'PluginSide',
+                jx3dat: 'PluginSide',
             }[this.$route.meta.type];
         }
     },

@@ -37,7 +37,7 @@ const routes = [
     {
         name: "jx3dat_single",
         path: "/jx3dat/:id",
-        component: () => import("@/views/Single.vue"),
+        component: () => import("@/views/Jx3DatSingle.vue"),
     },
     // app
     {

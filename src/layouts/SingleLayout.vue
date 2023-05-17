@@ -16,7 +16,7 @@
         </LeftSidebar>
         <Main :withoutRight="false">
             <slot></slot>
-            <RightSidebar>
+            <RightSidebar :show-toggle="true">
                 <Side :id="id" class="m-extend" />
             </RightSidebar>
             <Footer></Footer>

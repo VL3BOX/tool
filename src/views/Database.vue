@@ -225,6 +225,8 @@ export default {
     mounted() {
         this.initPermission();
         this.initQuery();
+
+        document.title = "剑三数据库 - JX3BOX"
     },
 };
 </script>
