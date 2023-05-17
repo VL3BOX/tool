@@ -3,7 +3,7 @@
         <div class="w-card-title">筛选条件</div>
         <div class="m-filters">
             <div class="u-client">
-                <el-radio-group v-model="clientModel" size="medium">
+                <el-radio-group v-model="clientModel" size="small">
                     <el-radio-button label="std">重制</el-radio-button>
                     <el-radio-button label="origin">缘起</el-radio-button>
                 </el-radio-group>
@@ -29,7 +29,7 @@
                         :active-value="1"
                     ></el-switch>
                 </div>
-                <el-button type="primary">搜索</el-button>
+                <el-button class="u-btn" type="primary" size="small">搜索</el-button>
             </div>
         </div>
     </div>
@@ -89,6 +89,9 @@ export default {
         .mb(6px);
         .bold;
         color: #999;
+    }
+    .u-btn{
+        .w(80px);
     }
 }
 </style>

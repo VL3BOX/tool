@@ -183,7 +183,7 @@ export default {
             this.search();
         }, 1000),
         initPermission() {
-            getIsSuperAuthor(User.getInfo().uid).then((res) => {
+            User.isLogin() && getIsSuperAuthor(User.getInfo().uid).then((res) => {
                 this.hasRight = this.isSuperAuthor = res.data?.data;
             });
         },
