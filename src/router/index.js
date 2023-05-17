@@ -8,6 +8,8 @@ VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch((err) => err);
 };
 
+import {compatibilityRoute} from "@/utils/compatibility.js";
+
 const routes = [
     // tool
     {
@@ -39,7 +41,7 @@ const routes = [
     },
     // app
     {
-        name: "database",
+        name: "app",
         path: "/app",
         component: () => import("@/views/App.vue"),
     },
@@ -78,6 +80,18 @@ const routes = [
 const router = new VueRouter({
     routes,
     mode: "history",
+});
+
+router.beforeEach((to, from, next) => {
+    const path = compatibilityRoute(to.path);
+
+    if (path !== to.path) {
+        console.log('compatibilityRoute', path)
+        location.replace(path);
+    } else {
+        console.log('next', path , to.path)
+        next();
+    }
 });
 
 export default router;
