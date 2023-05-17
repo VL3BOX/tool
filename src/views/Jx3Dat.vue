@@ -5,7 +5,8 @@
         </el-tabs> -->
         <div class="m-archive-box" v-loading="loading">
             <div class="m-plugins-header">
-                <h1 class="m-plugins-title"><i :class="subtype | showIcon"></i>
+                <h1 class="m-plugins-title">
+                    <i :class="subtype | showIcon"></i>
                     <!-- {{ subtype | showLabel }} -->
                     插件数据
                 </h1>
@@ -21,8 +22,8 @@
                     @clear="onSearch"
                     @keydown.native.enter="onSearch"
                 >
-                    <span slot="prepend">关键词</span>
-                    <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
+                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                    <el-button slot="append" icon="el-icon-position" class="u-btn" @click="onSearch"></el-button>
                 </el-input>
             </div>
 
@@ -97,13 +98,13 @@ export default {
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
 
-            view: ""
+            view: "",
         };
     },
     computed: {
         // 发布按钮链接
         publish_link: function () {
-            return publishLink('jx3dat');
+            return publishLink("jx3dat");
         },
         // 是否显示加载更多
         hasNextPage: function () {
@@ -173,7 +174,7 @@ export default {
             let query = this.buildQuery(appendMode);
             console.log("[cms-list]", "<loading data>", query);
 
-            query.type = "jx3dat"
+            query.type = "jx3dat";
 
             this.loading = true;
             return getPosts(query)

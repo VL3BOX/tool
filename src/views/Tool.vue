@@ -11,8 +11,8 @@
                     @clear="onSearch"
                     @keydown.native.enter="onSearch"
                 >
-                    <span slot="prepend">关键词</span>
-                    <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
+                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                    <el-button slot="append" icon="el-icon-position" class="u-btn" @click="onSearch"></el-button>
                 </el-input>
             </div>
 
@@ -165,7 +165,7 @@ export default {
             let query = this.buildQuery(appendMode);
             console.log("[cms-list]", "<loading data>", query);
 
-            query.type = 'tool'
+            query.type = "tool";
 
             this.loading = true;
             return getPosts(query)

@@ -3,7 +3,7 @@
         <Header></Header>
         <Breadcrumb
             name="教程工具"
-            slug="tool"
+            slug="jx3dat"
             root="/tool"
             :publishEnable="false"
             :adminEnable="false"
