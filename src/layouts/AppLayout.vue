@@ -1,7 +1,7 @@
 <template>
     <div class="p-layout p-layout--app">
         <Header></Header>
-        <Breadcrumb :name="title" slug="jx3dat" :root="root" :feedbackEnable="true" :crumbEnable="false">
+        <Breadcrumb :name="title" icon="jx3dat" slug="tool" :root="root" :feedbackEnable="true" :crumbEnable="false">
             <Info />
         </Breadcrumb>
         <LeftSidebar>

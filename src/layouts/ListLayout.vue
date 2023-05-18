@@ -3,6 +3,7 @@
         <Header></Header>
         <Breadcrumb
             :name="appName"
+            icon="jx3dat"
             :slug="appKey"
             :root="`/${appKey}`"
             :publishEnable="true"
