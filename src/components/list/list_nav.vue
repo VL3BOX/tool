@@ -18,10 +18,10 @@
                 <img :src="getIcon(item.icon)" />
                 <span class="u-text">{{ item.name }}</span>
             </router-link>
-            <router-link to="/userdata" class="u-item disabled">
+            <!-- <router-link to="/userdata" class="u-item disabled">
                 <img src="@/assets/img/nav/userdata.svg" />
                 <span class="u-text">用户配置数据</span>
-            </router-link>
+            </router-link> -->
         </div>
 
         <!-- <h5 class="u-title">插件数据</h5>
