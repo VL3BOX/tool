@@ -65,8 +65,16 @@ export default {
         return {
             menu: [
                 {
+                    slug: "",
+                    name: "全部",
+                    desc: "剑三小工具&资源下载",
+                    icon: "all",
+                    type: "tool",
+                    routeName: "index",
+                    disabled: false,
+                },
+                {
                     slug: 1,
-                    icon: "el-icon-setting",
                     name: "工具资源",
                     desc: "剑三小工具&资源下载",
                     icon: "tool",
@@ -76,17 +84,15 @@ export default {
                 },
                 {
                     slug: 3,
-                    icon: "el-icon-s-data",
                     name: "插件数据",
                     desc: "剑三插件数据",
-                    icon: "jx3dat",
+                    icon: "data",
                     type: "jx3dat",
                     routeName: "jx3dat",
                     disabled: false,
                 },
                 {
                     slug: 3,
-                    icon: "el-icon-discover",
                     name: "教程指南",
                     desc: "游戏调优/插件设置与指南",
                     icon: "game",
@@ -96,7 +102,6 @@ export default {
                 },
                 {
                     slug: 4,
-                    icon: "el-icon-collection",
                     name: "魔盒文档",
                     desc: "魔盒使用指南&API文档",
                     icon: "api",
@@ -117,8 +122,8 @@ export default {
                 if (!val?.query?.subtype && val.name != "jx3dat") {
                     this.$router.replace({
                         name: val.name,
-                        query: { subtype: 1 },
-                    });
+                        query: { subtype: "" },
+                    }).catch(() => {});
                 }
             }
         }
