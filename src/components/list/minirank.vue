@@ -59,7 +59,7 @@ export default {
             return isNaN(average) ? "N/A" : average.toFixed(4);
         },
         viewRank: function() {
-            this.$router.push({ name: "rank" });
+            this.$router.push({ name: "jx3dat_rank" });
         },
         highlight: function(i) {
             if (i == 0) {

@@ -5,8 +5,8 @@
             name="教程工具"
             slug="jx3dat"
             root="/tool"
-            :publishEnable="false"
-            :adminEnable="false"
+            :publishEnable="true"
+            :adminEnable="true"
             :feedbackEnable="true"
             :crumbEnable="true"
         >
@@ -30,7 +30,20 @@ import Side from "@/components/single/single_side.vue";
 import { getAppIcon, getAppID } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "SingleLayout",
-    props: [],
+    props: {
+        appName: {
+            type: String,
+            default: "教程工具",
+        },
+        appKey: {
+            type: String,
+            default: "tool",
+        },
+        withoutRight: {
+            type: Boolean,
+            default: false,
+        },
+    },
     data: function () {
         return {
             id: getAppID(),

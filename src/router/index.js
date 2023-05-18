@@ -11,6 +11,15 @@ VueRouter.prototype.push = function push(location) {
 import {compatibilityRoute} from "@/utils/compatibility.js";
 
 const routes = [
+    // userdata
+    {
+        name: "userdata",
+        path: "/userdata",
+        component: () => import("@/views/UserData.vue"),
+        meta: {
+            type: 'userdata'
+        }
+    },
     // tool
     {
         name: "index",
@@ -38,6 +47,11 @@ const routes = [
         name: "jx3dat_single",
         path: "/jx3dat/:id",
         component: () => import("@/views/Jx3DatSingle.vue"),
+    },
+    {
+        name: "jx3dat_rank",
+        path: "/jx3dat/rank",
+        component: () => import("@/views/Jx3DatRank.vue"),
     },
     // app
     {

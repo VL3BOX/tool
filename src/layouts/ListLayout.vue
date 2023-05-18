@@ -3,9 +3,9 @@
         <Header></Header>
         <Breadcrumb
             :name="appName"
-            slug="jx3dat"
+            :slug="appKey"
             :root="`/${appKey}`"
-            :publishEnable="false"
+            :publishEnable="true"
             :adminEnable="false"
             :feedbackEnable="true"
             :crumbEnable="true"
@@ -15,7 +15,7 @@
         <LeftSidebar>
             <Nav class="m-nav" />
         </LeftSidebar>
-        <Main :withoutRight="false">
+        <Main :withoutRight="withoutRight">
             <div class="m-main">
                 <slot></slot>
             </div>
@@ -42,6 +42,10 @@ export default {
         appKey: {
             type: String,
             default: "tool",
+        },
+        withoutRight: {
+            type: Boolean,
+            default: false,
         },
     },
     data: function () {

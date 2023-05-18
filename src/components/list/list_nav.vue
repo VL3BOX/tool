@@ -18,6 +18,10 @@
                 <img :src="getIcon(item.icon)" />
                 <span class="u-text">{{ item.name }}</span>
             </router-link>
+            <router-link to="/userdata" class="u-item disabled">
+                <img src="@/assets/img/nav/userdata.svg" />
+                <span class="u-text">用户配置数据</span>
+            </router-link>
         </div>
 
         <!-- <h5 class="u-title">插件数据</h5>
@@ -67,16 +71,18 @@ export default {
                     desc: "剑三小工具&资源下载",
                     icon: "tool",
                     type: "tool",
-                    routeName: "index"
+                    routeName: "index",
+                    disabled: false,
                 },
                 {
-                    slug: "",
+                    slug: 3,
                     icon: "el-icon-s-data",
                     name: "插件数据",
                     desc: "剑三插件数据",
-                    icon: "data",
+                    icon: "jx3dat",
                     type: "jx3dat",
-                    routeName: "jx3dat"
+                    routeName: "jx3dat",
+                    disabled: false,
                 },
                 {
                     slug: 3,
@@ -85,7 +91,8 @@ export default {
                     desc: "游戏调优/插件设置与指南",
                     icon: "game",
                     type: "tool",
-                    routeName: "index"
+                    routeName: "index",
+                    disabled: false,
                 },
                 {
                     slug: 4,
@@ -94,12 +101,27 @@ export default {
                     desc: "魔盒使用指南&API文档",
                     icon: "api",
                     type: "tool",
-                    routeName: "index"
+                    routeName: "index",
+                    disabled: false,
                 },
             ],
 
             jx3dat_types,
         };
+    },
+    watch: {
+        $route: {
+            deep: true,
+            immediate: true,
+            handler(val) {
+                if (!val?.query?.subtype && val.name != "jx3dat") {
+                    this.$router.replace({
+                        name: val.name,
+                        query: { subtype: 1 },
+                    });
+                }
+            }
+        }
     },
     methods: {
         isActive: function (item, routeName) {
