@@ -30,4 +30,38 @@
             }
         }
     }
+    .m-wallpaper-author {
+        .flex;
+        margin-top: 20px;
+        align-items: center;
+        justify-content: center;
+
+        b {
+            margin-right: 20px;
+        }
+    }
+    .m-authors {
+        .flex;
+        align-items: center;
+    }
+    .u-author {
+        img {
+            .size(24px);
+            .r(2px);
+            .mr(5px);
+            .y;
+        }
+
+        .fz(14px, 24px);
+        .mr(20px);
+        .mb(5px);
+        padding: 5px 10px 5px 10px;
+        .db;
+        .fl;
+        &:hover {
+            color: @pink;
+            .bold;
+            background-color: @bg-gray;
+        }
+    }
 }

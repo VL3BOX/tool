@@ -83,7 +83,7 @@ const routes = [
                 component: () => import("@/components/design/icons.vue"),
             },
             {
-                name: "icon",
+                name: "vector",
                 path: "/app/design/vector",
                 component: () => import("@/components/design/vector.vue"),
             },
@@ -105,10 +105,10 @@ router.beforeEach((to, from, next) => {
     const path = compatibilityRoute(to.path);
 
     if (path !== to.path) {
-        console.log('compatibilityRoute', path)
+        // console.log('compatibilityRoute', path)
         location.replace(path);
     } else {
-        console.log('next', path , to.path)
+        // console.log('next', path , to.path)
         next();
     }
 });

@@ -1,0 +1,67 @@
+.m-vector {
+    .m-vector-box {
+        .flex;
+        flex-wrap: wrap;
+        gap: 0px;
+    }
+
+    .m-vector-item {
+        .u-img-name {
+            .x;
+            color:#777;
+            .bold;
+            .fz(13px,2);
+        }
+        .u-img {
+            .size(100px);
+        }
+        .u-download {
+            font-size: 12px;
+            padding: 2px 8px;
+            .flex;
+            justify-content: center;
+            &:hover{
+                color:@pink;
+            }
+        }
+    }
+    .m-vector-author {
+        .flex;
+        margin-top: 20px;
+        align-items: center;
+        justify-content: center;
+
+        b {
+            margin-right: 20px;
+        }
+
+        .u-bio,.c-author-honor {
+            .none;
+        }
+    }
+    .m-authors {
+        .flex;
+        align-items: center;
+        gap: 40px;
+    }
+    .u-author {
+        img {
+            .size(24px);
+            .r(2px);
+            .mr(5px);
+            .y;
+        }
+
+        .fz(14px, 24px);
+        .mr(20px);
+        .mb(5px);
+        padding: 5px 10px 5px 10px;
+        .db;
+        .fl;
+        &:hover {
+            color: @pink;
+            .bold;
+            background-color: @bg-gray;
+        }
+    }
+}
