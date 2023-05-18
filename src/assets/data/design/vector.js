@@ -29,6 +29,6 @@ export const vector = [
         name: "logo",
         label: "魔盒标识图标",
         data: [],
-        authors: [2]
+        authors: [2, 141787]
     }
 ]

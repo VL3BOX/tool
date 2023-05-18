@@ -19,9 +19,9 @@
                         </div>
                     </figure>
                 </div>
-                <div class="m-wallpaper-author">
+                <div class="m-design-author">
                     <b>Designed By :</b>
-                    <div class="m-authors" v-if="authors && authors.length">
+                    <div class="u-authors" v-if="authors && authors.length">
                         <a
                             class="u-author"
                             target="_blank"

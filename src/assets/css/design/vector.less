@@ -13,55 +13,22 @@
             .fz(13px,2);
         }
         .u-img {
-            .size(100px);
+            .size(68px);
+            .auto(x);
+            .db;
         }
         .u-download {
+            .mt(5px);
+            .w(auto);
+            .auto(x);
             font-size: 12px;
-            padding: 2px 8px;
+            padding: 4px 15px !important;
             .flex;
             justify-content: center;
+            align-items: center;
             &:hover{
-                color:@pink;
+                color:@color-link;
             }
-        }
-    }
-    .m-vector-author {
-        .flex;
-        margin-top: 20px;
-        align-items: center;
-        justify-content: center;
-
-        b {
-            margin-right: 20px;
-        }
-
-        .u-bio,.c-author-honor {
-            .none;
-        }
-    }
-    .m-authors {
-        .flex;
-        align-items: center;
-        gap: 40px;
-    }
-    .u-author {
-        img {
-            .size(24px);
-            .r(2px);
-            .mr(5px);
-            .y;
-        }
-
-        .fz(14px, 24px);
-        .mr(20px);
-        .mb(5px);
-        padding: 5px 10px 5px 10px;
-        .db;
-        .fl;
-        &:hover {
-            color: @pink;
-            .bold;
-            background-color: @bg-gray;
         }
     }
 }

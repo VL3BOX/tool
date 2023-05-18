@@ -7,16 +7,17 @@
                         <el-image class="u-img" fit="fill" :src="img.url"></el-image>
                         <figcaption class="u-img-name">{{ img.name }}</figcaption>
                         <a
-                            class="u-download"
+                            class="u-download el-button el-button--default is-plain is-round"
                             :href="getImageUrl(item.name, img.id)"
                             target="_blank"
-                            title="点击查看原图"
-                        >原图</a>
+                            title="点击下载"
+                            ><i class="el-icon-download"></i><span>Download</span></a
+                        >
                     </figure>
                 </div>
-                <div class="m-vector-author">
-                    <b>作者:</b>
-                    <div class="m-authors" v-if="authors && authors.length">
+                <div class="m-design-author">
+                    <b>Designed By : </b>
+                    <div class="u-authors" v-if="authors && authors.length">
                         <a
                             class="u-author"
                             target="_blank"
@@ -43,8 +44,7 @@ import cloneDeep from "lodash/cloneDeep";
 export default {
     name: "DesignVector",
     props: [],
-    components: {
-    },
+    components: {},
     data: function () {
         return {
             active: "",
@@ -94,7 +94,7 @@ export default {
             const item = this.vector.find((item) => item.name == this.active);
             const ids = item.authors?.join(",");
             const res = await getUsers(ids);
-            this.authors = res
+            this.authors = res;
         },
     },
     created: function () {},
