@@ -1,4 +1,5 @@
 .m-wallpaper {
+
     .m-wallpaper-box {
         .flex;
         flex-wrap: wrap;
@@ -8,7 +9,7 @@
     .m-wallpaper-item {
         .u-img-name {
             .x;
-            color:#777;
+            color: #777;
             .bold;
             .fz(13px,2);
         }
@@ -25,8 +26,8 @@
         .u-size-item {
             font-size: 12px;
             padding: 2px 8px;
-            &:hover{
-                color:@pink;
+            &:hover {
+                color: @pink;
             }
         }
     }
@@ -38,7 +39,10 @@
 
         b {
             margin-right: 20px;
+            font-weight: normal;
         }
+
+        .fz(13px);
     }
     .m-authors {
         .flex;
@@ -52,16 +56,16 @@
             .y;
         }
 
-        .fz(14px, 24px);
+        .fz(13px, 24px);
         .mr(20px);
         .mb(5px);
         padding: 5px 10px 5px 10px;
         .db;
         .fl;
+        background-color: @bg-gray;
         &:hover {
             color: @pink;
-            .bold;
-            background-color: @bg-gray;
+            // .bold;
         }
     }
 }
