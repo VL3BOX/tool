@@ -66,7 +66,7 @@ export default {
             menu: [
                 {
                     slug: "",
-                    name: "全部",
+                    name: "全部资源",
                     desc: "剑三小工具&资源下载",
                     icon: "all",
                     type: "tool",
@@ -75,7 +75,7 @@ export default {
                 },
                 {
                     slug: 1,
-                    name: "工具资源",
+                    name: "工具助手",
                     desc: "剑三小工具&资源下载",
                     icon: "tool",
                     type: "tool",
@@ -83,7 +83,7 @@ export default {
                     disabled: false,
                 },
                 {
-                    slug: 3,
+                    slug: "",
                     name: "插件数据",
                     desc: "剑三插件数据",
                     icon: "data",
