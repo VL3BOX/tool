@@ -26,7 +26,7 @@ export const vector = [
         authors: [4011]
     },
     {
-        name: "logo",
+        name: "jx3box",
         label: "魔盒标识图标",
         data: Object.entries(jx3box).map(([key, value]) => {
             return {
