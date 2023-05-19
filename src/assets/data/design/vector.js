@@ -1,6 +1,6 @@
 import xfid from "@jx3box/jx3box-data/data/xf/xfid.json";
 import schoolid from "@jx3box/jx3box-data/data/xf/schoolid.json";
-
+import jx3box from "./jx3box.json";
 
 export const vector = [
     {
@@ -28,7 +28,12 @@ export const vector = [
     {
         name: "logo",
         label: "魔盒标识图标",
-        data: [],
+        data: Object.entries(jx3box).map(([key, value]) => {
+            return {
+                id: key,
+                name: value,
+            };
+        }).filter(item => item.id != 0),
         authors: [2, 141787]
     }
 ]
