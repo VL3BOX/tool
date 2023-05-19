@@ -11,7 +11,7 @@
                 <div v-for="(feed, i) in data" :key="feed + i">
                     <div class="u-data" v-if="i == 0">
                         <div class="u-feed">
-                            <Mark :label="post.author" v-clipboard:copy="post.author" v-clipboard:success="onCopy" v-clipboard:error="onError" />
+                            <Mark :label="post.author" @click.native="copy(post.author)" />
                         </div>
                         <a
                             class="u-sync"
@@ -35,9 +35,7 @@
                                 :value="feed.name"
                                 :BGR="post | highlight"
                                 BGL="#24292e"
-                                v-clipboard:copy="post.author + '#' + feed.name"
-                                v-clipboard:success="onCopy"
-                                v-clipboard:error="onError"
+                                @click.native="copy(post.author + '#' + feed.name)"
                             />
                         </div>
                         <a
@@ -62,9 +60,7 @@
                                 :value="feed.name"
                                 BGR="#f39"
                                 BGL="#24292e"
-                                v-clipboard:copy="post.author + '#' + feed.name"
-                                v-clipboard:success="onCopy"
-                                v-clipboard:error="onError"
+                                @click.native="copy(post.author + '#' + feed.name)"
                             />
                         </div>
                         <a
@@ -85,17 +81,17 @@
                 </div>
                 <div class="u-data u-data-add">
                     <div class="u-feed" v-if="meta.github">
-                        <Mark :label="meta.github" value="@github" BGR="#3d454d" BGL="#24292e" v-clipboard:copy="meta.github + '@github'" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                        <Mark :label="meta.github" value="@github" BGR="#3d454d" BGL="#24292e" @click.native="copy(meta.github + '@github')">
                             <img class svg-inline src="@/assets/img/github.svg" />
                         </Mark>
                     </div>
                     <div class="u-feed" v-if="meta.gitee">
-                        <Mark :label="meta.gitee" value="@gitee" BGR="#c71d23" BGL="#24292e" v-clipboard:copy="meta.gitee + '@gitee'" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                        <Mark :label="meta.gitee" value="@gitee" BGR="#c71d23" BGL="#24292e" @click.native="copy(meta.gitee + '@github')">
                             <img class="u-gitee" svg-inline src="@/assets/img/gitee.svg" />
                         </Mark>
                     </div>
                     <div class="u-feed" v-if="meta.aliyun">
-                        <Mark :label="meta.aliyun" value="@aliyun" BGR="#ff6a00" BGL="#24292e" v-clipboard:copy="meta.aliyun + '@aliyun'" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                        <Mark :label="meta.aliyun" value="@aliyun" BGR="#ff6a00" BGL="#24292e" @click.native="copy(meta.aliyun + '@github')">
                             <img class svg-inline src="@/assets/img/aliyun.svg" />
                         </Mark>
                     </div>
@@ -177,6 +173,24 @@ export default {
         },
         updateExtend: function(val) {
             this.$store.state.extend = val;
+        },
+        copy(content) {
+            console.log(content)
+            navigator.clipboard
+                .writeText(content)
+                .then(() => {
+                    this.$notify({
+                        title: "复制成功",
+                        message: "复制内容 : " + content,
+                        type: "success",
+                    });
+                })
+                .catch(() => {
+                    this.$message({
+                        message: "复制失败",
+                        type: "error",
+                    });
+                });
         },
     },
     filters: {
