@@ -137,27 +137,29 @@ export default {
         padding: 10px 10px;
         .u-item {
             box-sizing: border-box;
-            .pr;
             height: 48px;
-            padding: 6px 4px 6px 44px;
+            padding: 8px;
 
             .pointer;
             transition: all 100ms ease-in-out;
             &:hover {
-                background: #f5f5f5;
+                background: @bg-light;
             }
 
             .mb(10px);
+            .flex;
+            align-items: center;
         }
         .u-info {
             .pr;
             display: flex;
             flex-direction: column;
             gap: 4px;
+            flex:1;
         }
         .u-name {
             .ellipsis;
-            .fz(14px, 1.2);
+            .fz(12px, 1.2);
             .bold;
         }
         .u-desc {
@@ -166,9 +168,10 @@ export default {
             color: #999;
         }
         .u-icon {
-            .pa;
+            // .pa;
             .size(36px);
-            left: 4px;
+            .mr(5px);
+            // left: 8px;
         }
         .u-id {
             .pa;

@@ -1,7 +1,7 @@
 <template>
     <div class="m-database-detail">
         <div class="u-top-bar">
-            <el-button @click="goBack">返回</el-button>
+            <el-button @click="goBack" icon="el-icon-arrow-left" plain>返回</el-button>
             <div class="m-detail-title">{{ type.toUpperCase() }} - {{ title }}</div>
         </div>
         <component
