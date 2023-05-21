@@ -10,15 +10,15 @@
             </div>
             <div class="u-keyword">
                 <div class="u-input-label">ID / 名称</div>
-                <el-input placeholder="请输入 ID 或 名称" v-model="query.keyword"> </el-input>
+                <el-input placeholder="请输入 ID 或 名称" v-model="query.keyword" clearable> </el-input>
             </div>
             <div class="u-level">
                 <div class="u-input-label">等级</div>
-                <el-input placeholder="请输入等级" v-model="query.level"> </el-input>
+                <el-input placeholder="请输入等级" v-model="query.level" clearable> </el-input>
             </div>
             <div class="u-map" v-if="type == 'npc'">
                 <div class="u-input-label">地图</div>
-                <el-input placeholder="请输入NPC所在地图" v-model="query.map"> </el-input>
+                <el-input placeholder="请输入NPC所在地图" v-model="query.map" clearable> </el-input>
             </div>
             <div class="u-opr">
                 <div class="u-strict">

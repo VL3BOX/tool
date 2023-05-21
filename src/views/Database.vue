@@ -16,7 +16,7 @@
                 ></database-detail>
                 <database-list v-else :hasRight="hasRight" :query="query" @toDetail="toDetail"></database-list>
             </keep-alive>
-            <Bottom></Bottom>
+            <!-- <Bottom></Bottom> -->
         </div>
         <template #right>
             <!-- 数据库版本信息 -->
