@@ -6,34 +6,44 @@ Vue.use(Vuex);
 
 let store = {
     state: {
-        // client
+        // common
         client: location.href.includes("origin") ? "origin" : "std",
+        isLogin: User.isLogin(),
+
         // post
         id: 0,
         user_id: 0,
         post: "",
-        extend : {
-            collection_data : '',
-            directory : false,
+        extend: {
+            collection_data: "",
+            directory: false,
         },
+
+        // icons
+        favList: [],
+
+        // database versions
+        database_client: "std",
+        database_type: "buff",
+        database_stat: {
+            version: "",
+            count: "",
+        },
+
         stars: {
             buff: [],
             doodad: [],
             npc: [],
             skill: [],
         },
-        isLogin: User.isLogin(),
-
-        // icons
-        favList: [],
     },
     mutations: {
-        switchClient: function(state, val) {
+        switchClient: function (state, val) {
             state.client = val || "std";
         },
         storeFav(state, list) {
-			state.favList = list;
-		},
+            state.favList = list;
+        },
     },
     getters: {},
     actions: {},

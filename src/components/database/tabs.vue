@@ -31,7 +31,7 @@
     </el-tabs>
 </template>
 <script>
-import { getStat } from "@/service/node";
+import { mapState } from "vuex";
 
 export default {
     name: "DatabaseTabs",
@@ -49,20 +49,15 @@ export default {
             default: false,
         },
     },
-    data: () => ({
-        stat: {
-            skill: 0,
-            buff: 0,
-            item: 0,
-            npc: 0,
-            doodad: 0,
-        },
-    }),
     model: {
         prop: "type",
         event: "change",
     },
     computed: {
+        ...mapState(["database_stat"]),
+        stat() {
+            return this.database_stat.count;
+        },
         typeModel: {
             get() {
                 return this.type;
@@ -75,20 +70,6 @@ export default {
     methods: {
         changeType() {
             this.$emit("change", this.type);
-        },
-        loadStat() {
-            getStat(this.client).then((res) => {
-                const data = res.data;
-                this.stat = data;
-            });
-        },
-    },
-    watch: {
-        client: {
-            handler: function () {
-                this.loadStat(this.client);
-            },
-            immediate: true,
         },
     },
 };

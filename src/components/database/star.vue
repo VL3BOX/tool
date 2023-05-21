@@ -3,7 +3,12 @@
         <div class="m-star-header w-card-title"><i class="u-icon el-icon-star-on"></i> 我的收藏</div>
         <div class="m-star-content">
             <div class="u-empty" v-if="stars[type].length == 0">暂无收藏项目噢 (●'ω'●)丿❤</div>
-            <div class="u-item" v-for="(item, index) in showList" :key="index" @click="queryItem(item)">
+            <div
+                class="u-item"
+                v-for="(item, index) in showList"
+                :key="index"
+                @click="$emit('toDetail', item.resource)"
+            >
                 <img class="u-icon" :src="iconLink(item.icon)" alt="" />
                 <div class="u-info">
                     <div class="u-name">{{ item.name }}</div>
@@ -76,16 +81,10 @@ export default {
                 if (["buff", "skill"].includes(this.type)) return `${item.id}${item.level ? `_${item.level}` : ""}`;
                 return item.id;
             });
-            // 需要的字段
-            const fields = [this.id_key, "Remark", "Level", "Name", "IconID", "Desc", "BuffName", "SkillName"];
 
             // 获取资源
-            const resources = (
-                await _getResource(this.client, this.type, {
-                    ids,
-                    fields,
-                })
-            ).data;
+            let resources = (await _getResource(this.client, this.type, { ids })).data;
+            if (!resources || !resources.length) resources = [resources];
             // 合并
             for (let item of list) {
                 const resource = resources.find((r) => {
@@ -96,6 +95,8 @@ export default {
                     }
                 });
                 if (resource) {
+                    item.resource = resource;
+
                     item.name =
                         resource.Name || resource.SkillName || resource.BuffName || resource.Remark || "无名数据";
                     item.icon = resource.IconID;
@@ -104,6 +105,7 @@ export default {
                 if (this.type === "doodad") item.icon = 10909;
                 if (this.type === "npc") item.icon = 0;
             }
+
             // 保存
             this.stars[this.type] = list;
         },

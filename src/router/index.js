@@ -8,7 +8,7 @@ VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch((err) => err);
 };
 
-import {compatibilityRoute} from "@/utils/compatibility.js";
+import { compatibilityRoute } from "@/utils/compatibility.js";
 
 const routes = [
     // userdata
@@ -17,8 +17,8 @@ const routes = [
         path: "/userdata",
         component: () => import("@/views/UserData.vue"),
         meta: {
-            type: 'userdata'
-        }
+            type: "userdata",
+        },
     },
     // tool
     {
@@ -26,8 +26,8 @@ const routes = [
         path: "/tool",
         component: () => import("@/views/Tool.vue"),
         meta: {
-            type: 'tool'
-        }
+            type: "tool",
+        },
     },
     {
         name: "tool_single",
@@ -40,8 +40,8 @@ const routes = [
         path: "/jx3dat",
         component: () => import("@/views/Jx3Dat.vue"),
         meta: {
-            type: 'jx3dat'
-        }
+            type: "jx3dat",
+        },
     },
     {
         name: "jx3dat_single",
@@ -92,8 +92,8 @@ const routes = [
                 path: "/app/design/wallpaper",
                 component: () => import("@/components/design/wallpaper.vue"),
             },
-        ]
-    }
+        ],
+    },
 ];
 
 const router = new VueRouter({

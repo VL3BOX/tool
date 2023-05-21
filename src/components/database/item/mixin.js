@@ -5,6 +5,9 @@ import { mapState } from "vuex";
 const { __Root, __OriginRoot } = JX3BOX;
 
 export default {
+    components: {
+        Comment: () => import("@jx3box/jx3box-comment-ui/src/Comment.vue"),
+    },
     props: {
         type: String,
         data: Object,
@@ -12,9 +15,12 @@ export default {
             type: Boolean,
             default: false,
         },
+        showDetail: {
+            type: Boolean,
+            default: false,
+        },
     },
     data: () => ({
-        showDetail: false,
         staring: false,
     }),
     computed: {
@@ -45,12 +51,18 @@ export default {
             if (!item) return null;
             return item.star_id;
         },
+        database_key() {
+            const id = this.data[this.id_key];
+            const level = this.data.Level;
+            if (level === null || level === undefined) {
+                return `${this.type}_${id}`;
+            } else {
+                return `${this.type}_${id}_${level}`;
+            }
+        },
     },
     methods: {
         iconLink,
-        toggleDetail() {
-            this.showDetail = !this.showDetail;
-        },
         copy(propName) {
             navigator.clipboard
                 .writeText(this.data[propName])
@@ -90,6 +102,7 @@ export default {
                         data.remark = this.data.Remark;
                         data.icon = this.type === "doodad" ? 10909 : this.data.IconID;
                         data.desc = this.data.Desc;
+                        data.resource = this.data;
 
                         this.$store.state.stars[type].push(data);
                     }

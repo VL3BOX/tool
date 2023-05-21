@@ -1,79 +1,78 @@
 <template>
     <div class="m-database-item m-database-item__buff">
-        <img class="u-icon" :title="'IconID:' + data.IconID" :src="iconLink(data.IconID)" />
-        <div class="u-title">
-            <div class="u-name">
-                <span class="u-name-primary">{{ data.Name }}</span>
-                <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
+        <!-- 项目基本信息 -->
+        <div class="m-item">
+            <img class="u-icon" :title="'IconID:' + data.IconID" :src="iconLink(data.IconID)" />
+            <div class="u-title">
+                <div class="u-name">
+                    <span class="u-name-primary">{{ data.Name }}</span>
+                    <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
+                </div>
+                <span class="u-id" title="点击快速复制" @click.stop="copy('BuffID')">ID:{{ data.BuffID }}</span>
             </div>
-            <span class="u-id" title="点击快速复制" @click="copy('BuffID')">ID:{{ data.BuffID }}</span>
+            <div class="u-desc-text">
+                <p class="u-desc-content">{{ data.Desc }}</p>
+                <span v-if="detach_type" class="u-detach">{{ detach_type }}</span>
+            </div>
+            <div class="u-primary">
+                <span class="u-primary-items">
+                    <span class="u-primary-item"> Level: {{ data.Level }} </span>
+                    <span class="u-primary-item"> Remark: {{ data.Remark }} </span>
+                </span>
+            </div>
         </div>
-        <div class="u-desc-text">
-            <p class="u-desc-content">{{ data.Desc }}</p>
-            <span v-if="detach_type" class="u-detach">{{ detach_type }}</span>
-        </div>
-        <div class="u-primary">
-            <span class="u-primary-items">
-                <span class="u-primary-item"> Level: {{ data.Level }} </span>
-                <span class="u-primary-item"> Remark: {{ data.Remark }} </span>
-            </span>
-            <el-button
-                v-if="!star_id"
-                class="u-button u-star"
-                icon="el-icon-star-off"
-                plain
-                size="mini"
-                @click="star('buff', data.BuffID, data.Level)"
-            >
-                收藏数据
-            </el-button>
-            <el-button
-                v-else-if="isLogin"
-                class="u-button u-stared"
-                icon="el-icon-star-on"
-                plain
-                size="mini"
-                @click="cancelStar"
-            >
-                取消收藏
-            </el-button>
-            <el-button
-                class="u-button u-to-dbm"
-                icon="el-icon-connection"
-                plain
-                size="mini"
-                @click="toDbm('buff', data.BuffID, data.Level)"
-            >
-                在线构建
-            </el-button>
-            <el-button
-                class="u-button u-open-button"
-                :class="{ on: showDetail }"
-                icon="el-icon-view"
-                plain
-                size="mini"
-                @click="toggleDetail"
-                v-if="hasRight"
-            >
-                {{ showDetail ? "收起详情" : "展开详情" }}
-            </el-button>
-        </div>
-        <div class="u-detail" v-if="hasRight" v-show="showDetail">
-            <span class="u-prop" v-for="(item, index) in displayProps" :key="index">
-                <el-tooltip v-if="item.keyDesc" effect="dark" :content="item.key" placement="top">
-                    <em class="u-prop-key" :class="{ isAdv: item.isAdv }">
-                        {{ item.keyDesc }}
-                    </em>
-                </el-tooltip>
-                <em v-else class="u-prop-key">{{ item.key }}</em>
-
-                <el-tooltip v-if="item.valueDesc" effect="dark" placement="top">
-                    <div v-html="item.valueDesc" slot="content"></div>
-                    <span>{{ item.value }}</span>
-                </el-tooltip>
-                <span v-else>{{ item.value }}</span>
-            </span>
-        </div>
+        <!-- 项目详情，仅在单页展示 -->
+        <template v-if="showDetail">
+            <!-- 详细字段列表 -->
+            <div class="m-detail">
+                <span class="u-prop" v-for="(item, index) in displayProps" :key="index">
+                    <!-- 属性名 -->
+                    <el-tooltip v-if="item.keyDesc" effect="dark" :content="item.key" placement="top">
+                        <em class="u-prop-key" :class="{ isAdv: item.isAdv }">
+                            {{ item.keyDesc }}
+                        </em>
+                    </el-tooltip>
+                    <em v-else class="u-prop-key">{{ item.key }}</em>
+                    <!-- 属性值 -->
+                    <el-tooltip v-if="item.valueDesc" effect="dark" placement="top">
+                        <div v-html="item.valueDesc" slot="content"></div>
+                        <span>{{ item.value }}</span>
+                    </el-tooltip>
+                    <span v-else>{{ item.value }}</span>
+                </span>
+            </div>
+            <!-- 项目操作 -->
+            <div class="m-operation" v-if="isLogin">
+                <el-button
+                    v-if="!star_id"
+                    class="u-button u-star"
+                    icon="el-icon-star-off"
+                    plain
+                    @click="star('buff', data.BuffID, data.Level)"
+                >
+                    收藏数据
+                </el-button>
+                <el-button
+                    v-else-if="isLogin"
+                    class="u-button u-stared"
+                    icon="el-icon-star-on"
+                    plain
+                    @click="cancelStar"
+                >
+                    取消收藏
+                </el-button>
+                <el-button
+                    class="u-button u-to-dbm"
+                    icon="el-icon-connection"
+                    plain
+                    @click="toDbm('buff', data.BuffID, data.Level)"
+                >
+                    在线构建
+                </el-button>
+            </div>
+            <!-- 评论组件 -->
+            <Comment class="m-comment" :id="database_key" category="database" />
+        </template>
     </div>
 </template>
 <script>

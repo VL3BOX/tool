@@ -1,9 +1,7 @@
 <!-- 数据库版本的组件 -->
 <template>
     <div class="m-versions">
-        <div class="m-versions-header w-card-title">
-            <i class="u-icon el-icon-s-grid"></i> 数据库版本
-        </div>
+        <div class="m-versions-header w-card-title"><i class="u-icon el-icon-s-grid"></i> 数据库版本</div>
         <div class="m-versions-content">
             <div class="u-empty" v-if="version.length == 0">数据加载中...</div>
             <div class="u-list">
@@ -29,20 +27,23 @@
 import { getStat } from "@/service/node";
 import { cloneDeep, uniq } from "lodash";
 import { moment, showRecently, showDate } from "@jx3box/jx3box-common/js/moment";
+import { mapState } from "vuex";
 
 export default {
     name: "DatabaseVersions",
-    data: function () {
-        return {
-            count: {},
-            version: [],
-        };
-    },
     computed: {
+        ...mapState(["database_stat"]),
+        version() {
+            return this.database_stat.version;
+        },
+        count() {
+            return this.database_stat.count;
+        },
         client: function () {
-            return this.$store.state.client;
+            return this.$store.state.database_client;
         },
         all_types: function () {
+            if (!this.version) return [];
             return uniq(this.version.map((item) => item.type));
         },
     },
@@ -54,14 +55,22 @@ export default {
                 .sort((a, b) => moment(a.time).isBefore(moment(b.time)))[0];
             return showDate(recentlyTime.time);
         },
+        getStat: function () {
+            getStat(this.client).then((res) => {
+                let data = res.data;
+                this.database_stat["version"] = cloneDeep(data.version).sort((a, b) => a.label.length - b.label.length);
+                delete data.version;
+                this.database_stat["count"] = data;
+            });
+        },
     },
-    mounted() {
-        getStat(this.client).then((res) => {
-            const data = res.data;
-            this.version = cloneDeep(data.version).sort((a, b) => a.label.length - b.label.length);
-            delete data.version;
-            this.$set(this, "count", data);
-        });
+    watch: {
+        client: {
+            handler: function () {
+                this.getStat();
+            },
+            immediate: true,
+        },
     },
 };
 </script>
