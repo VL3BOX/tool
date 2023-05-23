@@ -211,9 +211,6 @@
                     在线构建
                 </el-button>
             </div>
-            <!-- 评论组件 -->
-            <el-divider content-position="left"><i class="el-icon-chat-line-square"></i> 评论</el-divider>
-            <Comment class="m-comment" :id="database_key" category="npc" />
         </template>
     </div>
 </template>

@@ -11,6 +11,9 @@
             :hasRight="hasRight"
             :type="type"
         ></component>
+        <!-- 评论组件 -->
+        <el-divider content-position="left"><i class="el-icon-chat-line-square"></i> 评论</el-divider>
+        <Comment class="m-comment" :id="id" :category="type" />
     </div>
 </template>
 
@@ -21,9 +24,13 @@ import ItemBuff from "@/components/database/item/buff.vue";
 import ItemSkill from "@/components/database/item/skill.vue";
 import ItemNpc from "@/components/database/item/npc.vue";
 import ItemDoodad from "@/components/database/item/doodad.vue";
+import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 
 export default {
     name: "DatabaseDetail",
+    components : {
+        Comment,
+    },
     props: {
         data: Object,
         hasRight: {
@@ -43,6 +50,11 @@ export default {
             let id = item.ID || item.SkillID || item.BuffID;
             return `(${id})`;
         },
+        id(){
+            const item = this.data;
+            let id = item.ID || item.SkillID || item.BuffID;
+            return id;
+        }
     },
     data: () => ({
         item_component: {

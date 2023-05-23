@@ -154,6 +154,9 @@ export default {
                 newSearchList.push(i);
             }
             this.searchList = [...newSearchList];
+
+            // 滚动至顶部
+            document.documentElement.scrollTop = 0;
         }
     },
     created: function() {

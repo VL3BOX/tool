@@ -2,7 +2,6 @@
     <div class="p-layout p-layout--app">
         <Header></Header>
         <Breadcrumb :name="title" icon="jx3dat" slug="tool" :root="root" :feedbackEnable="true" :crumbEnable="false">
-            <Info />
         </Breadcrumb>
         <LeftSidebar>
             <slot name="left"></slot>
@@ -25,9 +24,6 @@ import app from "@/assets/data/app.json";
 
 export default {
     name: "AppLayout",
-    components: {
-        Info,
-    },
     props: {
         slug: {
             type: String,
