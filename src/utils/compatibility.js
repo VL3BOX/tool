@@ -10,7 +10,9 @@ export function compatibilityRoute(path) {
         case '/app/furniture':
             return '/furniture';
         case '/app/haste':
-            return '/bps/#/haste';
+            return '/bps/haste';
+        case '/app/icons':
+            return '/app/design/icon';
         case '/app/jx3-icons':
             return '/app/design/icon';
         case '/app/jx3-price':
