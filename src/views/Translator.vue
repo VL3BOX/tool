@@ -96,6 +96,11 @@ export default {
             fileEncoding: "gbk",
         }
     },
+    computed: {
+        isLogin() {
+            return User.isLogin();
+        }
+    },
     mounted() {
         this.worker = new translatorWorker();
         this.initWorker();
@@ -182,11 +187,10 @@ export default {
         },
         async uploadFile(file) {
             if (file.file) {
-                let isLogin = true;
                 this.isLoading = true;
                 if (file.file.size > 1024 * 1024) {
-                    isLogin = await this.checkLogin();
-                    if (!isLogin) {
+
+                    if (!this.isLogin) {
                         this.$message.warning("转换的文件大小超过1MB需要先登录再尝试转换~");
                         this.isLoading = false;
                         return;
@@ -221,28 +225,6 @@ export default {
             let url = this.downloadFileUrl;
             aTag.href = url;
             aTag.click();
-        },
-        async checkLogin() {
-            let isLogin = true;
-            if (!this.uid) {
-                isLogin = false;
-            } else {
-                isLogin = await this.testCheckIsLogin();
-            }
-            return new Promise((resolve, reject) => {
-                resolve(isLogin);
-            });
-        },
-        // 用于验证是否真的登录了
-        testCheckIsLogin() {
-            return User.isLogin();
-        },
-
-        // 分割线
-        getUserId() {
-            if (User.isLogin()) {
-                this.uid = User.getInfo().uid;
-            }
         },
     }
 }
