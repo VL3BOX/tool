@@ -376,9 +376,9 @@
                             </a>
                         </div>
                     </el-col>
-                    <!-- <el-col :span="6">
+                    <el-col :span="6">
                         <div class="u-item">
-                            <a href="./translator" target="_blank">
+                            <a href="/app/translator" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('translator')" />
@@ -390,7 +390,7 @@
                                 </span>
                             </a>
                         </div>
-                    </el-col> -->
+                    </el-col>
                 </el-row>
             </div>
 

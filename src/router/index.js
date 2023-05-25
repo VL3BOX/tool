@@ -94,6 +94,11 @@ const routes = [
             },
         ],
     },
+    {
+        name: "translator",
+        path: "/app/translator",
+        component: () => import("@/views/Translator.vue"),
+    }
 ];
 
 const router = new VueRouter({
