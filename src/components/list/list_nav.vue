@@ -6,7 +6,7 @@
 -->
 <template>
     <div class="m-list-nav">
-        <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 工具资源</h5> -->
+        <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
         <div class="m-nav-group">
             <router-link
                 v-for="(item, i) in menu"
@@ -23,20 +23,6 @@
                 <span class="u-text">用户配置数据</span>
             </router-link> -->
         </div>
-
-        <!-- <h5 class="u-title">插件数据</h5>
-        <div class="m-nav-group">
-            <router-link
-                v-for="(label, key) in jx3dat_types"
-                :key="label"
-                :to="{ name: 'plugins', query: { subtype: key } }"
-                :class="{ on: isActive(key, 'plugins') }"
-                class="u-item"
-            >
-                <img :src="getIcon(key, '.svg')" />
-                <span class="u-text">{{ label }}</span>
-            </router-link>
-        </div> -->
 
         <div class="m-nav-tags">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
