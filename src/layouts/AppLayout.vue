@@ -3,7 +3,7 @@
         <Header></Header>
         <Breadcrumb :name="title" icon="jx3dat" slug="tool" :root="root" :feedbackEnable="true" :crumbEnable="false">
         </Breadcrumb>
-        <LeftSidebar>
+        <LeftSidebar v-if="hasLeft">
             <slot name="left"></slot>
         </LeftSidebar>
         <Main :class="className" :withoutRight="!hasRight">
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import Info from "@/components/list/Info.vue";
 
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import app from "@/assets/data/app.json";
@@ -42,6 +41,10 @@ export default {
             default: "",
         },
         hasRight: {
+            type: Boolean,
+            default: true,
+        },
+        hasLeft: {
             type: Boolean,
             default: true,
         },

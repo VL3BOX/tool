@@ -5,9 +5,6 @@ import { mapState } from "vuex";
 const { __Root, __OriginRoot } = JX3BOX;
 
 export default {
-    components: {
-        Comment: () => import("@jx3box/jx3box-comment-ui/src/Comment.vue"),
-    },
     props: {
         type: String,
         data: Object,

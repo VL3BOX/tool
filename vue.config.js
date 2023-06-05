@@ -152,6 +152,17 @@ module.exports = {
         //💝 in-line svg imgs ~
         config.module.rule("vue").use("vue-svg-inline-loader").loader("vue-svg-inline-loader");
 
+        // web worker
+        config.module
+            .rule("worker")
+            .test(/\.worker\.js$/)
+            .use("worker-loader")
+            .loader("worker-loader")
+            .options({
+                inline: "no-fallback",
+            });
+        config.module.rule("js").exclude.add(/\.worker\.js$/);
+
         //💖 import common less var * mixin ~
         const types = ["vue-modules", "vue", "normal-modules", "normal"];
         var preload_styles = [];

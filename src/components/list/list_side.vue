@@ -3,8 +3,8 @@
         <!-- 群号 -->
         <RightSideMsg>
             <em>工具作者交流群</em> :
-            <strong>
-                <a href="https://jq.qq.com/?_wv=1027&k=ZAsOkzUq">297985102</a>
+            <strong @click="onQQClick" class="u-link" title="点击复制">
+                <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
 
@@ -43,6 +43,7 @@ export default {
             tab: ["rule","api"],
             rules: "",
             apis: [],
+            qq: "297985102"
         };
     },
     computed: {
@@ -67,6 +68,15 @@ export default {
             }
             return "";
         },
+        onQQClick() {
+            navigator.clipboard.writeText(this.qq).then(() => {
+                this.$notify({
+                    title: "复制成功",
+                    message: "内容：" + this.qq,
+                    type: "success",
+                });
+            })
+        }
     },
     mounted: function () {
         this.loadRules();
@@ -96,6 +106,11 @@ export default {
             color: #666;
             .mr(3px);
         }
+    }
+}
+.m-list-side {
+    .u-link {
+        .pointer;
     }
 }
 </style>

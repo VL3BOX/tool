@@ -2,8 +2,8 @@
     <div class="m-extend-list">
         <RightSideMsg>
             <em>团控数据作者交流群</em> :
-            <strong>
-                <a href="https://jq.qq.com/?_wv=1027&k=vLtgy0HG">608303480</a>
+            <strong @click="onQQClick" class="u-link" title="点击复制">
+                <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
         <minirank />
@@ -49,10 +49,22 @@ export default {
             activeDocGroup: [],
             jx3dat_newbie: [],
             jx3dat_senior: [],
+
+            qq: "608303480",
         };
     },
     computed: {},
-    methods: {},
+    methods: {
+        onQQClick() {
+            navigator.clipboard.writeText(this.qq).then(() => {
+                this.$notify({
+                    title: "复制成功",
+                    message: "内容：" + this.qq,
+                    type: "success",
+                });
+            })
+        }
+    },
     mounted: function () {
         getMenuGroups(["jx3dat_newbie", "jx3dat_senior"]).then((res) => {
             let data = res.data.data.data || {};
@@ -71,6 +83,12 @@ export default {
 
 .m-side-title{
     margin:20px 0 10px 0;
+}
+
+.m-extend-list {
+    .u-link {
+        .pointer;
+    }
 }
 
 .m-side-links {

@@ -18,8 +18,8 @@
             <!-- 分页 -->
             <template v-if="multiPage">
                 <el-button
+                    v-if="hasNextPage"
                     class="m-more"
-                    :class="{ show: hasNextPage }"
                     type="primary"
                     icon="el-icon-arrow-down"
                     @click="appendPage"
@@ -51,7 +51,6 @@ import ItemNpc from "@/components/database/item/npc.vue";
 import ItemDoodad from "@/components/database/item/doodad.vue";
 import { mapState } from "vuex";
 
-import { debounce } from "lodash";
 import { getResource, getNewest } from "@/service/node";
 import item_filter from "@/assets/data/database/item_filter.json";
 
@@ -84,7 +83,7 @@ export default {
             npc: [],
             doodad: [],
         },
-        loading: false,
+        loading: true,
         isNewest: true,
 
         per: 10,
@@ -171,9 +170,6 @@ export default {
             this.page = page;
             this.getList(this.page);
         },
-        debounceSearch: debounce(function () {
-            this.search();
-        }, 1000),
     },
     watch: {
         type() {
@@ -184,7 +180,7 @@ export default {
         },
         query: {
             handler: function () {
-                this.debounceSearch();
+                this.search();
             },
             deep: true,
             immediate: true,
