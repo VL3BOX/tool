@@ -41,9 +41,9 @@
         <div class="m-nav-tags">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
-                <a href="/bps/#/dps" target="_blank">计算器</a>
+                <a href="/bps/dps" target="_blank">计算器</a>
                 <a href="/pz" target="_blank">配装器</a>
-                <a href="/bps/#/haste" target="_blank">加速阈值</a>
+                <a href="/bps/haste" target="_blank">加速阈值</a>
                 <a href="/team" target="_blank">团队排表</a>
                 <a href="/battle" target="_blank">战斗复盘</a>
                 <a href="/pvg/gonggao/server" target="_blank">开服监控</a>
