@@ -24,18 +24,10 @@
             </router-link> -->
         </div>
 
-        <div class="m-nav-tags">
+        <div class="m-nav-tags" v-if="tags && tags.length">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
-                <a href="/bps/dps" target="_blank">计算器</a>
-                <a href="/pz" target="_blank">配装器</a>
-                <a href="/bps/haste" target="_blank">加速阈值</a>
-                <a href="/team" target="_blank">团队排表</a>
-                <a href="/battle" target="_blank">战斗复盘</a>
-                <a href="/pvg/gonggao/server" target="_blank">开服监控</a>
-                <a href="/face/facedata" target="_blank">脸型数据解析</a>
-                <a href="https://j3cx.com/exam/" target="_blank">科举题库</a>
-                <a href="https://j3cx.com/serendipity" target="_blank">奇遇查询</a>
+                <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
             </div>
         </div>
     </div>
@@ -44,6 +36,7 @@
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { jx3dat_types } from "@/assets/data/types.json";
+import {getMenuGroup} from "@/service/helper.js";
 export default {
     name: "list_nav",
     props: [],
@@ -98,6 +91,7 @@ export default {
             ],
 
             jx3dat_types,
+            tags: [],
         };
     },
     watch: {
@@ -114,12 +108,20 @@ export default {
             }
         }
     },
+    mounted() {
+        this.loadTags();
+    },
     methods: {
         isActive: function (item, routeName) {
             return item.slug == this.$route.query.subtype && this.$route.name == routeName;
         },
         getIcon: function (slug, type=".png") {
             return require("../../assets/img/nav/" + slug + type);
+        },
+        loadTags() {
+            getMenuGroup("tool_links").then((res) => {
+                this.tags = res.data.data?.menu_group?.menus || [];
+            });
         },
     },
 };
