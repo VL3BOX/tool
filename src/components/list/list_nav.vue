@@ -6,7 +6,6 @@
 -->
 <template>
     <div class="m-list-nav">
-
         <!-- 群号 -->
         <RightSideMsg>
             <em>工具作者交流群</em> :
@@ -14,14 +13,6 @@
                 <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
-
-        <div class="m-tool-side">
-            <el-collapse>
-                <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
-                    <div class="u-content" v-html="rules"></div>
-                </el-collapse-item>
-            </el-collapse>
-        </div>
 
         <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
         <div class="m-nav-group">
@@ -42,7 +33,10 @@
         </div>
 
         <div class="m-tool-side">
-            <el-collapse value="api">
+            <el-collapse>
+                <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
+                    <div class="u-content" v-html="rules"></div>
+                </el-collapse-item>
                 <el-collapse-item title="🌀 魔盒API文档索引" name="api" class="m-tool-api">
                     <div class="u-list" v-if="apis && apis.length">
                         <a
@@ -57,14 +51,15 @@
                         </a>
                     </div>
                 </el-collapse-item>
+                <el-collapse-item title="🌸 热门搜索" name="tags" class="m-tool-rule">
+                    <div class="m-nav-tags" v-if="tags && tags.length">
+                        <!-- <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5> -->
+                        <div class="u-list">
+                            <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
+                        </div>
+                    </div>
+                </el-collapse-item>
             </el-collapse>
-        </div>
-
-        <div class="m-nav-tags" v-if="tags && tags.length">
-            <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
-            <div class="u-list">
-                <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
-            </div>
         </div>
     </div>
 </template>
@@ -72,7 +67,7 @@
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { jx3dat_types } from "@/assets/data/types.json";
-import {getMenuGroup,getBread} from "@/service/helper.js";
+import { getMenuGroup, getBread } from "@/service/helper.js";
 export default {
     name: "list_nav",
     props: [],
@@ -131,7 +126,7 @@ export default {
             rules: "",
             apis: [],
 
-            qq: "297985102"
+            qq: "297985102",
         };
     },
     watch: {
@@ -140,13 +135,15 @@ export default {
             immediate: true,
             handler(val) {
                 if (!val?.query?.subtype && val.name != "jx3dat") {
-                    this.$router.replace({
-                        name: val.name,
-                        query: { subtype: "" },
-                    }).catch(() => {});
+                    this.$router
+                        .replace({
+                            name: val.name,
+                            query: { subtype: "" },
+                        })
+                        .catch(() => {});
                 }
-            }
-        }
+            },
+        },
     },
     mounted() {
         this.loadTags();
@@ -157,7 +154,7 @@ export default {
         isActive: function (item, routeName) {
             return item.slug == this.$route.query.subtype && this.$route.name == routeName;
         },
-        getIcon: function (slug, type=".png") {
+        getIcon: function (slug, type = ".png") {
             return require("../../assets/img/nav/" + slug + type);
         },
         loadTags() {
@@ -172,7 +169,7 @@ export default {
                     message: "内容：" + this.qq,
                     type: "success",
                 });
-            })
+            });
         },
         loadRules: function () {
             getBread("tool_rule").then((res) => {

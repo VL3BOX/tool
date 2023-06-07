@@ -99,6 +99,9 @@ export default {
         .fz(12px,3);
         .x(left);
         border-bottom: 1px dashed #eee;
+        &:last-child{
+            border-bottom:none;
+        }
         &:hover {
             color: @pink;
         }
