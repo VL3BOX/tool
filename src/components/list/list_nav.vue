@@ -6,7 +6,24 @@
 -->
 <template>
     <div class="m-list-nav">
-        <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5>
+
+        <!-- 群号 -->
+        <RightSideMsg>
+            <em>工具作者交流群</em> :
+            <strong @click="onQQClick" class="u-link" title="点击复制">
+                <a>{{ qq }}</a>
+            </strong>
+        </RightSideMsg>
+
+        <div class="m-tool-side">
+            <el-collapse>
+                <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
+                    <div class="u-content" v-html="rules"></div>
+                </el-collapse-item>
+            </el-collapse>
+        </div>
+
+        <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
         <div class="m-nav-group">
             <router-link
                 v-for="(item, i) in menu"
@@ -24,6 +41,25 @@
             </router-link> -->
         </div>
 
+        <div class="m-tool-side">
+            <el-collapse value="api">
+                <el-collapse-item title="🌀 魔盒API文档索引" name="api" class="m-tool-api">
+                    <div class="u-list" v-if="apis && apis.length">
+                        <a
+                            class="u-item"
+                            v-for="(item, i) in apis"
+                            :href="item.link"
+                            target="_blank"
+                            :style="highLight(item.color)"
+                            :key="i"
+                        >
+                            <i :class="item.icon"></i> {{ item.label }}
+                        </a>
+                    </div>
+                </el-collapse-item>
+            </el-collapse>
+        </div>
+
         <div class="m-nav-tags" v-if="tags && tags.length">
             <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5>
             <div class="u-list">
@@ -36,7 +72,7 @@
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { jx3dat_types } from "@/assets/data/types.json";
-import {getMenuGroup} from "@/service/helper.js";
+import {getMenuGroup,getBread} from "@/service/helper.js";
 export default {
     name: "list_nav",
     props: [],
@@ -92,6 +128,10 @@ export default {
 
             jx3dat_types,
             tags: [],
+            rules: "",
+            apis: [],
+
+            qq: "297985102"
         };
     },
     watch: {
@@ -110,6 +150,8 @@ export default {
     },
     mounted() {
         this.loadTags();
+        this.loadRules();
+        this.loadApis();
     },
     methods: {
         isActive: function (item, routeName) {
@@ -122,6 +164,31 @@ export default {
             getMenuGroup("tool_links").then((res) => {
                 this.tags = res.data.data?.menu_group?.menus || [];
             });
+        },
+        onQQClick() {
+            navigator.clipboard.writeText(this.qq).then(() => {
+                this.$notify({
+                    title: "复制成功",
+                    message: "内容：" + this.qq,
+                    type: "success",
+                });
+            })
+        },
+        loadRules: function () {
+            getBread("tool_rule").then((res) => {
+                this.rules = res.data.data.breadcrumb.html;
+            });
+        },
+        loadApis: function () {
+            getMenuGroup("tool_api").then((res) => {
+                this.apis = res.data.data.menu_group.menus || [];
+            });
+        },
+        highLight: function (val) {
+            if (val) {
+                return "color:" + val + ";font-weight:bold;";
+            }
+            return "";
         },
     },
 };
