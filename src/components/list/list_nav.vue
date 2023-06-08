@@ -159,7 +159,7 @@ export default {
         },
         loadTags() {
             getMenuGroup("tool_links").then((res) => {
-                this.tags = res.data.data?.menu_group?.menus || [];
+                this.tags = res.data.data?.menus || [];
             });
         },
         onQQClick() {
@@ -173,12 +173,12 @@ export default {
         },
         loadRules: function () {
             getBread("tool_rule").then((res) => {
-                this.rules = res.data.data.breadcrumb.html;
+                this.rules = res.data.data.html;
             });
         },
         loadApis: function () {
             getMenuGroup("tool_api").then((res) => {
-                this.apis = res.data.data.menu_group.menus || [];
+                this.apis = res.data.data.menus || [];
             });
         },
         highLight: function (val) {

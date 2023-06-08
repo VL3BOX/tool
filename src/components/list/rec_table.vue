@@ -46,7 +46,7 @@ export default {
         init: function () {
             // let suffix = this.client == "origin" ? "-origin" : "";
             getMenuGroup("tool_rec").then((res) => {
-                this.data = res.data.data.menu_group.menus || [];
+                this.data = res.data.data.menus || [];
 
                 let _fix = this.data.length % 4;
                 if (_fix) {
@@ -56,7 +56,7 @@ export default {
                 }
             });
             getBread("tool_ac").then((res) => {
-                this.ac = res.data.data.breadcrumb.html;
+                this.ac = res.data.data.html;
             });
         },
     },

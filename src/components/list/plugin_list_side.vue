@@ -66,8 +66,12 @@ export default {
         }
     },
     mounted: function () {
-        getMenuGroups(["jx3dat_newbie", "jx3dat_senior"]).then((res) => {
-            let data = res.data.data.data || {};
+        const key = ["jx3dat_newbie", "jx3dat_senior"].join(",");
+        getMenuGroups(key).then((res) => {
+            let data = res.data.data.reduce((obj, item) => {
+                obj[item.name] = item;
+                return obj;
+            }, {});
             for (let key in data) {
                 this[key] = data[key]["menus"];
             }
