@@ -1,5 +1,6 @@
 <template>
     <div class="m-icons-fav">
+        <div class="m-title"><i class="el-icon-star-on u-icon"></i> 收藏图标</div>
         <el-alert class="m-icons-tips" v-if="!favList.length" title="没有收藏的图标，请搜索图标进行添加。" type="info" center show-icon></el-alert>
 
         <div class="m-icons-matrix" v-else>
@@ -75,7 +76,7 @@ export default {
                     }
                 });
             }
-            
+
             localStorage.setItem("favList", JSON.stringify(Array.from(new Set([...favList, ...localFavList]))));
             this.$store.commit("storeFav", favList);
         },
@@ -85,3 +86,16 @@ export default {
     },
 };
 </script>
+
+<style lang="less">
+.m-icons-fav {
+    padding: 10px;
+    .m-title {
+        padding: 10px;
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: bold;
+        border-bottom: 1px solid #eee;
+    }
+}
+</style>

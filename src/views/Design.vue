@@ -1,28 +1,35 @@
 <template>
-    <AppLayout slug="design" icon="icons" name="设计资源" :hasRight="false">
+    <AppLayout slug="design" icon="icons" name="设计资源" :hasRight="hasRight">
         <template #left>
             <Nav></Nav>
         </template>
         <div class="m-archive-box">
             <router-view></router-view>
         </div>
+        <template #right>
+            <favVue></favVue>
+        </template>
     </AppLayout>
 </template>
 
 <script>
 import AppLayout from "@/layouts/AppLayout.vue";
 import Nav from "@/components/design/nav.vue"
+import favVue from '@/components/design/fav.vue';
 export default {
     name: "Design",
     components: {
         AppLayout,
-        Nav
+        Nav,
+        favVue
     },
     data() {
         return {}
     },
     computed: {
-
+        hasRight() {
+            return this.$route?.meta?.hasRight
+        }
     },
     methods: {
 
@@ -37,5 +44,10 @@ export default {
 @import "~@/assets/css/design/design.less";
 .m-archive-box {
     padding:20px 25px;
+}
+@media screen and (max-width: @phone) {
+    .m-archive-box {
+        padding:20px 10px;
+    }
 }
 </style>

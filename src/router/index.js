@@ -81,6 +81,9 @@ const routes = [
                 name: "icon",
                 path: "/app/design/icon",
                 component: () => import("@/components/design/icons.vue"),
+                meta: {
+                    hasRight: true,
+                }
             },
             {
                 name: "vector",
