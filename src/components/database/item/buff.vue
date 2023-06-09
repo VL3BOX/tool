@@ -8,7 +8,10 @@
                     <span class="u-name-primary">{{ data.Name }}</span>
                     <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
                 </div>
-                <span class="u-id" title="点击快速复制" @click.stop="copy('BuffID')">ID:{{ data.BuffID }}</span>
+                <el-tag size="medium" @click.stop="copy('BuffID')">
+                    <i class="el-icon-document-copy u-copy"></i>
+                    <span class="u-id" title="点击快速复制">ID:{{ data.BuffID }}</span>
+                </el-tag>
             </div>
             <div class="u-desc-text">
                 <p class="u-desc-content">{{ data.Desc }}</p>

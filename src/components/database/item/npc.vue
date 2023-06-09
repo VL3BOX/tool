@@ -30,7 +30,7 @@
                     :value="'ID:' + data.ID"
                     :key="data.ID"
                     title="点击快速复制"
-                    @click.native="copy('ID')"
+                    @click.native.stop="copy('ID')"
                 />
             </div>
             <div class="u-primary">

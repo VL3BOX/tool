@@ -8,7 +8,10 @@
                     <span class="u-name-primary">{{ data.Name }}</span>
                     <span class="u-name-secondary" v-if="data.SkillName"> ({{ data.SkillName }})</span>
                 </div>
-                <span class="u-id" title="点击快速复制" @click="copy('SkillID')">ID:{{ data.SkillID }}</span>
+                <el-tag size="medium" @click.stop="copy('SkillID')">
+                    <i class="el-icon-document-copy u-copy"></i>
+                    <span class="u-id" title="点击快速复制">ID:{{ data.SkillID }}</span>
+                </el-tag>
             </div>
             <div class="u-desc-text">
                 <p class="u-desc-content">{{ filterRaw(data.Desc) }}</p>

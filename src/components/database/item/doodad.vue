@@ -5,7 +5,10 @@
             <img class="u-icon" :title="'IconID:' + 10909" :src="iconLink(10909)" />
             <div class="u-title">
                 <span class="u-name">{{ data.Name }}</span>
-                <span class="u-id" title="点击快速复制" @click="copy(ID)">ID:{{ data.ID }}</span>
+                <el-tag size="medium" @click.stop="copy(ID)">
+                    <i class="el-icon-document-copy u-copy"></i>
+                    <span class="u-id" title="点击快速复制">ID:{{ data.ID }}</span>
+                </el-tag>
             </div>
             <div class="u-primary u-primary__doodad">
                 <span class="u-doodad-prop">
