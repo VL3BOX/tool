@@ -1,5 +1,5 @@
 <template>
-    <AppLayout slug="design" icon="icons" name="设计资源" :hasRight="hasRight">
+    <AppLayout slug="design" icon="icons" name="设计资源" :has-right="hasRight">
         <template #left>
             <Nav></Nav>
         </template>
@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         hasRight() {
-            return this.$route?.meta?.hasRight
+            return !!this.$route?.meta?.hasRight
         }
     },
     methods: {
