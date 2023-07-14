@@ -116,6 +116,7 @@ export default {
                 order: this.order,
                 mark: this.mark,
                 client: this.client,
+                sticky: 1,
             };
         },
         // 分页相关参数
@@ -158,9 +159,9 @@ export default {
                 }
             }
             // 当指定子类别时启用置顶
-            if (_query.subtype) {
-                _query.sticky = 1;
-            }
+            // if (_query.subtype) {
+            //     _query.sticky = 1;
+            // }
 
             if (this.search) {
                 _query.search = this.search.trim();
