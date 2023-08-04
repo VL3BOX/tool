@@ -23,11 +23,16 @@
                     <span class="u-primary-item"> Remark: {{ data.Remark }} </span>
                 </span>
             </div>
+            <el-button v-if="showDetail" class="u-props-toggle" :class="{ 'is-active': showProps }" @click="toggleProps">
+                <i class="el-icon-view"></i>
+                <span v-if="showProps">收起属性</span>
+                <span v-else>查看属性</span>
+            </el-button>
         </div>
         <!-- 项目详情，仅在单页展示 -->
         <template v-if="showDetail">
             <!-- 详细字段列表 -->
-            <div class="m-detail">
+            <div class="m-detail" v-if="showProps">
                 <span class="u-prop" v-for="(item, index) in displayProps" :key="index">
                     <!-- 属性名 -->
                     <el-tooltip v-if="item.keyDesc" effect="dark" :content="item.key" placement="top">

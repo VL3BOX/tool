@@ -167,11 +167,16 @@
                     </span>
                 </div>
             </div>
+            <el-button v-if="showDetail" class="u-props-toggle" :class="{ 'is-active': showProps }" @click="toggleProps">
+                <i class="el-icon-view"></i>
+                <span v-if="showProps">收起属性</span>
+                <span v-else>查看属性</span>
+            </el-button>
         </div>
         <!-- 项目详情，仅在单页展示 -->
         <template v-if="showDetail">
             <!-- 详细字段列表 -->
-            <div class="m-detail">
+            <div class="m-detail"  v-if="showProps">
                 <template v-for="(val, key) in data">
                     <span class="u-prop" :key="key" v-if="propsFilter(key)">
                         <el-tooltip v-if="showKeyLabel(key)" effect="dark" :content="key" placement="top">

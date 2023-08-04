@@ -18,6 +18,7 @@ export default {
         },
     },
     data: () => ({
+        showProps: true,
         staring: false,
     }),
     computed: {
@@ -59,6 +60,9 @@ export default {
         },
     },
     methods: {
+        toggleProps() {
+            this.showProps = !this.showProps;
+        },
         iconLink,
         copy(propName) {
             navigator.clipboard
