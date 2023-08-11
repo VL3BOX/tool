@@ -4,7 +4,7 @@
         <Breadcrumb name="魔盒矩阵" slug="app" root="/app" :feedbackEnable="true">
             <img class="u-app-index" slot="logo" svg-inline src="@/assets/img/app.svg" />
         </Breadcrumb>
-        <div class="m-app m-app-index">
+        <div class="m-app m-app-index" ref="appContent">
             <h1 class="m-app-index-title">魔盒矩阵</h1>
 
             <div class="m-app-index-block">
@@ -1054,6 +1054,7 @@
 
 <script>
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import { reportNow } from "@jx3box/jx3box-common/js/reporter";
 export default {
     name: "App",
     data: function () {
@@ -1065,9 +1066,28 @@ export default {
             // return `/logos/${key}.svg`;
             return __imgPath + "image/box/" + key + ".svg";
         },
+        handleClick(e) {
+            // 取出a标签
+            let a = e.target;
+            const href = a.getAttribute("href");
+
+            reportNow({
+                caller: "matrix_all",
+                data: {
+                    href: `www:${href}`,
+                },
+            });
+        },
     },
     filters: {},
-    mounted: function () {},
+    mounted: function () {
+        this.$nextTick(() => {
+            this.$refs.appContent.addEventListener("click", this.handleClick);
+        });
+    },
+    beforeDestroy() {
+        this.$refs.appContent.removeEventListener("click", this.handleClick);
+    },
     components: {},
 };
 </script>
