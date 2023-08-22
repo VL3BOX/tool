@@ -1033,7 +1033,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/jcl" target="_blank" class="disabled">
+                            <a href="/jcl" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('jcl')" />
@@ -1060,7 +1060,12 @@ export default {
     data: function () {
         return {};
     },
-    computed: {},
+    computed: {
+        prefix() {
+            const prefix = this.$store.state.client === 'std' ? 'www' : 'origin';
+            return prefix;
+        }
+    },
     methods: {
         getIcon(key) {
             // return `/logos/${key}.svg`;
@@ -1074,7 +1079,7 @@ export default {
             reportNow({
                 caller: "matrix_all",
                 data: {
-                    href: `www:${href}`,
+                    href: `${prefix}:${href}`,
                 },
             });
         },
