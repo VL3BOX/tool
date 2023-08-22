@@ -1074,12 +1074,19 @@ export default {
         handleClick(e) {
             // 取出a标签
             let a = e.target;
-            const href = a.getAttribute("href");
+            let href = a.getAttribute("href");
+
+
+            // 如果不是a标签,则向上查找
+            if (!href) {
+                a = a.parentNode;
+                href = a.getAttribute("href");
+            }
 
             reportNow({
                 caller: "matrix_all",
                 data: {
-                    href: `${prefix}:${href}`,
+                    href: `${this.prefix}:${href}`,
                 },
             });
         },
