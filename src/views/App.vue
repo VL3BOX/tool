@@ -1074,14 +1074,14 @@ export default {
         handleClick(e) {
             // 取出a标签
             let a = e.target;
-            let href = a.getAttribute("href");
 
 
-            // 如果不是a标签,则向上查找
-            if (!href) {
+            // 如果不是a标签,则向上查找，直到找到a标签
+            while (a.tagName !== "A") {
                 a = a.parentNode;
-                href = a.getAttribute("href");
             }
+
+            let href = a.getAttribute("href");
 
             reportNow({
                 caller: "matrix_all",
