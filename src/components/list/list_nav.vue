@@ -126,7 +126,7 @@ export default {
             rules: "",
             apis: [],
 
-            qq: "297985102",
+            qq: "608303480",
         };
     },
     watch: {

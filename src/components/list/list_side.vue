@@ -43,7 +43,7 @@ export default {
             tab: ["rule","api"],
             rules: "",
             apis: [],
-            qq: "297985102"
+            qq: "608303480"
         };
     },
     computed: {
