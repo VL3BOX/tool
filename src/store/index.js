@@ -23,7 +23,7 @@ let store = {
         favList: [],
 
         // database versions
-        database_client: "std",
+        database_client: location.href.includes("origin") ? "origin" : "std",
         database_type: "buff",
         database_stat: {
             version: "",

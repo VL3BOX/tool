@@ -95,10 +95,11 @@ export default {
                 map: "",
                 strict: false,
             };
-            const { query, type, level } = this.$route.query;
+            const { query, type, level, client } = this.$route.query;
             if (query) this.query.keyword = query;
             if (type) this.type = type;
             if (level) this.query.level = level;
+            if (client) this.$store.state.database_client = client;
         },
         toDetail(item) {
             const query = { ...this.$route.query };
