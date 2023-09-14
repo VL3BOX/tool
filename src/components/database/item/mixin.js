@@ -63,7 +63,11 @@ export default {
         toggleProps() {
             this.showProps = !this.showProps;
         },
-        iconLink,
+        iconLink(id) {
+            let client = this.$store.state.database_client === 'std' ? '' : 'origin';
+            if (this.$store.state.database_type === "doodad") client = ""
+            return iconLink(id, client);
+        },
         copy(propName) {
             navigator.clipboard
                 .writeText(this.data[propName])
