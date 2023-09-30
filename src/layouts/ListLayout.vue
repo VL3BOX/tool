@@ -38,7 +38,7 @@ export default {
     props: {
         appName: {
             type: String,
-            default: "教程工具",
+            default: "工具资源",
         },
         appKey: {
             type: String,

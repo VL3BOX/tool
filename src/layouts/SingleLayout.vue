@@ -2,7 +2,7 @@
     <div class="p-layout p-layout--single">
         <Header></Header>
         <Breadcrumb
-            name="教程工具"
+            name="工具资源"
             icon="jx3dat"
             slug="tool"
             root="/tool"
@@ -38,7 +38,7 @@ import { getAppIcon, getAppID } from "@jx3box/jx3box-common/js/utils";
 import AdminDirectMessage from "@jx3box/jx3box-common-ui/src/bread/AdminDirectMessage.vue"
 export default {
     name: "SingleLayout",
-    props: {
+    props: {工具资源
         appName: {
             type: String,
             default: "教程工具",
