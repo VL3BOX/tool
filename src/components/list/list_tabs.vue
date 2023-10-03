@@ -1,0 +1,104 @@
+<template>
+    <el-tabs class="m-tabs" v-model="view" @tab-click="changeView">
+        <el-tab-pane label="工具资源" name="index">
+            <span slot="label">
+                <img class="u-icon-img" src="@/assets/img/nav/tool.png" alt="">
+                <b>工具资源</b>
+                <!-- <em class="u-secret">权威白皮书</em> -->
+            </span>
+        </el-tab-pane>
+
+        <el-tab-pane label="插件数据" name="jx3dat">
+            <span slot="label">
+                <img class="u-icon-img" src="@/assets/img/nav/data.png" alt="">
+                <b>插件数据</b>
+                <!-- <em class="u-secret">优质作品</em> -->
+            </span>
+        </el-tab-pane>
+
+        <el-tab-pane label="教程指南" name="game">
+            <span slot="label">
+                <img class="u-icon-img" src="@/assets/img/nav/game.png" alt="">
+                <b>教程指南</b>
+                <!-- <em class="u-ready">签约</em> -->
+            </span>
+        </el-tab-pane>
+
+        <el-tab-pane label="魔盒文档" name="api">
+            <span slot="label">
+                <img class="u-icon-img" src="@/assets/img/nav/api.png" alt="">
+                <b>魔盒文档</b>
+            </span>
+        </el-tab-pane>
+
+        <!-- <el-tab-pane label="魔盒助手" name="desktop">
+            <span slot="label">
+                <i class="el-icon-notebook-1"></i>
+                <b>魔盒助手</b>
+            </span>
+        </el-tab-pane> -->
+    </el-tabs>
+</template>
+
+<script>
+import User from "@jx3box/jx3box-common/js/user";
+const subtypes = {
+    index: 1,
+    game: 3,
+    api: 4,
+}
+const _subtypes = {
+    1: "index",
+    3: "game",
+    4: "api",
+}
+export default {
+    name: "tabs",
+    props: [],
+    data: function () {
+        return {
+            view: "index",
+        };
+    },
+    watch: {
+        $route: {
+            handler: function (_route) {
+
+                this.view = _route.name === "index" ? _subtypes[_route.query.subtype] || "index" : _route.name;
+            },
+            immediate: true,
+            deep: true,
+        },
+    },
+    computed: {
+        client: function () {
+            return this.$store.state.client || "std";
+        },
+        isSuperAuthor: function () {
+            return this.$store.state.isSuperAuthor || false;
+        },
+    },
+    methods: {
+        changeView: function () {
+            this.$router.push({
+                name: subtypes[this.view] ? 'index' : this.view,
+                query: {
+                    subtype: subtypes[this.view],
+                },
+            });
+        },
+        getIcon: function (slug, type = ".png") {
+            return require("../../assets/img/nav/" + slug + type);
+        },
+    },
+    mounted: function () {
+        User.isSuperAuthor().then((data) => {
+            this.$store.state.isSuperAuthor = data;
+        });
+    },
+};
+</script>
+
+<style lang="less">
+@import "~@/assets/css/tabs.less";
+</style>

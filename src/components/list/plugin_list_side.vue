@@ -1,7 +1,7 @@
 <template>
     <div class="m-extend-list">
         <RightSideMsg>
-            <em>团控数据作者交流群</em> :
+            <em>工具作者交流群</em> :
             <strong @click="onQQClick" class="u-link" title="点击复制">
                 <a>{{ qq }}</a>
             </strong>
@@ -92,6 +92,11 @@ export default {
 .m-extend-list {
     .u-link {
         .pointer;
+    }
+
+    .c-sidebar-right-msg {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 

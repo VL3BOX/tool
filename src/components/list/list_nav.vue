@@ -7,12 +7,12 @@
 <template>
     <div class="m-list-nav">
         <!-- 群号 -->
-        <RightSideMsg>
+        <!-- <RightSideMsg>
             <em>工具作者交流群</em> :
             <strong @click="onQQClick" class="u-link" title="点击复制">
                 <a>{{ qq }}</a>
             </strong>
-        </RightSideMsg>
+        </RightSideMsg> -->
 
         <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
         <div class="m-nav-group">
@@ -85,7 +85,7 @@ export default {
                 },
                 {
                     slug: 1,
-                    name: "工具助手",
+                    name: "工具资源",
                     desc: "剑三小工具&资源下载",
                     icon: "tool",
                     type: "tool",

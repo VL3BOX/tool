@@ -18,6 +18,8 @@
         </LeftSidebar>
         <Main :withoutRight="withoutRight">
             <div class="m-main">
+                <tabs></tabs>
+                <list-top></list-top>
                 <slot></slot>
             </div>
             <RightSidebar>
@@ -33,6 +35,8 @@ import Info from "@/components/list/Info.vue";
 import Nav from "@/components/list/list_nav.vue";
 import Side from "@/components/list/list_side.vue";
 import PluginSide from "@/components/list/plugin_list_side.vue";
+import Tabs from "@/components/list/list_tabs.vue";
+import ListTop from "@/components/list/list_top.vue";
 export default {
     name: "App",
     props: {
@@ -56,7 +60,7 @@ export default {
     computed: {
         metaType() {
             return {
-                tool: 'Side',
+                tool: 'PluginSide',
                 jx3dat: 'PluginSide',
             }[this.$route.meta.type];
         }
@@ -67,6 +71,8 @@ export default {
         Nav,
         Side,
         PluginSide,
+        Tabs,
+        ListTop,
     },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <ListLayout :withoutRight="true">
+    <ListLayout :withoutRight="false">
         <div class="m-archive-box" v-loading="loading">
             <!-- 搜索 -->
             <div class="m-archive-search" slot="search-before">
