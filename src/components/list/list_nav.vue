@@ -158,9 +158,21 @@ export default {
             return require("../../assets/img/nav/" + slug + type);
         },
         loadTags() {
-            getMenuGroup("tool_links").then((res) => {
-                this.tags = res.data.data?.menus || [];
-            });
+            try {
+                const data = sessionStorage.getItem("tool_links");
+
+                if (data) {
+                    this.tags = JSON.parse(data);
+                } else {
+                    getMenuGroup("tool_links").then((res) => {
+                        this.tags = res.data.data?.menus || [];
+
+                        sessionStorage.setItem("tool_links", JSON.stringify(this.tags));
+                    });
+                }
+            } catch (e) {
+                this.tags = [];
+            }
         },
         onQQClick() {
             navigator.clipboard.writeText(this.qq).then(() => {
@@ -172,14 +184,38 @@ export default {
             });
         },
         loadRules: function () {
-            getBread("tool_rule").then((res) => {
-                this.rules = res.data.data.html;
-            });
+            try {
+                const data = sessionStorage.getItem("tool_rule");
+
+                if (data) {
+                    this.rules = data;
+                } else {
+                    getBread("tool_rule").then((res) => {
+                        this.rules = res.data.data.html;
+
+                        sessionStorage.setItem("tool_rule", this.rules);
+                    });
+                }
+            } catch (e) {
+                this.rules = "";
+            }
         },
         loadApis: function () {
-            getMenuGroup("tool_api").then((res) => {
-                this.apis = res.data.data.menus || [];
-            });
+            try {
+                const data = sessionStorage.getItem("tool_api");
+
+                if (data) {
+                    this.apis = JSON.parse(data);
+                } else {
+                    getMenuGroup("tool_api").then((res) => {
+                        this.apis = res.data.data.menus || [];
+
+                        sessionStorage.setItem("tool_api", JSON.stringify(this.apis));
+                    });
+                }
+            } catch (e) {
+                this.apis = []
+            }
         },
         highLight: function (val) {
             if (val) {

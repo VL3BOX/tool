@@ -7,7 +7,7 @@
         <div class="m-bbs-top__content">
             <div class="m-bbs-top__item" v-for="item in data" :key="item.id">
                 <div class="m-item_left">
-                    <div class="u-title" v-html="item"></div>
+                    <a class="u-title" v-html="item"></a>
                 </div>
             </div>
         </div>
@@ -27,9 +27,21 @@ export default {
     },
     methods: {
         getBreadcrumb() {
-            getBreadcrumb('tool_ac').then(res => {
-                this.data = res.split('\n');
-            })
+            try {
+                const data = sessionStorage.getItem("tool_ac");
+
+                if (data) {
+                    this.data = JSON.parse(data);
+                } else {
+                    getBreadcrumb('tool_ac').then(res => {
+                        this.data = res.split('\n');
+
+                        sessionStorage.setItem("tool_ac", JSON.stringify(this.data));
+                    })
+                }
+            } catch (e) {
+                this.data = [];
+            }
         },
     },
 };
