@@ -24,7 +24,12 @@
                     {{ data.Kind }}
                 </span>
             </div>
-            <el-button v-if="showDetail" class="u-props-toggle" :class="{ 'is-active': showProps }" @click="toggleProps">
+            <el-button
+                v-if="showDetail"
+                class="u-props-toggle"
+                :class="{ 'is-active': showProps }"
+                @click="toggleProps"
+            >
                 <i class="el-icon-view"></i>
                 <span v-if="showProps">收起属性</span>
                 <span v-else>查看属性</span>
@@ -33,7 +38,7 @@
         <!-- 项目详情，仅在单页展示 -->
         <template v-if="showDetail">
             <!-- 详细字段列表 -->
-            <div class="m-detail"  v-if="showProps">
+            <div class="m-detail" v-if="showProps">
                 <template v-for="(val, key) in data">
                     <span class="u-prop" :key="key" v-if="propsFilter(key)">
                         <em>{{ key }}</em>
@@ -75,6 +80,7 @@
 </template>
 <script>
 import itemMixin from "./mixin";
+const advancedProps = ["Script"];
 export default {
     name: "ItemDoodad",
     mixins: [itemMixin],
@@ -82,6 +88,7 @@ export default {
         propsFilter(key) {
             if (key === "IdKey") return false;
             if (this.data[key] === null) return false;
+            if (advancedProps.includes(key) && !this.hasRight) return false;
             return true;
         },
     },
