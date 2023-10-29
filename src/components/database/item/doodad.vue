@@ -5,10 +5,13 @@
             <img class="u-icon" :title="'IconID:' + 10909" :src="iconLink(10909)" />
             <div class="u-title">
                 <span class="u-name">{{ data.Name }}</span>
-                <el-tag size="medium" @click.stop="copy(ID)">
-                    <i class="el-icon-document-copy u-copy"></i>
-                    <span class="u-id" title="点击快速复制">ID:{{ data.ID }}</span>
-                </el-tag>
+                <div>
+                    <span v-if="refCount" class="u-ref-count"> <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span>
+                    <el-tag size="medium" @click.stop="copy('ID')">
+                        <i class="el-icon-document-copy u-copy"></i>
+                        <span class="u-id" title="点击快速复制">ID:{{ data.BuffID }}</span>
+                    </el-tag>
+                </div>
             </div>
             <div class="u-primary u-primary__doodad">
                 <span class="u-doodad-prop">

@@ -10,6 +10,7 @@
             :data="data"
             :hasRight="hasRight"
             :type="type"
+            :ref-count="refCount"
         ></component>
         <!-- 评论组件 -->
         <el-divider content-position="left"><i class="el-icon-chat-line-square"></i> 评论</el-divider>
@@ -28,11 +29,12 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 
 export default {
     name: "DatabaseDetail",
-    components : {
+    components: {
         Comment,
     },
     props: {
         data: Object,
+        refCount: Number,
         hasRight: {
             type: Boolean,
             default: false,
@@ -50,11 +52,11 @@ export default {
             let id = item.ID || item.SkillID || item.BuffID;
             return `(${id})`;
         },
-        id(){
+        id() {
             const item = this.data;
             let id = item.ID || item.SkillID || item.BuffID;
             return id;
-        }
+        },
     },
     data: () => ({
         item_component: {

@@ -24,14 +24,17 @@
                         <span>{{ data.Intensity }}</span>
                     </span>
                 </div>
-                <Mark
-                    class="u-id"
-                    BGL="#333"
-                    :value="'ID:' + data.ID"
-                    :key="data.ID"
-                    title="点击快速复制"
-                    @click.native.stop="copy('ID')"
-                />
+                <div>
+                    <span v-if="refCount" class="u-ref-count"> <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span>
+                    <Mark
+                        class="u-id"
+                        BGL="#333"
+                        :value="'ID:' + data.ID"
+                        :key="data.ID"
+                        title="点击快速复制"
+                        @click.native.stop="copy('ID')"
+                    />
+                </div>
             </div>
             <div class="u-primary">
                 <div class="u-life">
@@ -167,7 +170,12 @@
                     </span>
                 </div>
             </div>
-            <el-button v-if="showDetail" class="u-props-toggle" :class="{ 'is-active': showProps }" @click="toggleProps">
+            <el-button
+                v-if="showDetail"
+                class="u-props-toggle"
+                :class="{ 'is-active': showProps }"
+                @click="toggleProps"
+            >
                 <i class="el-icon-view"></i>
                 <span v-if="showProps">收起属性</span>
                 <span v-else>查看属性</span>
@@ -176,7 +184,7 @@
         <!-- 项目详情，仅在单页展示 -->
         <template v-if="showDetail">
             <!-- 详细字段列表 -->
-            <div class="m-detail"  v-if="showProps">
+            <div class="m-detail" v-if="showProps">
                 <template v-for="(val, key) in data">
                     <span class="u-prop" :key="key" v-if="propsFilter(key)">
                         <el-tooltip v-if="showKeyLabel(key)" effect="dark" :content="key" placement="top">

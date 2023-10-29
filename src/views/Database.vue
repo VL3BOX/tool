@@ -13,6 +13,7 @@
                     :hasRight="hasRight"
                     :type="type"
                     :data.sync="current"
+                    :ref-count="getRefCount(current)"
                 ></database-detail>
                 <database-list v-else :hasRight="hasRight" :query="query" @toDetail="toDetail"></database-list>
             </keep-alive>
@@ -63,7 +64,7 @@ export default {
         current: "",
     }),
     computed: {
-        ...mapState({ isLogin: (state) => state.isLogin }),
+        ...mapState({ isLogin: (state) => state.isLogin, refCounts: (state) => state.database_ref_count }),
         client: {
             get() {
                 return this.$store.state.database_client;
@@ -82,6 +83,19 @@ export default {
         },
     },
     methods: {
+        getRefCount(item) {
+            const id = item.ID || item.BuffID || item.SkillID;
+            const level = item.Level;
+            let ref = this.refCounts[this.type].find(
+                (item) =>
+                    item.type === this.type &&
+                    item.source_id === id &&
+                    (["doodad", "npc"].includes(this.type) || item.source_level === level)
+            );
+            if (!ref && level == 0)
+                ref = this.refCounts[this.type].find((item) => item.type === this.type && item.source_id === id);
+            return ref ? ref.count : null;
+        },
         initPermission() {
             User.isLogin() &&
                 getIsSuperAuthor(User.getInfo().uid).then((res) => {

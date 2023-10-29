@@ -25,6 +25,7 @@ let store = {
         // database versions
         database_client: location.href.includes("origin") ? "origin" : "std",
         database_type: "buff",
+        database_ref_count: { buff: [], skill: [], doodad: [], npc: [] },
         database_stat: {
             version: "",
             count: "",

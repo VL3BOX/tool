@@ -8,6 +8,10 @@ export default {
     props: {
         type: String,
         data: Object,
+        refCount: {
+            type: Number,
+            default: 0,
+        },
         hasRight: {
             type: Boolean,
             default: false,
@@ -64,8 +68,8 @@ export default {
             this.showProps = !this.showProps;
         },
         iconLink(id) {
-            let client = this.$store.state.database_client === 'std' ? '' : 'origin';
-            if (this.$store.state.database_type === "doodad") client = ""
+            let client = this.$store.state.database_client === "std" ? "" : "origin";
+            if (this.$store.state.database_type === "doodad") client = "";
             return iconLink(id, client);
         },
         copy(propName) {

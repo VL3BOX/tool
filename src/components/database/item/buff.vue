@@ -8,10 +8,13 @@
                     <span class="u-name-primary">{{ data.Name }}</span>
                     <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
                 </div>
-                <el-tag size="medium" @click.stop="copy('BuffID')">
-                    <i class="el-icon-document-copy u-copy"></i>
-                    <span class="u-id" title="点击快速复制">ID:{{ data.BuffID }}</span>
-                </el-tag>
+                <div>
+                    <span v-if="refCount" class="u-ref-count"> <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span>
+                    <el-tag size="medium" @click.stop="copy('BuffID')">
+                        <i class="el-icon-document-copy u-copy"></i>
+                        <span class="u-id" title="点击快速复制">ID:{{ data.BuffID }}</span>
+                    </el-tag>
+                </div>
             </div>
             <div class="u-desc-text">
                 <p class="u-desc-content">{{ data.Desc }}</p>
@@ -23,7 +26,12 @@
                     <span class="u-primary-item"> Remark: {{ data.Remark }} </span>
                 </span>
             </div>
-            <el-button v-if="showDetail" class="u-props-toggle" :class="{ 'is-active': showProps }" @click="toggleProps">
+            <el-button
+                v-if="showDetail"
+                class="u-props-toggle"
+                :class="{ 'is-active': showProps }"
+                @click="toggleProps"
+            >
                 <i class="el-icon-view"></i>
                 <span v-if="showProps">收起属性</span>
                 <span v-else>查看属性</span>

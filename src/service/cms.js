@@ -7,11 +7,12 @@ export const starCancel = async (id) => $cms().delete(`/api/cms/app/database/sta
 export const starList = async (type) => $cms().get(`/api/cms/app/database/star/${type}`);
 
 export const getUsers = async (ids) => {
-    const res = await $cms()
-        .get(`/api/cms/user/list/info`, {
-            params: {
-                list: ids,
-            },
-        });
+    const res = await $cms().get(`/api/cms/user/list/info`, {
+        params: {
+            list: ids,
+        },
+    });
     return res.data.data;
-}
+};
+
+export const getRefCount = async (params) => await $cms().get(`/api/cms/dbm/source`, { params });
