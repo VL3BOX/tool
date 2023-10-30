@@ -218,7 +218,13 @@ export default {
                 const resource_res = await _getResource(this.client, this.type, { ids }).finally(() => {
                     this.loading = false;
                 });
-                const data = resource_res.data;
+                const data = resource_res.data
+                    .map((item) => {
+                        const refCount = this.getRefCount(item);
+                        item.__refCount = refCount;
+                        return item;
+                    })
+                    .sort((a, b) => b.__refCount - a.__refCount);
 
                 if (append) {
                     this.data[this.type].push(...data);
