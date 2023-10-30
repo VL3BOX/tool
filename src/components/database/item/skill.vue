@@ -8,13 +8,13 @@
                     <span class="u-name-primary">{{ data.Name }}</span>
                     <span class="u-name-secondary" v-if="data.SkillName"> ({{ data.SkillName }})</span>
                 </div>
-                <div>
+                <div class="u-rt-tags">
                     <span v-if="refCount" class="u-ref-count">
                         <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span
                     >
                     <el-tag size="small" @click.stop="copy('SkillID')">
                         <i class="el-icon-document-copy u-copy"></i>
-                        <span class="u-id" title="点击快速复制">ID:{{ data.BuffID }}</span>
+                        <span class="u-id" title="点击快速复制">ID:{{ data.SkillID }}</span>
                     </el-tag>
                 </div>
             </div>
