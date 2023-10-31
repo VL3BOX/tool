@@ -142,6 +142,7 @@ export default {
     mounted() {
         this.initPermission();
         this.initQuery();
+        this.$store.dispatch("getMapIndex");
         document.title = "剑三数据库 - JX3BOX";
     },
 };

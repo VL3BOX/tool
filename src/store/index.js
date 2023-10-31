@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import User from "@jx3box/jx3box-common/js/user";
+import { $img } from "@/service/oss";
 
 Vue.use(Vuex);
 
@@ -9,6 +10,8 @@ let store = {
         // common
         client: location.href.includes("origin") ? "origin" : "std",
         isLogin: User.isLogin(),
+        mapIndex: {},
+        mapKeys: [],
 
         // post
         id: 0,
@@ -47,7 +50,17 @@ let store = {
         },
     },
     getters: {},
-    actions: {},
+    actions: {
+        getMapIndex: function ({ state }) {
+            $img.get("/map/data/map_index.json").then((res) => {
+                const mapIndex = res.data;
+                state.mapIndex = { ...mapIndex, ...state.mapIndex };
+                state.mapKeys = Object.keys(state.mapIndex)
+                    .map(Number)
+                    .sort((a, b) => a - b);
+            });
+        },
+    },
     modules: {},
 };
 
