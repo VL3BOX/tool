@@ -101,6 +101,8 @@ export default {
     computed: {
         ...mapState({
             client: (state) => state.database_client,
+            group: (state) => state.user_group,
+            databaseFields: (state) => state.database_fields,
             refCounts: (state) => state.database_ref_count,
         }),
         type: {
@@ -128,6 +130,11 @@ export default {
         },
     },
     methods: {
+        dataFieldFilter(list) {
+            if (!this.databaseFields) return [];
+            const typeFields = this.databaseFields[this.type];
+            return list.map((item) => lodash.pickBy(item, (_, key) => typeFields[key]?.group <= this.group));
+        },
         async getList(page = 1, append = false) {
             const params = {
                 strict: this.query.strict,
@@ -146,7 +153,7 @@ export default {
                         const data = res.data;
                         this.total = data.total;
                         this.pages = data.pages;
-                        let list = data.list;
+                        let list = this.dataFieldFilter(data.list);
                         const idProp = {
                             buff: "BuffID",
                             skill: "SkillID",
@@ -173,7 +180,7 @@ export default {
                         const data = res.data;
                         this.total = data.total;
                         this.pages = data.pages;
-                        let list = data.list;
+                        let list = this.dataFieldFilter(data.list);
                         const idProp = {
                             buff: "BuffID",
                             skill: "SkillID",
@@ -218,7 +225,7 @@ export default {
                 const resource_res = await _getResource(this.client, this.type, { ids }).finally(() => {
                     this.loading = false;
                 });
-                const data = resource_res.data
+                const data = this.dataFieldFilter(resource_res.data)
                     .map((item) => {
                         const refCount = this.getRefCount(item);
                         item.__refCount = refCount;

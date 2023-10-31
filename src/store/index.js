@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import User from "@jx3box/jx3box-common/js/user";
-import { $img } from "@/service/oss";
+import { $img } from "@/service/oss.js";
+import { getDatabaseFields } from "@/service/cms.js";
 
 Vue.use(Vuex);
 
@@ -10,6 +11,8 @@ let store = {
         // common
         client: location.href.includes("origin") ? "origin" : "std",
         isLogin: User.isLogin(),
+        user_group: User.getInfo().group,
+
         mapIndex: {},
         mapKeys: [],
 
@@ -33,6 +36,7 @@ let store = {
             version: "",
             count: "",
         },
+        database_fields: "",
 
         stars: {
             buff: [],
@@ -51,13 +55,23 @@ let store = {
     },
     getters: {},
     actions: {
-        getMapIndex: function ({ state }) {
+        getMapIndex({ state }) {
             $img.get("/map/data/map_index.json").then((res) => {
                 const mapIndex = res.data;
                 state.mapIndex = { ...mapIndex, ...state.mapIndex };
                 state.mapKeys = Object.keys(state.mapIndex)
                     .map(Number)
                     .sort((a, b) => a - b);
+            });
+        },
+        getDatabaseFields({ state }) {
+            getDatabaseFields().then((res) => {
+                const fields_map = res.data.data.reduce((acc, cur) => {
+                    if (!acc[cur.type]) acc[cur.type] = {};
+                    acc[cur.type][cur.field] = cur;
+                    return acc;
+                }, {});
+                state.database_fields = fields_map;
             });
         },
     },

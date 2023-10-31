@@ -18,3 +18,5 @@ export const getUsers = async (ids) => {
 export const getRefCount = async (params) => await $cms().get(`/api/cms/dbm/source`, { params });
 
 export const getDbmItemList = async (params) => await $cms().get(`/api/cms/dbm/item`, { params });
+
+export const getDatabaseFields = async () => await $cms().get(`/api/cms/app/database/field`);
