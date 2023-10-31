@@ -36,11 +36,7 @@
             <span class="u-meta-item" v-if="item.origin" @click.stop>
                 <em class="u-meta-label">引用</em>
                 <span class="u-meta-value">
-                    <a
-                        v-if="item.origin > 0"
-                        :href="link(item.origin)"
-                        target="_blank"
-                    >
+                    <a v-if="item.origin > 0" :href="link(item.origin)" target="_blank">
                         <i class="el-icon-link"></i> 查看引用源
                     </a>
                     <span v-else><i class="el-icon-download"></i> 解析导入</span>
@@ -77,6 +73,10 @@ export default {
         },
     },
     methods: {
+        go(id) {
+            // 打开新标签页
+            window.open(this.link(id), "_blank");
+        },
         showRecently,
         showIcon(item) {
             if (["ALL", "BUFF", "DEBUFF", "CASTING"].includes(item.type))
@@ -115,6 +115,7 @@ export default {
 
 <style lang="less">
 .m-db-item {
+    .pointer;
     .db;
     border: 1px solid #e1e4e8;
     background: #fafbfc;
