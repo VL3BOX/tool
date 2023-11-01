@@ -9,7 +9,9 @@
                     <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
                 </div>
                 <div class="u-rt-tags">
-                    <span v-if="refCount" class="u-ref-count"> <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span>
+                    <span v-if="refCount" class="u-ref-count">
+                        <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span
+                    >
                     <el-tag size="small" @click.stop="copy('BuffID')">
                         <i class="el-icon-document-copy u-copy"></i>
                         <span class="u-id" title="点击快速复制">ID:{{ data.BuffID }}</span>
@@ -93,7 +95,6 @@
 import itemMixin from "./mixin";
 import detach_types from "@/assets/data/database/detach_types.json";
 import props_buff from "@/assets/data/database/props_buff.json";
-import attr_desc from "@/assets/data/database/attr_desc.json";
 
 export default {
     name: "ItemBuff",
@@ -113,7 +114,7 @@ export default {
             // buff属性
             for (let i = 1; i <= 15; i++) {
                 if (this.data[`BeginAttrib${i}`] === null) continue;
-                const attrDesc = this.attrDesc(this.data[`BeginAttrib${i}`]);
+                const attrDesc = this.attrLabel(this.data[`BeginAttrib${i}`]);
                 let value = this.data[`BeginValue${i}A`];
                 if (this.data[`BeginValue${i}B`] !== null) value += ` | ${this.data[`BeginValue${i}B`]}`;
                 const attr = {
@@ -131,9 +132,9 @@ export default {
                 if (!this.propsFilter(key)) continue;
                 result.push({
                     key,
-                    keyDesc: this.props_buff?.[key]?.desc || null,
+                    keyDesc: this.fieldLabel(key),
                     value: this.data[key],
-                    valueDesc: this.attrDesc(this.data[key]),
+                    valueDesc: this.attrLabel(this.data[key]),
                     isAdv: this.props_buff[key] && this.props_buff[key]["adv"],
                 });
             }
@@ -142,15 +143,8 @@ export default {
     },
     methods: {
         propsFilter(key) {
-            if (key === "IdKey") return false;
-            if (this.data[key] === null) return false;
-            if (this.props_buff?.[key]?.basic) return false;
-            if (this.props_buff?.[key]?.adv && !this.hasRight) return false;
             if (["BeginValue", "BeginAttrib"].some((item) => key.startsWith(item))) return false;
             return true;
-        },
-        attrDesc(attr) {
-            return attr_desc[attr] ?? null;
         },
     },
 };

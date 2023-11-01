@@ -46,10 +46,10 @@
             <!-- 详细字段列表 -->
             <div class="m-detail" v-if="showProps">
                 <template v-for="(val, key) in data">
-                    <span class="u-prop" :key="key" v-if="propsFilter(key)">
+                    <span class="u-prop" :key="key">
                         <el-tooltip effect="dark" :content="key" placement="top">
-                            <em :class="{ isAdv: props_skill[key] && props_skill[key]['adv'] }">
-                                {{ (props_skill[key] && props_skill[key]["desc"]) || key }}
+                            <em>
+                                {{ fieldLabel(key) }}
                             </em>
                         </el-tooltip>
                         <span>{{ val }}</span>
@@ -90,23 +90,11 @@
 </template>
 <script>
 import itemMixin from "./mixin";
-import props_skill from "@/assets/data/database/props_skill.json";
 
 export default {
     name: "ItemSkill",
     mixins: [itemMixin],
-    data: () => ({
-        props_skill,
-    }),
-    methods: {
-        propsFilter(key) {
-            if (key === "IdKey") return false;
-            if (this.data[key] === null) return false;
-            if (this.props_skill?.[key]?.basic) return false;
-            if (this.props_skill?.[key]?.adv && !this.hasRight) return false;
-            return true;
-        },
-    },
+    methods: {},
 };
 </script>
 <style lang="less">

@@ -25,7 +25,9 @@
                     </span>
                 </div>
                 <div>
-                    <span v-if="refCount" class="u-ref-count"> <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span>
+                    <span v-if="refCount" class="u-ref-count">
+                        <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span
+                    >
                     <Mark
                         class="u-id"
                         BGL="#333"
@@ -186,9 +188,9 @@
             <!-- 详细字段列表 -->
             <div class="m-detail" v-if="showProps">
                 <template v-for="(val, key) in data">
-                    <span class="u-prop" :key="key" v-if="propsFilter(key)">
-                        <el-tooltip v-if="showKeyLabel(key)" effect="dark" :content="key" placement="top">
-                            <em>{{ showKeyLabel(key) }}</em>
+                    <span class="u-prop" :key="key" v-if="val">
+                        <el-tooltip v-if="fieldLabel(key)" effect="dark" :content="key" placement="top">
+                            <em>{{ fieldLabel(key) }}</em>
                         </el-tooltip>
                         <em v-else>{{ key }}</em>
                         {{ val }}
@@ -229,24 +231,10 @@
 </template>
 <script>
 import itemMixin from "./mixin";
-import props_npc from "@/assets/data/database/props_npc.json";
 
 export default {
     name: "ItemNpc",
     mixins: [itemMixin],
-    computed: {},
-    methods: {
-        propsFilter(key) {
-            if (key === "IdKey") return false;
-            if (this.data[key] === null) return false;
-            if (props_npc?.[key]?.basic) return false;
-            if (this.props_npc?.[key]?.adv && !this.hasRight) return false;
-            return true;
-        },
-        showKeyLabel(key) {
-            return props_npc?.[key]?.desc || key;
-        },
-    },
 };
 </script>
 <style lang="less">

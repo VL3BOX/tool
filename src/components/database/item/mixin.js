@@ -2,6 +2,11 @@ import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { starCancel, star } from "@/service/cms";
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { mapState } from "vuex";
+import attr_desc from "@/assets/data/database/attr_desc.json";
+import props_buff from "@/assets/data/database/props_buff.json";
+import props_skill from "@/assets/data/database/props_skill.json";
+import props_npc from "@/assets/data/database/props_npc.json";
+
 const { __Root, __OriginRoot } = JX3BOX;
 
 export default {
@@ -26,7 +31,10 @@ export default {
         staring: false,
     }),
     computed: {
-        ...mapState(["isLogin"]),
+        ...mapState({
+            isLogin: (state) => state.isLogin,
+            database_fields: (state) => state.database_fields,
+        }),
         id_key() {
             const map = {
                 buff: "BuffID",
@@ -156,6 +164,28 @@ export default {
             url.searchParams.append("id", id);
             url.searchParams.append("level", level);
             window.open(url.href, "_blank");
+        },
+        attrLabel(attr) {
+            return attr_desc[attr] || null;
+        },
+        fieldLabel(field) {
+            const component_type = this.$options.name;
+            const component_type_map = {
+                ItemBuff: "buff",
+                ItemSkill: "skill",
+                ItemDoodad: "doodad",
+                ItemNPC: "npc",
+            };
+            const props_map = {
+                buff: props_buff,
+                skill: props_skill,
+                npc: props_npc,
+            };
+            const type = component_type_map[component_type];
+            const fields = this.database_fields[type];
+            const props = props_map[type] ?? {};
+            if (fields?.[field]?.label !== field) return fields?.[field]?.label;
+            return props[field]?.desc || field;
         },
     },
 };

@@ -6,7 +6,9 @@
             <div class="u-title">
                 <span class="u-name">{{ data.Name }}</span>
                 <div class="u-rt-tags">
-                    <span v-if="refCount" class="u-ref-count"> <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span>
+                    <span v-if="refCount" class="u-ref-count">
+                        <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span
+                    >
                     <el-tag size="small" @click.stop="copy('ID')">
                         <i class="el-icon-document-copy u-copy"></i>
                         <span class="u-id" title="点击快速复制">ID:{{ data.ID }}</span>
@@ -43,8 +45,10 @@
             <!-- 详细字段列表 -->
             <div class="m-detail" v-if="showProps">
                 <template v-for="(val, key) in data">
-                    <span class="u-prop" :key="key" v-if="propsFilter(key)">
-                        <em>{{ key }}</em>
+                    <span class="u-prop" :key="key">
+                        <el-tooltip effect="dark" :content="key" placement="top">
+                            <em>{{ fieldLabel(key) }}</em>
+                        </el-tooltip>
                         {{ val }}
                     </span>
                 </template>
@@ -87,14 +91,6 @@ const advancedProps = ["Script"];
 export default {
     name: "ItemDoodad",
     mixins: [itemMixin],
-    methods: {
-        propsFilter(key) {
-            if (key === "IdKey") return false;
-            if (this.data[key] === null) return false;
-            if (advancedProps.includes(key) && !this.hasRight) return false;
-            return true;
-        },
-    },
 };
 </script>
 <style lang="less">
