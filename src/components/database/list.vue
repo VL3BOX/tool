@@ -59,7 +59,6 @@ import { getResource, getNewest, _getResource } from "@/service/node";
 import { getRefCount } from "@/service/cms";
 
 import lodash from "lodash";
-import item_filter from "@/assets/data/database/item_filter.json";
 
 export default {
     name: "DatabaseList",
@@ -103,6 +102,7 @@ export default {
             client: (state) => state.database_client,
             group: (state) => state.user_group,
             databaseFields: (state) => state.database_fields,
+            databaseBlacklist: (state) => state.database_blacklist,
             refCounts: (state) => state.database_ref_count,
         }),
         type: {
@@ -130,10 +130,15 @@ export default {
         },
     },
     methods: {
-        dataFieldFilter(list) {
+        dataFilter(item) {
+            const blacklist = this.databaseBlacklist[this.type];
+            const id = item.ID || item.BuffID || item.SkillID;
+            return !blacklist.includes(String(id));
+        },
+        dataFieldFilter(item) {
             if (!this.databaseFields) return [];
             const typeFields = this.databaseFields[this.type];
-            return list.map((item) => lodash.pickBy(item, (_, key) => typeFields[key]?.group <= this.group));
+            return lodash.pickBy(item, (_, key) => typeFields[key]?.group <= this.group);
         },
         async getList(page = 1, append = false) {
             const params = {
@@ -146,21 +151,21 @@ export default {
             if (this.type === "npc" && this.query.map) params.map = this.query.map;
             if (this.query.level) params.level = this.query.level;
             this.loading = true;
-            if (this.isSearch) {
+            if (this.isSearch || this.defaultSortBy === "newest") {
                 const mode = isNaN(this.query.keyword) ? "name" : "id";
-                getResource(this.type, mode, this.query.keyword, params)
+                const promise = this.isSearch
+                    ? getResource(this.type, mode, this.query.keyword, params)
+                    : getNewest(this.type, params);
+                promise
                     .then((res) => {
                         const data = res.data;
                         this.total = data.total;
                         this.pages = data.pages;
-                        let list = this.dataFieldFilter(data.list);
+                        let list = data.list.map(this.dataFieldFilter).filter(this.dataFilter);
                         const idProp = {
                             buff: "BuffID",
                             skill: "SkillID",
                         };
-                        // 过滤不让显示的BUFF
-                        if (item_filter[this.type])
-                            list = list.filter((item) => !item_filter[this.type].includes(item[idProp[this.type]]));
                         if (append) this.data[this.type] = this.data[this.type].concat(list);
                         else this.data[this.type] = list;
 
@@ -170,35 +175,6 @@ export default {
                         } else {
                             this.$emit("toDetail", "");
                         }
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                    });
-            } else if (this.defaultSortBy === "newest") {
-                getNewest(this.type, params)
-                    .then((res) => {
-                        const data = res.data;
-                        this.total = data.total;
-                        this.pages = data.pages;
-                        let list = this.dataFieldFilter(data.list);
-                        const idProp = {
-                            buff: "BuffID",
-                            skill: "SkillID",
-                        };
-                        // 过滤不让显示的BUFF
-                        if (item_filter[this.type])
-                            list = list.filter((item) => !item_filter[this.type].includes(item[idProp[this.type]]));
-                        if (append) {
-                            this.data[this.type] = this.data[this.type].concat(list);
-                        } else {
-                            this.data[this.type] = list;
-                        }
-                        if (this.data[this.type].length === 1) {
-                            this.$emit("toDetail", this.data[this.type][0]);
-                        } else {
-                            this.$emit("toDetail", "");
-                        }
-                        this.getRefCountList();
                     })
                     .finally(() => {
                         this.loading = false;
@@ -248,8 +224,10 @@ export default {
                         const id = item.ID || item.BuffID || item.SkillID;
                         return `${this.type}_${id}`;
                     })
+                    .filter((id) => !this.refCounts.__queried.includes(id))
             );
             if (!ids.length) return;
+            this.refCounts.__queried.push(...ids);
             getRefCount({ ids: ids.join(",") }).then((res) => {
                 const refs = res.data.data.list;
                 this.refCounts[this.type].push(
@@ -289,12 +267,14 @@ export default {
         trigger: {
             immediate: true,
             deep: true,
-            handler: lodash.throttle(function () {
-                this.search();
-            }, 500),
+            handler: lodash.debounce(
+                function () {
+                    this.search();
+                },
+                800,
+                { leading: true }
+            ),
         },
     },
 };
 </script>
-
-<style lang="scss" scoped></style>

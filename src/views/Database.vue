@@ -128,6 +128,7 @@ export default {
 
             this.$router.replace({ query }).catch(() => {});
             this.current = item;
+            if (!item) return;
 
             window.scrollTo(0, 0);
         },
@@ -144,6 +145,7 @@ export default {
         this.initQuery();
         this.$store.dispatch("getMapIndex");
         this.$store.dispatch("getDatabaseFields");
+        this.$store.dispatch("getDatabaseBlacklist");
         document.title = "剑三数据库 - JX3BOX";
     },
 };

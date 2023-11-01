@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import User from "@jx3box/jx3box-common/js/user";
 import { $img } from "@/service/oss.js";
 import { getDatabaseFields } from "@/service/cms.js";
+import { getBreadcrumb } from "@jx3box/jx3box-common/js/api_misc";
 
 Vue.use(Vuex);
 
@@ -31,12 +32,13 @@ let store = {
         // database versions
         database_client: location.href.includes("origin") ? "origin" : "std",
         database_type: "buff",
-        database_ref_count: { buff: [], skill: [], doodad: [], npc: [] },
+        database_ref_count: { buff: [], skill: [], doodad: [], npc: [], __queried: [] },
         database_stat: {
             version: "",
             count: "",
         },
         database_fields: "",
+        database_blacklist: { buff: [], skill: [], doodad: [], npc: [] },
 
         stars: {
             buff: [],
@@ -73,6 +75,13 @@ let store = {
                 }, {});
                 state.database_fields = fields_map;
             });
+        },
+        getDatabaseBlacklist({ state }) {
+            for (const type in state.database_blacklist) {
+                getBreadcrumb(`database_blacklist_${type}`).then((ids) => {
+                    state.database_blacklist[type] = ids && ids.split(",");
+                });
+            }
         },
     },
     modules: {},
