@@ -201,7 +201,9 @@ export default {
                 const resource_res = await _getResource(this.client, this.type, { ids }).finally(() => {
                     this.loading = false;
                 });
-                const data = this.dataFieldFilter(resource_res.data)
+                const data = resource_res.data
+                    .map(this.dataFieldFilter)
+                    .filter(this.dataFilter)
                     .map((item) => {
                         const refCount = this.getRefCount(item);
                         item.__refCount = refCount;
