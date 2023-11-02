@@ -147,9 +147,14 @@ export default {
                 page: page,
             };
             for (let key in this.query) {
-                if (key === "level" && !this.query.level) continue;
-                if (key === "map" && this.type != "npc") continue;
-                if (key === "strict") continue;
+                if (key === "level" && this.query.level) {
+                    params.level = this.query.level;
+                    continue;
+                }
+                if (key === "map" && this.type == "npc") {
+                    params.map = this.query.map;
+                    continue;
+                }
                 if (key === "keyword") {
                     if (isNaN(this.query.keyword)) {
                         params.keyword = this.query.keyword;
@@ -158,7 +163,8 @@ export default {
                     }
                     continue;
                 }
-                params['_' + key] = this.query[key];
+                if (key === "strict") continue;
+                params["_" + key] = this.query[key];
             }
 
             this.loading = true;
