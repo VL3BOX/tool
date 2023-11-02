@@ -7,6 +7,8 @@
                 <div class="u-name">
                     <span class="u-name-primary">{{ data.Name }}</span>
                     <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
+                    <span class="u-buff-tag is-buff" v-if="data.CanCancel">BUFF</span>
+                    <span class="u-buff-tag is-debuff" v-else>DEBUFF</span>
                 </div>
                 <div class="u-rt-tags">
                     <span v-if="refCount" class="u-ref-count">
@@ -161,6 +163,27 @@ export default {
         .fz(13px, 1.8);
         flex-grow: 1;
         margin: 0 0 5px 0;
+    }
+
+    .u-buff-tag {
+        .r(4px);
+        .fz(10px);
+        font-weight: normal;
+        display: inline-block;
+        padding: 0 10px;
+        border: 1px solid;
+
+        &.is-buff {
+            border-color: rgb(189, 253, 159);
+            background-color: #dbffca;
+            color: #49c10f;
+        }
+
+        &.is-debuff {
+            border-color: #ffd9a1;
+            background-color: #ffeacc;
+            color: #fba524;
+        }
     }
 }
 </style>
