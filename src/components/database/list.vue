@@ -146,30 +146,32 @@ export default {
                 per: this.per,
                 page: page,
             };
-            for (let key in this.query) {
-                if (key === "level" && this.query.level) {
-                    params.level = this.query.level;
-                    continue;
-                }
-                if (key === "map" && this.type == "npc") {
-                    params.map = this.query.map;
-                    continue;
-                }
-                if (key === "keyword") {
-                    if (isNaN(this.query.keyword)) {
-                        params.keyword = this.query.keyword;
-                    } else {
-                        params.id = this.query.keyword;
+            if (this.isSearch) {
+                for (let key in this.query) {
+                    if (key === "level" && this.query.level) {
+                        params.level = this.query.level;
+                        continue;
                     }
-                    continue;
+                    if (key === "map" && this.type == "npc") {
+                        params.map = this.query.map;
+                        continue;
+                    }
+                    if (key === "keyword") {
+                        if (isNaN(this.query.keyword)) {
+                            params.keyword = this.query.keyword;
+                        } else {
+                            params.id = this.query.keyword;
+                        }
+                        continue;
+                    }
+                    if (key === "strict") continue;
+                    params["_" + key] = this.query[key];
                 }
-                if (key === "strict") continue;
-                params["_" + key] = this.query[key];
             }
 
             this.loading = true;
             if (this.isSearch || this.defaultSortBy === "newest") {
-                getResourceList(this.client, this.type, this.isSearch ? params : {})
+                getResourceList(this.client, this.type, params)
                     .then((res) => {
                         const data = res.data.data;
                         this.total = data.total;
