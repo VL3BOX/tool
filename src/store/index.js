@@ -29,7 +29,7 @@ let store = {
         // icons
         favList: [],
 
-        // database versions
+        // database
         database_client: location.href.includes("origin") ? "origin" : "std",
         database_type: "buff",
         database_ref_count: { buff: [], skill: [], doodad: [], npc: [], __queried: [] },
@@ -39,7 +39,6 @@ let store = {
         },
         database_fields: "",
         database_blacklist: { buff: [], skill: [], doodad: [], npc: [] },
-
         stars: {
             buff: [],
             doodad: [],

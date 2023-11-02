@@ -2,7 +2,7 @@
     <app-layout slug="database" icon="database">
         <template #left>
             <!-- 筛选区域 -->
-            <database-filter :type="type" :client.sync="client" :query="query"></database-filter>
+            <database-filter :type="type" :client.sync="client" :query.sync="query"></database-filter>
             <!-- 其他应用跳转区域 -->
             <app-nav></app-nav>
         </template>
@@ -56,7 +56,6 @@ export default {
         query: {
             keyword: "",
             level: "",
-            map: "",
             strict: false,
         },
 

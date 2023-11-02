@@ -55,7 +55,7 @@ import ItemNpc from "@/components/database/item/npc.vue";
 import ItemDoodad from "@/components/database/item/doodad.vue";
 import { mapState } from "vuex";
 
-import { getResource, getNewest, _getResource } from "@/service/node";
+import { getResource, getResourceList } from "@/service/node";
 import { getRefCount } from "@/service/cms";
 
 import lodash from "lodash";
@@ -123,7 +123,7 @@ export default {
             return !this.loading && this.query.keyword;
         },
         isSearch() {
-            return this.query.keyword;
+            return Object.values(this.query).some((item) => item);
         },
         trigger() {
             return [this.defaultSortBy, this.type, this.client, this.query];
@@ -144,28 +144,32 @@ export default {
             const params = {
                 strict: this.query.strict,
                 per: this.per,
-                client: this.client,
                 page: page,
             };
+            for (let key in this.query) {
+                if (key === "level" && !this.query.level) continue;
+                if (key === "map" && this.type != "npc") continue;
+                if (key === "strict") continue;
+                if (key === "keyword") {
+                    if (isNaN(this.query.keyword)) {
+                        params.keyword = this.query.keyword;
+                    } else {
+                        params.id = this.query.keyword;
+                    }
+                    continue;
+                }
+                params['_' + key] = this.query[key];
+            }
 
-            if (this.type === "npc" && this.query.map) params.map = this.query.map;
-            if (this.query.level) params.level = this.query.level;
             this.loading = true;
             if (this.isSearch || this.defaultSortBy === "newest") {
-                const mode = isNaN(this.query.keyword) ? "name" : "id";
-                const promise = this.isSearch
-                    ? getResource(this.type, mode, this.query.keyword, params)
-                    : getNewest(this.type, params);
-                promise
+                getResourceList(this.client, this.type, this.isSearch ? params : {})
                     .then((res) => {
-                        const data = res.data;
+                        const data = res.data.data;
                         this.total = data.total;
                         this.pages = data.pages;
+
                         let list = data.list.map(this.dataFieldFilter).filter(this.dataFilter);
-                        const idProp = {
-                            buff: "BuffID",
-                            skill: "SkillID",
-                        };
                         if (append) this.data[this.type] = this.data[this.type].concat(list);
                         else this.data[this.type] = list;
 
@@ -198,7 +202,7 @@ export default {
                     const { source_id: id, source_level: level } = item;
                     return level ? `${id}_${level}` : `${id}`;
                 });
-                const resource_res = await _getResource(this.client, this.type, { ids }).finally(() => {
+                const resource_res = await getResource(this.client, this.type, { ids }).finally(() => {
                     this.loading = false;
                 });
                 const data = resource_res.data

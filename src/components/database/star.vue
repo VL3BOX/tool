@@ -32,7 +32,7 @@
 <script>
 import { starList } from "@/service/cms";
 import { mapState } from "vuex";
-import { _getResource } from "@/service/node";
+import { getResource } from "@/service/node";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 
 export default {
@@ -83,7 +83,7 @@ export default {
             });
 
             // 获取资源
-            let resources = (await _getResource(this.client, this.type, { ids })).data;
+            let resources = (await getResource(this.client, this.type, { ids })).data;
             if (!resources || !resources.length) resources = [resources];
             // 合并
             for (let item of list) {
@@ -155,7 +155,7 @@ export default {
             display: flex;
             flex-direction: column;
             gap: 4px;
-            flex:1;
+            flex: 1;
         }
         .u-name {
             .ellipsis;

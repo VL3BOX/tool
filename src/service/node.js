@@ -7,11 +7,12 @@ const $ = $node();
 
 export const getStat = async (client) => $.get(`/`, { params: { client } });
 
-export const getResource = async (type, condition, query, params) =>
-    $.get(`/${type}/${condition}/${query}`, { params });
-
 export const getNewest = async (type, params) => $.get(`/${type}/newest`, { params });
 
-export const _getResource = async (client, type, data) => {
+export const getResource = async (client, type, data) => {
     return $.post(`/resource/${client}/${type}`, data);
+};
+
+export const getResourceList = async (client, type, params) => {
+    return $.get(`/resource/${client}/${type}/list`, { params });
 };
