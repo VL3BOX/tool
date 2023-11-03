@@ -9,6 +9,15 @@
                     <span class="u-name-secondary" v-if="data.BuffName"> ({{ data.BuffName }})</span>
                     <span class="u-buff-tag is-buff" v-if="data.CanCancel">BUFF</span>
                     <span class="u-buff-tag is-debuff" v-else>DEBUFF</span>
+                    <template v-if="data._Types && data._Types.length">
+                        <span
+                            class="u-buff-tag"
+                            :class="'is-' + type"
+                            v-for="(type, index) in data._Types"
+                            :key="index"
+                            >{{ type }}</span
+                        >
+                    </template>
                 </div>
                 <div class="u-rt-tags">
                     <span v-if="refCount" class="u-ref-count">
@@ -45,7 +54,7 @@
         <template v-if="showDetail">
             <!-- 详细字段列表 -->
             <div class="m-detail" v-if="showProps">
-                <span class="u-prop" v-for="(item, index) in displayProps" :key="index">
+                <span class="u-prop" v-for="(item, index) in display_props" :key="index">
                     <!-- 属性名 -->
                     <el-tooltip v-if="item.keyDesc" effect="dark" :content="item.key" placement="top">
                         <em class="u-prop-key" :class="{ isAdv: item.isAdv }">
@@ -111,7 +120,7 @@ export default {
             if (type && this.detach_types[type]) return this.detach_types[type];
             return null;
         },
-        displayProps: function () {
+        display_props: function () {
             const result = [];
             // buff属性
             for (let i = 1; i <= 15; i++) {
@@ -172,6 +181,9 @@ export default {
         display: inline-block;
         padding: 0 10px;
         border: 1px solid;
+        border-color: #7cb3fc;
+        background-color: #e0edfd;
+        color: #2081ff;
 
         &.is-buff {
             border-color: rgb(189, 253, 159);
