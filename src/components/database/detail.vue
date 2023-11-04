@@ -13,21 +13,23 @@
             :ref-count="refCount"
         ></component>
         <!-- 引用的元数据 -->
-        <el-divider content-position="left"><i class="el-icon-chat-line-square"></i> 引用的元数据</el-divider>
-        <div class="m-dbm-item-list" v-loading="dbm_items_loading">
-            <dbm-item v-for="(item, index) in dbm_items" :item="item" :key="index"></dbm-item>
-            <el-pagination
-                class="u-pagination"
-                background
-                layout="prev, pager, next"
-                :total="dbm_items_total"
-                :page-size="6"
-                :current-page.sync="dbm_items_page"
-                @current-change="loadDbmItems"
-                hide-on-single-page
-            >
-            </el-pagination>
-        </div>
+        <template v-if="dbm_items && dbm_items.length">
+            <el-divider content-position="left"><i class="el-icon-chat-line-square"></i> 引用的元数据</el-divider>
+            <div class="m-dbm-item-list" v-loading="dbm_items_loading">
+                <dbm-item v-for="(item, index) in dbm_items" :item="item" :key="index"></dbm-item>
+                <el-pagination
+                    class="u-pagination"
+                    background
+                    layout="prev, pager, next"
+                    :total="dbm_items_total"
+                    :page-size="6"
+                    :current-page.sync="dbm_items_page"
+                    @current-change="loadDbmItems"
+                    hide-on-single-page
+                >
+                </el-pagination>
+            </div>
+        </template>
         <!-- 评论组件 -->
         <el-divider content-position="left"><i class="el-icon-chat-line-square"></i> 评论</el-divider>
         <Comment class="m-comment" :id="id" :category="type" />
