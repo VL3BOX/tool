@@ -37,7 +37,7 @@
                 <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
                     <div class="u-content" v-html="rules"></div>
                 </el-collapse-item>
-                <el-collapse-item title="🌀 魔盒API文档索引" name="api" class="m-tool-api">
+                <el-collapse-item title="🌀 魔盒API文档" name="api" class="m-tool-api">
                     <div class="u-list" v-if="apis && apis.length">
                         <a
                             class="u-item"
