@@ -12,10 +12,11 @@
                     <template v-if="data._Types && data._Types.length">
                         <span
                             class="u-buff-tag"
-                            :class="'is-' + type"
+                            :style="buffTypeColor(type)"
                             v-for="(type, index) in data._Types"
                             :key="index"
-                            >{{ type }}</span
+                        >
+                            {{ type }}</span
                         >
                     </template>
                 </div>
@@ -106,6 +107,7 @@
 import itemMixin from "./mixin";
 import detach_types from "@/assets/data/database/detach_types.json";
 import props_buff from "@/assets/data/database/props_buff.json";
+import buff_types_colors from "@/assets/data/database/buff_type_colors.json";
 
 export default {
     name: "ItemBuff",
@@ -156,6 +158,14 @@ export default {
         propsFilter(key) {
             if (["BeginValue", "BeginAttrib"].some((item) => key.startsWith(item))) return false;
             return true;
+        },
+        buffTypeColor(type) {
+            const color = buff_types_colors[type];
+            return {
+                borderColor: color + "44",
+                backgroundColor: color + "22",
+                color: color,
+            };
         },
     },
 };
