@@ -20,9 +20,18 @@
                 <div class="u-input-label">地图</div>
                 <el-input placeholder="请输入NPC所在地图" v-model="queryModel.map" clearable> </el-input>
             </div>
-            <div v-for="(field, index) in extraField" :key="index">
-                <div class="u-input-label">{{ field }}</div>
-                <el-input :placeholder="field" v-model="queryModel[field]" clearable> </el-input>
+            <div v-for="(field, index) in extraField" :key="index" class="u-extra-field">
+                <template v-if="field == '_Types' && type == 'buff'">
+                    <div class="u-input-label">{{ field }}</div>
+                    <el-select v-model="queryModel[field]" filterable clearable>
+                        <el-option v-for="(type, index) in buff_types" :key="index" :label="type" :value="type">
+                        </el-option>
+                    </el-select>
+                </template>
+                <template v-else>
+                    <div class="u-input-label">{{ field }}</div>
+                    <el-input :placeholder="field" v-model="queryModel[field]" clearable> </el-input>
+                </template>
             </div>
             <el-select
                 v-model="extraField"
@@ -62,6 +71,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import buff_types from "@/assets/data/database/buff_types.json";
 
 export default {
     name: "DatabaseFilter",
@@ -77,6 +87,8 @@ export default {
         query: Object,
     },
     data: () => ({
+        buff_types,
+
         extraField: [],
     }),
     computed: {
@@ -182,6 +194,12 @@ export default {
     }
     .u-add-field {
         width: 100%;
+    }
+    .u-extra-field {
+        width: 100%;
+        .el-select {
+            width: 100%;
+        }
     }
 }
 </style>
