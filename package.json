@@ -13,7 +13,7 @@
     "dependencies": {
         "@jx3box/jx3box-comment-ui": "^1.7.16",
         "@jx3box/jx3box-common": "^8.0.3",
-        "@jx3box/jx3box-common-ui": "^7.9.2",
+        "@jx3box/jx3box-common-ui": "^7.9.8",
         "@jx3box/jx3box-dict": "^2.0.0",
         "@jx3box/jx3box-editor": "^2.0.0",
         "axios": "^0.19.2",
