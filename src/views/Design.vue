@@ -14,26 +14,24 @@
 
 <script>
 import AppLayout from "@/layouts/AppLayout.vue";
-import Nav from "@/components/design/nav.vue"
-import favVue from '@/components/design/fav.vue';
+import Nav from "@/components/design/nav.vue";
+import favVue from "@/components/design/fav.vue";
 export default {
     name: "Design",
     components: {
         AppLayout,
         Nav,
-        favVue
+        favVue,
     },
     data() {
-        return {}
+        return {};
     },
     computed: {
         hasRight() {
-            return !!this.$route?.meta?.hasRight
-        }
+            return !!this.$route?.meta?.hasRight;
+        },
     },
-    methods: {
-
-    },
+    methods: {},
     mounted() {
         document.title = "设计资源 - JX3BOX";
     },
@@ -43,11 +41,14 @@ export default {
 <style lang="less">
 @import "~@/assets/css/design/design.less";
 .m-archive-box {
-    padding:20px 25px;
+    padding: 20px 25px;
 }
 @media screen and (max-width: @phone) {
     .m-archive-box {
-        padding:20px 10px;
+        padding: 20px 10px;
+    }
+    .c-sidebar-right {
+        .none;
     }
 }
 </style>
