@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { getImage } from "@/utils/dbm";
 import { iconLink, getLink } from "@jx3box/jx3box-common/js/utils";
 import { showRecently } from "@/utils/dateFormat.js";
 import User from "@jx3box/jx3box-common/js/user";

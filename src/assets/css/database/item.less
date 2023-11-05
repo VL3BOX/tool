@@ -42,6 +42,7 @@
         }
 
         .u-title {
+            flex-wrap: wrap;
             line-height: 2;
             display: flex;
             justify-content: space-between;
@@ -68,6 +69,7 @@
         }
 
         .u-ref-count {
+
             .mr(8px);
             .fz(10px);
             background-color: #3d454d;
@@ -76,6 +78,7 @@
             border-radius: 4px;
             font-weight: normal;
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .u-id {
@@ -155,9 +158,11 @@
             padding: 2px 8px 2px 5px;
             border-radius: 2px;
             font-weight: normal;
+            flex-shrink: 0;
         }
 
         .u-title {
+            flex-wrap: wrap;
             min-height: 48px;
             .u-name {
                 .fz(18px);
