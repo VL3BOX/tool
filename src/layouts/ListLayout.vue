@@ -19,7 +19,7 @@
         <Main :withoutRight="withoutRight">
             <div class="m-main">
                 <tabs></tabs>
-                <list-top></list-top>
+                <list-top v-if="showListTop"></list-top>
                 <slot></slot>
             </div>
             <RightSidebar>
@@ -63,6 +63,9 @@ export default {
                 tool: 'PluginSide',
                 jx3dat: 'PluginSide',
             }[this.$route.meta.type];
+        },
+        showListTop() {
+            return this.$route.name === 'index' && !this.$route.query?.subtype;
         }
     },
     methods: {},
