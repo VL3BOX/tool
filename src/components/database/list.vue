@@ -292,3 +292,10 @@ export default {
     },
 };
 </script>
+
+<style lang="less">
+    .m-pager {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+</style>
