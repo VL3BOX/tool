@@ -20,3 +20,5 @@ export const getRefCount = async (params) => await $cms().get(`/api/cms/dbm/sour
 export const getDbmItemList = async (params) => await $cms().get(`/api/cms/dbm/item`, { params });
 
 export const getDatabaseFields = async () => await $cms().get(`/api/cms/app/database/field`);
+
+export const getBreadcrumbs = async (key) => $cms().get(`/api/cms/breadcrumb`, { params: { key } });

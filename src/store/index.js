@@ -2,8 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import User from "@jx3box/jx3box-common/js/user";
 import { $img } from "@/service/oss.js";
-import { getDatabaseFields } from "@/service/cms.js";
-import { getBreadcrumb } from "@jx3box/jx3box-common/js/api_misc";
+import { getDatabaseFields, getBreadcrumbs } from "@/service/cms.js";
 
 Vue.use(Vuex);
 
@@ -76,11 +75,15 @@ let store = {
             });
         },
         getDatabaseBlacklist({ state }) {
-            for (const type in state.database_blacklist) {
-                getBreadcrumb(`database_blacklist_${type}`).then((ids) => {
-                    state.database_blacklist[type] = ids && ids.split(",");
-                });
-            }
+            const keys = Object.keys(state.database_blacklist).map((type) => `database_blacklist_${type}`);
+            getBreadcrumbs(keys.join(",")).then((res) => {
+                const list = res.data.data.reduce((acc, cur) => {
+                    const type = cur.name.split("_")[2];
+                    acc[type] = cur.html.split(",").filter((item) => item);
+                    return acc;
+                }, {});
+                state.database_blacklist = list;
+            });
         },
     },
     modules: {},
