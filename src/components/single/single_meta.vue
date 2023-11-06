@@ -1,5 +1,5 @@
 <template>
-    <div class="m-single-meta m-tool-meta" v-if="need_format">
+    <div class="m-single-meta m-tool-meta" v-if="hasFile">
         <div class="m-single-meta__main">
             <div class="m-meta-item" v-for="item in data" :key="item.name">
                 <template v-if="item.mode == 1">
@@ -69,7 +69,7 @@ export default {
         data() {
             return this.post?.post_meta?.data || [];
         },
-        need_format(){
+        hasFile(){
             return this.post.post_subtype == '1' || this.post.post_subtype == '2'
         }
     },
