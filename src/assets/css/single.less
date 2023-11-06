@@ -1,24 +1,27 @@
 .m-single-notice {
-    .mb(20px);
+    .mb(12px);
+    .el-alert__description {
+        .fz(12px,1.5);
+    }
     // align-items: flex-start;
 }
 
-.m-single-meta{
+.m-single-meta {
     // margin:20px;
-    margin:10px 0 40px 0;
-    border:1px solid @primary;
+    margin: 10px 0 40px 0;
+    border: 1px solid @primary;
     .r(4px);
-    padding:20px;
-    background-color:#faffff;
+    padding: 20px;
+    background-color: #faffff;
 
-    .u-data{
+    .u-data {
         .fz(13px,24px);
         .pr;
         .mb(10px);
         .clearfix;
     }
 
-    .u-feed{
+    .u-feed {
         .y;
         .mr(10px);
         .pointer;
@@ -26,33 +29,32 @@
         .h(24px);
     }
 
-    .u-down{
+    .u-down {
         .pa;
         .rt(0);
     }
 
-    .u-typename{
+    .u-typename {
         .fz(14px,32px);
     }
 
-
-    .u-subtype-other{
+    .u-subtype-other {
         .clearfix;
     }
 
-    .u-excerpt{
+    .u-excerpt {
         .fl;
     }
 
-    .u-download{
+    .u-download {
         .fr;
-        .u-short{
+        .u-short {
             .none;
         }
     }
 
-    .u-gitee{
-        fill:#fff;
+    .u-gitee {
+        fill: #fff;
     }
 }
 
@@ -65,20 +67,18 @@
     flex: 1;
 
     .m-meta-item {
-        .fz(13px,24px);
+        .fz(13px,32px);
         .pr;
         padding: 5px 10px 5px 10px;
         .flex;
         align-items: center;
         justify-content: space-between;
-
-        &:hover {
-            background-color: #f5f5f5;
-        }
+        border-bottom: 1px dotted #eee;
     }
     .u-name {
         i {
             .mr(4px);
+            color: #0755ad;
         }
     }
 }
@@ -91,23 +91,30 @@
     }
 }
 
-@media screen and (max-width:@phone){
-    .m-single-meta{
-        .u-data{
-            .u-desc,.u-down{.none;}
+@media screen and (max-width: @phone) {
+    .m-single-meta {
+        .u-data {
+            .u-desc,
+            .u-down {
+                .none;
+            }
 
-            .u-feed{
+            .u-feed {
                 .db;
             }
         }
-        .u-data-add{
+        .u-data-add {
             .u-feed {
                 .mb(10px);
             }
         }
-        .u-download{
-            .u-long{.none;}
-            .u-short{.di;}
+        .u-download {
+            .u-long {
+                .none;
+            }
+            .u-short {
+                .di;
+            }
         }
     }
 }
