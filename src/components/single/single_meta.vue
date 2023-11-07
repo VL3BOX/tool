@@ -39,11 +39,7 @@
                     <a class="u-report" :href="feedback" target="_blank">快捷举报</a>
                 </div>
                 <div class="m-description">
-                    <div class="m-content">
-                        <div class="m-description-item" v-for="(item, i) in content" :key="i">
-                            <span class="u-number">{{ i + 1 }}.</span>
-                            <span class="u-text">{{ item }}</span>
-                        </div>
+                    <div class="m-content" v-html="nl2br(content)">
                     </div>
                     <img class="u-description-bg" src="@/assets/img/single/box_deyi.svg" alt="">
                 </div>
@@ -53,6 +49,7 @@
 </template>
 
 <script>
+import { getBreadcrumb } from '@jx3box/jx3box-common/js/api_misc';
 export default {
     name: "single_meta",
     props: {
@@ -64,12 +61,7 @@ export default {
     data: function () {
         return {
             feedback: "/feedback?refer=" + encodeURIComponent(window.location.href),
-            content: [
-                "请严格保护个人财产安全，勿轻信任何收费服务。",
-                "本站不对作者提供的下载资源做任何担保。",
-                "凡是不受官方认可、或疑似外挂，以及不符合站内创作公约及发布规范的作品予以删除处理。",
-                "欢迎广大玩家监督与举报。",
-            ]
+            content: "",
         };
     },
     computed: {
@@ -83,6 +75,29 @@ export default {
             return this.post.post_subtype == '1' || this.post.post_subtype == '2'
         }
     },
-    methods: {},
+    mounted() {
+        this.loadToolDesc();
+    },
+    methods: {
+        loadToolDesc() {
+            try {
+                const tips = sessionStorage.getItem("tool_download_warning");
+                if (tips) {
+                    this.content = tips;
+                    return;
+                }
+                getBreadcrumb("tool_download_warning").then((res) => {
+                    this.content = res
+                    sessionStorage.setItem(
+                        "tool_download_warning",
+                        res
+                    );
+                });
+            } catch (err) {}
+        },
+        nl2br(str) {
+            return str.replace(/[\r\n]/g, "<br>");
+        },
+    },
 };
 </script>
