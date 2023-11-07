@@ -6,7 +6,7 @@
                     <span class="u-name"><i class="el-icon-box"></i>{{ item.name || "暂无资源" }}</span>
                     <span class="u-remark">{{ item.remark || "" }}</span>
                     <a
-                        class="el-button el-button--primary el-button--small"
+                        class="u-download-btn el-button el-button--primary el-button--small"
                         :href="item.file"
                         target="_blank"
                         v-show="item.file"
@@ -19,7 +19,7 @@
                     <span class="u-name"><i class="el-icon-box"></i>{{ item.name || "暂无资源" }}</span>
                     <span class="u-remark">{{ item.remark || "" }}</span>
                     <a
-                        class="el-button el-button--primary el-button--small"
+                        class="u-download-btn el-button el-button--primary el-button--small"
                         :href="item.file"
                         target="_blank"
                         v-show="item.file"
@@ -41,9 +41,10 @@
                 :closable="false"
             >
             </el-alert>
-            <a class="u-report el-button el-button--default is-plain el-button--small" :href="feedback"
-                ><i class="el-icon-warning-outline"></i> 举报</a
-            >
+            <a class="u-report el-button el-button--default el-button--small" :href="feedback" target="_blank">
+                快捷举报
+                <img class="u-report-img" src="@/assets/img/single/box_deyi.svg" alt="">
+            </a>
         </div>
     </div>
 </template>
