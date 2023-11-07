@@ -32,19 +32,22 @@
         </div>
         <div class="m-single-meta__side">
             <!-- 文首警告 -->
-            <el-alert
-                v-if="isTool"
-                class="m-single-notice"
-                title="特别说明"
-                type="warning"
-                description="请严格保护个人财产安全，勿轻信任何收费服务，本站不对作者提供的下载资源做任何担保，凡是不受官方认可、或疑似外挂，以及不符合站内创作公约及发布规范的作品予以删除处理，欢迎广大玩家监督与举报。"
-                :closable="false"
-            >
-            </el-alert>
-            <a class="u-report el-button el-button--default el-button--small" :href="feedback" target="_blank">
-                快捷举报
-                <img class="u-report-img" src="@/assets/img/single/box_deyi.svg" alt="">
-            </a>
+            <div class="m-single-notice">
+                <div class="m-notice-header">
+                    <i class="el-icon-warning"></i>
+                    <span class="u-header">特别说明</span>
+                    <a class="u-report" :href="feedback" target="_blank">快捷举报</a>
+                </div>
+                <div class="m-description">
+                    <div class="m-content">
+                        <div class="m-description-item" v-for="(item, i) in content" :key="i">
+                            <span class="u-number">{{ i + 1 }}.</span>
+                            <span class="u-text">{{ item }}</span>
+                        </div>
+                    </div>
+                    <img class="u-description-bg" src="@/assets/img/single/box_deyi.svg" alt="">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -61,6 +64,12 @@ export default {
     data: function () {
         return {
             feedback: "/feedback?refer=" + encodeURIComponent(window.location.href),
+            content: [
+                "请严格保护个人财产安全，勿轻信任何收费服务。",
+                "本站不对作者提供的下载资源做任何担保。",
+                "凡是不受官方认可、或疑似外挂，以及不符合站内创作公约及发布规范的作品予以删除处理。",
+                "欢迎广大玩家监督与举报。",
+            ]
         };
     },
     computed: {
