@@ -136,7 +136,11 @@
 
     .u-report {
         border-radius: 3px;
-        background-color: #ff5757;
+        @warning:#ff5757;
+        background-color: @warning;
+        &:hover{
+            background-color:lighten(@warning,5%);
+        }
         color: #fff;
         font-size: 12px;
         padding: 4px 10px;
