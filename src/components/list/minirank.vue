@@ -26,6 +26,7 @@
 <script>
 import { getPkgRank } from "../../service/rank";
 import { postLink } from "@jx3box/jx3box-common/js/utils";
+import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "rank",
     data: function () {
@@ -46,7 +47,8 @@ export default {
             this.loadData();
         },
         viewRank: function () {
-            this.$router.push({ name: "jx3dat_rank" });
+            // this.$router.push({ name: "jx3dat_rank" });
+            window.open(`${__Root}dbm/pkg/rank`, "_self");
         },
         highlight: function (i) {
             if (i == 0) {
