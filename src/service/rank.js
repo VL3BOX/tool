@@ -21,4 +21,9 @@ function getHistory(uid) {
         });
 }
 
-export { getRank, getHistory };
+function getPkgRank(category, params) {
+    return $next().get(`api/next2/dbm/pkg/rank/${category}`, { params })
+}
+
+
+export { getRank, getPkgRank, getHistory };

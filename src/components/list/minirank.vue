@@ -4,31 +4,20 @@
             <img class="u-icon" svg-inline src="../../assets/img/rank.svg" />排行榜
             <span class="u-more" @click="viewRank">查看更多 &raquo;</span>
         </h3>
-        <ul class="u-list">
-            <li v-for="(item, j) in data" :key="j">
-                <a class="u-link" :href="item.pid | postLink">
-                    <span class="u-order" :class="highlight(j)">{{ j + 1 }}</span>
+        <el-tabs v-model="active" @tab-click="handleClick">
+            <el-tab-pane label="综合" name="mix"></el-tab-pane>
+            <el-tab-pane label="收藏" name="favorite"></el-tab-pane>
+            <el-tab-pane label="订阅" name="subscribers"></el-tab-pane>
+            <el-tab-pane label="下载" name="download"></el-tab-pane>
+        </el-tabs>
+        <ul class="u-list" v-loading="loading">
+            <li v-for="(item, k) in data" :key="k">
+                <a class="u-link" :href="postLink('dbm/pkg', item.id)">
+                    <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span>
+                    <Avatar class="u-avatar" :url="item.ext_user_info.avatar" :size="14"> </Avatar>
                     <span class="u-name">
                         {{ item.author }}
-                        <span v-if="item.v != '默认版'">#{{ item.v }}</span>
-                    </span>
-                    <span class="u-per">
-                        <em class="u-count">+ {{ item["7days"] }}</em>
-                        <!-- <i
-                        class="el-icon-top u-trending"
-                        v-if="trending(item) > 0"
-                        >{{ (trending(item) * 100).toFixed(2) + "%" }}</i
-                    >
-                    <i
-                        class="el-icon-bottom u-trending"
-                        v-if="trending(item) < 0"
-                        >{{ (trending(item) * 100).toFixed(2) + "%" }}</i
-                    >
-                    <span
-                        class="u-trending u-trending-keep"
-                        v-if="trending(item) == 0"
-                        >-</span
-                        >-->
+                        <span>#{{ item.key }}</span>
                     </span>
                 </a>
             </li>
@@ -37,31 +26,31 @@
 </template>
 
 <script>
-import { getRank } from "../../service/rank";
+import { getPkgRank } from "../../service/rank";
 import { postLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "rank",
-    data: function() {
+    data: function () {
         return {
+            loading: false,
             data: [],
+            active: "mix",
         };
     },
     computed: {
-        client: function() {
+        client: function () {
             return this.$store.state.client;
         },
     },
     methods: {
-        trending: function(item) {
-            let trending_1 = (item.before3 - item.before2) / item.before2;
-            let trending_2 = (item.before2 - item.yesterday) / item.yesterday;
-            let average = (trending_1 + trending_2) / 2;
-            return isNaN(average) ? "N/A" : average.toFixed(4);
+        postLink,
+        handleClick() {
+            this.loadData();
         },
-        viewRank: function() {
+        viewRank: function () {
             this.$router.push({ name: "jx3dat_rank" });
         },
-        highlight: function(i) {
+        highlight: function (i) {
             if (i == 0) {
                 return "t1";
             } else if (i == 1) {
@@ -70,29 +59,20 @@ export default {
                 return "t3";
             }
         },
-    },
-    filters: {
-        postLink: function(pid) {
-            return postLink("jx3dat", pid);
+        loadData() {
+            this.loading = true;
+            getPkgRank(this.active, { top: 10 })
+                .then((res) => {
+                    this.data = res.data.data;
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
     },
-    mounted: function() {
-        getRank(this.client, 10).then((data) => {
-            let _data = [];
-            for (let [i, item] of data.entries()) {
-                if (item["7days"]) {
-                    _data.push(item);
-                }
-            }
-            _data = _data
-                .sort((old, now) => {
-                    return now["7days"] - old["7days"];
-                })
-                .slice(0, 10);
-            this.data = _data;
-        });
+    mounted: function () {
+        this.loadData();
     },
-    components: {},
 };
 </script>
 
