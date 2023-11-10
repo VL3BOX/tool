@@ -15,12 +15,8 @@
                 <a class="u-link" :href="postLink('dbm/pkg', item.id)">
                     <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span>
                     <Avatar class="u-avatar" :url="item.ext_user_info.avatar" :size="14"> </Avatar>
-                    <span class="u-tag" :class="item.client">{{ item.client ? "重制" : "缘起" }}</span>
-                    <span class="u-name">
-                        {{ item.author }}
-                        <span>#{{ item.key }}</span>
-                    </span>
-             
+                    <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span>
+                    <span class="u-name"> #{{ item.key }} </span>
                 </a>
             </li>
         </ul>
