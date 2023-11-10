@@ -15,7 +15,7 @@
                 <a class="u-link" :href="postLink('dbm/pkg', item.id)">
                     <span class="u-order" :class="highlight(k)">{{ k + 1 }}</span>
                     <Avatar class="u-avatar" :url="item.ext_user_info.avatar" :size="14"> </Avatar>
-                    <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span>
+                    <!-- <span class="u-tag" :class="item.client">{{ item.client === "std" ? "重制" : "缘起" }}</span> -->
                     <span class="u-name"> #{{ item.key }} </span>
                 </a>
             </li>
@@ -47,7 +47,7 @@ export default {
             this.loadData();
         },
         viewRank: function () {
-            const root = client === "std" ? __Root : __OriginRoot;
+            const root = this.client === "std" ? __Root : __OriginRoot;
             window.open(`${root}dbm/pkg/rank`, "_self");
         },
         highlight: function (i) {
@@ -61,7 +61,7 @@ export default {
         },
         loadData() {
             this.loading = true;
-            getPkgRank(this.active, { top: 10 })
+            getPkgRank(this.active, { top: 10, client: this.client })
                 .then((res) => {
                     this.data = res.data.data;
                 })
