@@ -32,7 +32,7 @@
             </router-link> -->
         </div>
 
-        <div class="m-tool-side">
+        <div class="m-tool-side" @click.stop>
             <el-collapse>
                 <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
                     <div class="u-content" v-html="rules"></div>

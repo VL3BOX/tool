@@ -1,11 +1,11 @@
 <template>
     <div class="m-info">
         <div class="m-info-router">
-            <router-link to="/"><i class="el-icon-receiving"></i></router-link>
-            <router-link to="/?subtype=1"><i class="el-icon-setting"></i></router-link>
-            <router-link to="/?subtype=3"><i class="el-icon-discover"></i></router-link>
-            <router-link to="/?subtype=2"><i class="el-icon-paperclip"></i></router-link>
-            <router-link to="/?subtype=4"><i class="el-icon-collection"></i></router-link>
+            <router-link to="/tool"><i class="el-icon-receiving"></i></router-link>
+            <router-link to="/tool?subtype=1"><i class="el-icon-setting"></i></router-link>
+            <router-link to="/tool?subtype=2"><i class="el-icon-paperclip"></i></router-link>
+            <router-link to="/tool?subtype=3"><i class="el-icon-discover"></i></router-link>
+            <router-link to="/tool?subtype=4"><i class="el-icon-collection"></i></router-link>
         </div>
     </div>
 </template>
