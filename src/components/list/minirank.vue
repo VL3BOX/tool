@@ -48,7 +48,7 @@ export default {
         },
         viewRank: function () {
             const root = this.client === "std" ? __Root : __OriginRoot;
-            window.open(`${root}dbm/pkg/rank`, "_self");
+            window.open(`${root}dbm/pkg/rank`, "_blank");
         },
         highlight: function (i) {
             if (i == 0) {
