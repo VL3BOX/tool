@@ -15,7 +15,31 @@
         </RightSideMsg> -->
 
         <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
-        <div class="m-nav-group">
+
+        <div class="m-ladder-carousel">
+            <el-carousel class="m-carousel" autoplay>
+                <el-carousel-item v-for="(item, index) in slideList" :key="index">
+                    <a class="u-link" :href="item.link">
+                        <el-image class="u-cover" :src="item.img" :alt="item.title" fit="contain" />
+                    </a>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+        <div class="m-nav-app">
+            <h5 class="u-title">在线应用</h5>
+            <a href="/app/database" target="_blank">
+                <img class="u-icon" :src="getAppIcon('database')" />
+                <span>数据库大全</span>
+                <em>Database</em>
+            </a>
+            <a href="/app/design" target="_blank">
+                <img class="u-icon" :src="getAppIcon('design')" />
+                <span>美术资源</span>
+                <em>Design</em>
+            </a>
+        </div>
+
+        <!-- <div class="m-nav-group">
             <router-link
                 v-for="(item, i) in menu"
                 :to="{ name: item.routeName, query: { subtype: item.slug } }"
@@ -25,12 +49,12 @@
             >
                 <img :src="getIcon(item.icon)" />
                 <span class="u-text">{{ item.name }}</span>
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/userdata" class="u-item disabled">
                 <img src="@/assets/img/nav/userdata.svg" />
                 <span class="u-text">用户配置数据</span>
             </router-link> -->
-        </div>
+        <!-- </div> -->
 
         <!-- <div class="m-tool-side" @click.stop>
             <el-collapse>
@@ -67,6 +91,8 @@
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { jx3dat_types } from "@/assets/data/types.json";
 import { getMenuGroup, getBread } from "@/service/helper.js";
+import { getConfigBanner } from "@/service/cms";
+import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "list_nav",
     props: [],
@@ -126,7 +152,14 @@ export default {
             apis: [],
 
             qq: "608303480",
+
+            slideList: [],
         };
+    },
+    computed: {
+        client() {
+            return this.$store.state.client;
+        },
     },
     watch: {
         $route: {
@@ -148,8 +181,10 @@ export default {
         this.loadTags();
         this.loadRules();
         this.loadApis();
+        this.loadMenu();
     },
     methods: {
+        getAppIcon,
         isActive: function (item, routeName) {
             return item.slug == this.$route.query.subtype && this.$route.name == routeName;
         },
@@ -213,7 +248,7 @@ export default {
                     });
                 }
             } catch (e) {
-                this.apis = []
+                this.apis = [];
             }
         },
         highLight: function (val) {
@@ -221,6 +256,11 @@ export default {
                 return "color:" + val + ";font-weight:bold;";
             }
             return "";
+        },
+        loadMenu() {
+            getConfigBanner({ client: this.client, status: 1, per: 5, type: "tool", subtype: "slider" }).then((res) => {
+                this.slideList = res.data.data.list;
+            });
         },
     },
 };

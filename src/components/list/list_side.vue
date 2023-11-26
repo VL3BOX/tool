@@ -82,7 +82,6 @@ export default {
             apis: [],
         };
     },
-    computed: {},
     methods: {
         onQQClick() {
             navigator.clipboard.writeText(this.qq).then(() => {
@@ -156,12 +155,18 @@ export default {
                 }
             });
         },
+        highLight: function (val) {
+            if (val) {
+                return "color:" + val + ";font-weight:bold;";
+            }
+            return "";
+        },
     },
     mounted: function () {
         this.loadTags();
         this.loadRules();
         this.loadApis();
-        loadMenu();
+        this.loadMenu();
     },
     components: {
         minirank,
@@ -217,6 +222,24 @@ export default {
         &:hover {
             .bold;
             color: @pink;
+        }
+    }
+}
+
+.m-tool-api {
+    .u-item {
+        display: block;
+        padding: 0 5px;
+        font-size: 12px;
+        line-height: 3;
+        text-align: left;
+        border-bottom: 1px dashed #eee;
+        cursor: pointer;
+        height: 32px;
+
+        &:hover {
+            color: @pink;
+            font-weight: bold;
         }
     }
 }

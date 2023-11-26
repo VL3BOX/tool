@@ -22,3 +22,9 @@ export const getDbmItemList = async (params) => await $cms().get(`/api/cms/dbm/i
 export const getDatabaseFields = async () => await $cms().get(`/api/cms/app/database/field`);
 
 export const getBreadcrumbs = async (key) => $cms().get(`/api/cms/breadcrumb`, { params: { key } });
+
+export const getConfigBanner = (params) => {
+    return $cms().get(`api/cms/config/banner`, {
+        params,
+    });
+}
