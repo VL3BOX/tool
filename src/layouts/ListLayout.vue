@@ -23,7 +23,7 @@
                 <slot></slot>
             </div>
             <RightSidebar>
-                <component :is="metaType" class="m-extend" />
+                <Side class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
         </Main>
@@ -34,7 +34,6 @@
 import Info from "@/components/list/Info.vue";
 import Nav from "@/components/list/list_nav.vue";
 import Side from "@/components/list/list_side.vue";
-import PluginSide from "@/components/list/plugin_list_side.vue";
 import Tabs from "@/components/list/list_tabs.vue";
 import ListTop from "@/components/list/list_top.vue";
 export default {
@@ -58,12 +57,6 @@ export default {
         };
     },
     computed: {
-        metaType() {
-            return {
-                tool: 'PluginSide',
-                jx3dat: 'PluginSide',
-            }[this.$route.meta.type];
-        },
         showListTop() {
             return this.$route.name === 'index' && !this.$route.query?.subtype;
         }
@@ -73,7 +66,6 @@ export default {
         Info,
         Nav,
         Side,
-        PluginSide,
         Tabs,
         ListTop,
     },

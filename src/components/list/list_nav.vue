@@ -32,7 +32,7 @@
             </router-link> -->
         </div>
 
-        <div class="m-tool-side" @click.stop>
+        <!-- <div class="m-tool-side" @click.stop>
             <el-collapse>
                 <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
                     <div class="u-content" v-html="rules"></div>
@@ -53,14 +53,13 @@
                 </el-collapse-item>
                 <el-collapse-item title="🌸 热门搜索" name="tags" class="m-tool-rule">
                     <div class="m-nav-tags" v-if="tags && tags.length">
-                        <!-- <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5> -->
                         <div class="u-list">
                             <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
                         </div>
                     </div>
                 </el-collapse-item>
             </el-collapse>
-        </div>
+        </div> -->
     </div>
 </template>
 

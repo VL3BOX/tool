@@ -1,19 +1,41 @@
 <template>
-    <div class="m-list-side">
-        <!-- 群号 -->
+    <div class="m-extend-list">
         <RightSideMsg>
             <em>工具作者交流群</em> :
             <strong @click="onQQClick" class="u-link" title="点击复制">
                 <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
-
-        <div class="m-tool-side">
-            <el-collapse v-model="tab">
-                <el-collapse-item title="💠 版规与要求" name="rule" class="m-tool-rule">
+        <minirank />
+        <!-- 其他链接 -->
+        <div class="m-jx3dat-links m-side-links">
+            <h3 class="m-side-title" style="border-bottom: none">
+                <div class="u-title">
+                    <img class="u-icon" svg-inline src="@/assets/img/side/docs.svg" />
+                    帮助文档
+                </div>
+            </h3>
+            <el-collapse class="u-groups" v-model="activeDocGroup">
+                <!-- <el-collapse-item title="发布指南" name="senior">
+                    <div class="u-docs">
+                        <a v-for="(item, i) in jx3dat_senior" :key="i" class="u-doc" :href="item.link" target="_blank">
+                            <i class="el-icon-collection"></i>
+                            {{ item.label }}
+                        </a>
+                    </div>
+                </el-collapse-item> -->
+                <el-collapse-item title="版规与要求" name="rule" class="m-tool-rule">
                     <div class="u-content" v-html="rules"></div>
                 </el-collapse-item>
-                <el-collapse-item title="🌀 魔盒API文档" name="api" class="m-tool-api">
+                <el-collapse-item title="入门指南" name="newbie">
+                    <div class="u-docs">
+                        <a v-for="(item, i) in jx3dat_newbie" :key="i" class="u-doc" :href="item.link" target="_blank">
+                            <i class="el-icon-collection"></i>
+                            {{ item.label }}
+                        </a>
+                    </div>
+                </el-collapse-item>
+                <el-collapse-item title="API文档" name="api" class="m-tool-api">
                     <div class="u-list" v-if="apis && apis.length">
                         <a
                             class="u-item"
@@ -27,31 +49,50 @@
                         </a>
                     </div>
                 </el-collapse-item>
+                <el-collapse-item title="热门搜索" name="tags" class="m-tool-rule">
+                    <div class="m-nav-tags" v-if="tags && tags.length">
+                        <!-- <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5> -->
+                        <div class="u-list">
+                            <a :href="item.link" target="_blank" v-for="(item, i) in tags" :key="i">{{ item.label }}</a>
+                        </div>
+                    </div>
+                </el-collapse-item>
             </el-collapse>
         </div>
+        <!-- <Github_REPO REPO="fb" coder="8"></Github_REPO> -->
     </div>
 </template>
 
 <script>
-// import { getMenuGroups } from "@/service/helper.js";
-import { getMenuGroup, getBread } from "@/service/helper.js";
+import minirank from "./minirank.vue";
+import { getMenuGroups } from "@/service/helper.js";
 export default {
     name: "list_side",
     props: [],
     data: function () {
         return {
-            tab: ["rule","api"],
+            activeDocGroup: [],
+            jx3dat_newbie: [],
+            jx3dat_senior: [],
+
+            qq: "608303480",
+
+            tags: [],
             rules: "",
             apis: [],
-            qq: "608303480"
         };
     },
-    computed: {
-        client: function () {
-            return this.$store.state.client;
-        },
-    },
+    computed: {},
     methods: {
+        onQQClick() {
+            navigator.clipboard.writeText(this.qq).then(() => {
+                this.$notify({
+                    title: "复制成功",
+                    message: "内容：" + this.qq,
+                    type: "success",
+                });
+            });
+        },
         loadRules: function () {
             try {
                 const data = sessionStorage.getItem("tool_rule");
@@ -83,61 +124,119 @@ export default {
                     });
                 }
             } catch (e) {
-                this.apis = []
+                this.apis = [];
             }
         },
-        highLight: function (val) {
-            if (val) {
-                return "color:" + val + ";font-weight:bold;";
+        loadTags() {
+            try {
+                const data = sessionStorage.getItem("tool_links");
+
+                if (data) {
+                    this.tags = JSON.parse(data);
+                } else {
+                    getMenuGroup("tool_links").then((res) => {
+                        this.tags = res.data.data?.menus || [];
+
+                        sessionStorage.setItem("tool_links", JSON.stringify(this.tags));
+                    });
+                }
+            } catch (e) {
+                this.tags = [];
             }
-            return "";
         },
-        onQQClick() {
-            navigator.clipboard.writeText(this.qq).then(() => {
-                this.$notify({
-                    title: "复制成功",
-                    message: "内容：" + this.qq,
-                    type: "success",
-                });
-            })
-        }
+        loadMenu: function () {
+            const key = ["jx3dat_newbie", "jx3dat_senior"].join(",");
+            getMenuGroups(key).then((res) => {
+                let data = res.data.data.reduce((obj, item) => {
+                    obj[item.name] = item;
+                    return obj;
+                }, {});
+                for (let key in data) {
+                    this[key] = data[key]["menus"];
+                }
+            });
+        },
     },
     mounted: function () {
+        this.loadTags();
         this.loadRules();
         this.loadApis();
+        loadMenu();
     },
-    components: {},
+    components: {
+        minirank,
+    },
 };
 </script>
 
 <style lang="less">
-.m-tool-rule {
-    .u-content {
-        .fz(12px);
-    }
+.m-side-title {
+    margin: 20px 0 10px 0;
 }
-.m-tool-api {
-    .u-item {
-        .db;
-        padding:0 5px;
-        .fz(12px,3);
-        .x(left);
-        border-bottom: 1px dashed #eee;
-        &:last-child{
-            border-bottom:none;
-        }
-        &:hover {
-            color: @pink;
-        }
-        i {
-            color: #666;
-            .mr(3px);
-        }
-    }
-}
-.m-list-side {
+
+.m-extend-list {
     .u-link {
         .pointer;
     }
+
+    .c-sidebar-right-msg {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+.m-side-links {
+    .u-title {
+        .flex;
+        align-items: center;
+        gap: 10px;
+        .fz(18px);
+    }
+
+    .u-icon {
+        .size(20px);
+    }
+
+    .u-groups {
+        padding: 0 5px;
+    }
+    .u-doc {
+        .nobreak;
+        .flex;
+        align-items: center;
+        .fz(12px, 34px);
+        // border-bottom: 1px solid #eee;
+        i {
+            .fz(16px);
+            color: #666;
+            .mr(5px);
+        }
+        &:last-child {
+            border-bottom: none;
+        }
+        &:hover {
+            .bold;
+            color: @pink;
+        }
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .m-side-rank,
+    .m-side-links {
+        .none;
+    }
+}
+
+.c-sidebar-right-list {
+    .u-item {
+        i {
+            .mr(5px);
+        }
+    }
+}
+
+.c-sidebar-right-title {
+    font-weight: bold;
 }
 </style>

@@ -6,9 +6,9 @@
         </h3>
         <el-tabs v-model="active" @tab-click="handleClick">
             <el-tab-pane label="综合" name="mix"></el-tab-pane>
-            <el-tab-pane label="收藏" name="favorite"></el-tab-pane>
-            <el-tab-pane label="订阅" name="subscribers"></el-tab-pane>
             <el-tab-pane label="下载" name="download"></el-tab-pane>
+            <el-tab-pane label="订阅" name="subscribers"></el-tab-pane>
+            <el-tab-pane label="收藏" name="favorite"></el-tab-pane>
         </el-tabs>
         <ul class="u-list" v-loading="loading">
             <li v-for="(item, k) in data" :key="k">
