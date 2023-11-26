@@ -27,6 +27,11 @@
         </div>
         <div class="m-nav-app">
             <h5 class="u-title">在线应用</h5>
+            <a href="/dbm" target="_blank">
+                <img class="u-icon" :src="getAppIcon('dbm')" />
+                <span>数据构建</span>
+                <em>JX3dat</em>
+            </a>
             <a href="/app/database" target="_blank">
                 <img class="u-icon" :src="getAppIcon('database')" />
                 <span>数据库大全</span>
