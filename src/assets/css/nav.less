@@ -72,7 +72,7 @@
 
 // 列表
 .m-list-nav {
-    padding: 15px;
+    // padding: 15px;
     margin: 0;
     list-style: none;
     // margin-top: 16px;
@@ -117,7 +117,7 @@
 }
 
 .c-sidebar-left {
-    padding: 10px 0 0 0;
+    padding: 15px;
 }
 
 // 标签热搜
@@ -162,14 +162,20 @@
 }
 
 .m-ladder-carousel {
-    margin: 15px 0;
+    .mb(10px);
+    .r(5px);
+    overflow: hidden;
     .m-carousel .el-carousel__container {
         box-sizing: border-box;
-        .size(245px,138px);
+        .size(245px,150px);
     }
     .u-cover {
         // height: 160px;
-        border-radius: 6px;
+        border-radius: 5px;
+        overflow: hidden;
+        img{
+            .r(5px);
+        }
     }
 }
 

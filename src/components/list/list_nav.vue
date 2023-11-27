@@ -17,7 +17,7 @@
         <!-- <h5 class="u-title"><i class="el-icon-menu"></i> 分类导航</h5> -->
 
         <div class="m-ladder-carousel">
-            <el-carousel class="m-carousel" autoplay>
+            <el-carousel class="m-carousel" autoplay indicator-position="none">
                 <el-carousel-item v-for="(item, index) in slideList" :key="index">
                     <a class="u-link" :href="item.link">
                         <el-image class="u-cover" :src="item.img" :alt="item.title" fit="contain" />
