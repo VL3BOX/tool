@@ -263,7 +263,7 @@ export default {
             return "";
         },
         loadMenu() {
-            getConfigBanner({ client: this.client, status: 1, per: 5, type: "tool", subtype: "slider" }).then((res) => {
+            getConfigBanner({ client: this.client, status: 1, per: 10, type: "tool", subtype: "sidebar" }).then((res) => {
                 this.slideList = res.data.data.list;
             });
         },
