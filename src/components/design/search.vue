@@ -23,21 +23,10 @@
         <div class="m-icons-matrix m-icons-matrix-main" v-if="searchList.length>0">
             <icon-item v-for="(icon, index) in searchList" :icon="icon" :isFav="false" :key="index"></icon-item>
         </div>
-        <el-pagination
-            class="u-pagination"
-            background
-            layout="prev, pager, next"
-            :total="dbm_items_total"
-            :page-size="6"
-            :current-page.sync="dbm_items_page"
-            @current-change="loadDbmItems"
-            hide-on-single-page
-        >
-        </el-pagination>
 
-        <!-- <div class="m-more" v-if="isNumber">
+        <div class="m-more" v-if="isNumber">
             <el-button @click="searchMore">查询后500个</el-button>
-        </div> -->
+        </div>
     </div>
 </template>
 <script>
@@ -173,8 +162,7 @@ export default {
         }
     },
     created: function() {
-        // 144个 0-143
-        this.searchList = Array.from(Array(144).keys());
+        this.searchList = default_list
     },
 };
 </script>

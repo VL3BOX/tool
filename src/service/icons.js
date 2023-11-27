@@ -14,6 +14,10 @@ function getIconsByName(str, client = "std") {
         });
 }
 
+function getIcons(params) {
+    return $node().get(`/icon`, { params });
+}
+
 function getMyFavIcons(client = "std") {
     let key = client == "origin" ? "origin_favicons" : "favicons";
     return $cms()
@@ -52,4 +56,4 @@ function getEmoList() {
     });
 }
 
-export { getIconsByName, getMyFavIcons, setMyFavIcons, getEmoList };
+export { getIconsByName, getMyFavIcons, setMyFavIcons, getEmoList, getIcons };
