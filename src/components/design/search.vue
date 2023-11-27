@@ -20,13 +20,24 @@
         <el-alert class="m-icons-tips" v-if="isNewbie" title="以下为部分图标展示，请在上方自定义搜索范围，点击图标即可收藏。" type="warning" center show-icon></el-alert>
         <el-alert class="m-icons-tips" v-if="!searchList.length" title="没有找到对应的图标，请重新输入关键词搜索图标。" type="info" center show-icon></el-alert>
 
-        <div class="m-icons-matrix" v-if="searchList.length>0">
+        <div class="m-icons-matrix m-icons-matrix-main" v-if="searchList.length>0">
             <icon-item v-for="(icon, index) in searchList" :icon="icon" :isFav="false" :key="index"></icon-item>
         </div>
+        <el-pagination
+            class="u-pagination"
+            background
+            layout="prev, pager, next"
+            :total="dbm_items_total"
+            :page-size="6"
+            :current-page.sync="dbm_items_page"
+            @current-change="loadDbmItems"
+            hide-on-single-page
+        >
+        </el-pagination>
 
-        <div class="m-more" v-if="isNumber">
+        <!-- <div class="m-more" v-if="isNumber">
             <el-button @click="searchMore">查询后500个</el-button>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -46,6 +57,8 @@ export default {
             isNewbie: true,
 
             isNumber: false,
+
+            page: 1
         };
     },
     computed: {
@@ -160,7 +173,8 @@ export default {
         }
     },
     created: function() {
-        this.searchList = default_list;
+        // 144个 0-143
+        this.searchList = Array.from(Array(144).keys());
     },
 };
 </script>
