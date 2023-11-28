@@ -1,7 +1,7 @@
 <template>
-    <AppLayout slug="design" icon="icons" name="设计资源" :has-right="hasRight">
+    <AppLayout slug="design" icon="icons" name="设计资源" :has-right="hasRight" class="p-design">
         <template #left>
-            <Nav></Nav>
+            <Nav ></Nav>
         </template>
         <div class="m-archive-box">
             <router-view></router-view>
@@ -42,6 +42,9 @@ export default {
 @import "~@/assets/css/design/design.less";
 .m-archive-box {
     padding: 20px 25px;
+}
+.p-design .c-sidebar-left{
+    padding:10px 0;
 }
 @media screen and (max-width: @phone) {
     .m-archive-box {

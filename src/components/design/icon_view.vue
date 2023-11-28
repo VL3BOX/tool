@@ -36,7 +36,7 @@
         <el-pagination
             class="u-pagination"
             background
-            layout="prev, pager, next"
+            layout="prev, pager, next,jumper"
             :total="total"
             :page-size="per"
             :current-page.sync="page"
@@ -125,6 +125,8 @@ export default {
     .u-pagination {
         .x;
         margin-top: 20px;
+        max-width: 100%;
+        overflow-x: auto;
     }
 }
 .m-icons-matrix__view {

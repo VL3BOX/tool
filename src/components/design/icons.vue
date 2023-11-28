@@ -3,7 +3,7 @@
         <h1 class="m-icons-title">剑三图标库</h1>
         <div class="m-icons-box">
             <el-radio-group v-model="mode" class="m-icons-radio">
-                <el-radio-button label="search">搜索模式</el-radio-button>
+                <el-radio-button label="search">探索模式</el-radio-button>
                 <el-radio-button label="view">浏览模式</el-radio-button>
             </el-radio-group>
             <IconsSearch v-if="mode === 'search'" />
