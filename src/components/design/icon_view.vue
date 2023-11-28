@@ -1,11 +1,37 @@
 <template>
     <div class="m-icons-view">
-        <el-input placeholder="输入搜索条件" v-model="search" class="input-with-select" @keyup.enter.native="onSearch">
-            <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
+        <el-input placeholder="输入搜索条件" v-model="search" class="input-with-select" clearable>
+            <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
 
-        <div class="m-icons-matrix" v-if="icons.length>0">
-            <icon-item v-for="(icon, index) in icons" :icon="icon.ID" :isFav="false" :key="index"></icon-item>
+        <div class="m-icons-matrix m-icons-matrix__view" v-loading="loading">
+            <el-popover v-for="(icon, index) in icons" :key="index" trigger="hover" placement="top" popper-class="m-icon-pop" :visible-arrow="false">
+                <div class="m-icon-content">
+                    <div class="m-icon-content__top">
+                        <el-image :src="iconLink(icon.ID)" class="u-icon" alt="" @error="(e) => onIconError(e, icon.ID)"></el-image>
+                        <span class="u-id">ID: {{ icon.ID }}</span>
+                    </div>
+                    <div class="m-icon-content__bottom">
+                        <div class="m-icon-content-item">
+                            <span class="u-label">类别<small>Kind</small></span>
+                            <span class="u-val">{{ icon.Kind }}</span>
+                        </div>
+                        <div class="m-icon-content-item">
+                            <span class="u-label">子类别<small>SubKind</small></span>
+                            <span class="u-val">{{ icon.SubKind }}</span>
+                        </div>
+                        <div class="m-icon-content-item" v-if="icon.Tag1 || icon.Tag2">
+                            <span class="u-label">标签<small>Tag</small></span>
+                            <span class="u-val">{{ iconTag(icon) }}</span>
+                        </div>
+                        <div class="m-icon-content-item">
+                            <span class="u-label">文件<small>FileName</small></span>
+                            <span class="u-val">{{ icon.FileName }}</span>
+                        </div>
+                    </div>
+                </div>
+                <icon-item slot="reference" :icon="icon.ID" :isFav="false"></icon-item>
+            </el-popover>
         </div>
         <el-pagination
             class="u-pagination"
@@ -23,6 +49,7 @@
 <script>
 import iconItem from "./item.vue";
 import {getIcons} from "@/service/icons.js";
+import { iconLink } from "@jx3box/jx3box-common/js/utils.js";
 export default {
     name: "icons-view",
     components: {
@@ -35,6 +62,7 @@ export default {
             page: 1,
             total: 0,
             search: "",
+            loading: false,
         };
     },
     computed: {
@@ -43,8 +71,12 @@ export default {
                 per: this.per,
                 page: this.page,
                 search: this.search,
+                client: this.client
             };
-        }
+        },
+        client() {
+            return this.$store.state.client;
+        },
     },
     watch: {
         params: {
@@ -57,14 +89,79 @@ export default {
     },
     methods: {
         loadData() {
+            this.loading = true;
             getIcons(this.params).then((res) => {
                 this.icons = res.data.list || [];
                 this.total = res.data.total;
+            }).finally(() => {
+                this.loading = false;
             });
         },
-        onSearch() {},
+        iconLink(id, client=this.client) {
+            return iconLink(id, client);
+        },
+        iconTag({ Tag1, Tag2 }) {
+            return [Tag1, Tag2].filter((i) => i).join("、");
+        },
+        onIconError(e, id) {
+            e.target.src = this.iconLink(id, "std");
+        },
     },
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.m-icons-view {
+    .u-pagination {
+        .x;
+        margin-top: 20px;
+    }
+}
+.m-icons-matrix__view {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+
+    .u-icons-item {
+        .flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.m-icon-pop{
+    padding: 1px !important;
+    border: 1px solid #68817e !important;
+    background: none !important;
+    border-radius: 0 !important;
+
+    .m-icon-content {
+        background: rgba(0,0,0,.8);
+        color: #fff;
+        padding: 10px;
+    }
+
+    .u-id {
+        margin-left: 10px;
+        color: #ff0;
+    }
+
+    .u-label {
+        .dbi;
+        &::after {
+            content: "：";
+        }
+
+        small::before {
+            content: "（";
+        }
+
+        small::after {
+            content: "）";
+        }
+    }
+
+    .u-val {
+        color: #ff0;
+    }
+}
+</style>

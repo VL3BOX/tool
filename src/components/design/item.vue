@@ -1,7 +1,7 @@
 <template>
     <div class="u-icons-item">
         <div class="u-pic">
-            <el-image class="u-img" :src="iconPath(icon)">
+            <el-image class="u-img" :src="iconPath(icon)" @error="onImgError">
                 <i slot="error" class="el-icon-warning-outline u-error"></i>
             </el-image>
             <div class="u-mark" @click="setFav(icon)" v-if="!isFav">
@@ -92,9 +92,9 @@ export default {
             val = (val?.id) || val
 			return this.favList.includes(String(val));
         },
-        iconPath(val) {
+        iconPath(val, client=this.client) {
 			val = val?.id || val;
-			return this.client === "origin" ? `${__iconPath}origin_icon/${val}.png` : `${__iconPath}icon/${val}.png`;
+			return client === "origin" ? `${__iconPath}origin_icon/${val}.png` : `${__iconPath}icon/${val}.png`;
 		},
         iconId(icon) {
             return typeof icon == "object" ? String(icon?.id) : String(icon);
@@ -108,6 +108,9 @@ export default {
                     type: "success",
                 });
             });
+        },
+        onImgError(e) {
+            e.target.src = this.iconPath(this.icon, "std");
         },
     },
 }

@@ -2,7 +2,7 @@
     <div class="m-icons">
         <h1 class="m-icons-title">剑三图标库</h1>
         <div class="m-icons-box">
-            <el-radio-group v-model="mode">
+            <el-radio-group v-model="mode" class="m-icons-radio">
                 <el-radio-button label="search">搜索模式</el-radio-button>
                 <el-radio-button label="view">浏览模式</el-radio-button>
             </el-radio-group>
@@ -42,3 +42,11 @@ export default {
     methods: {},
 };
 </script>
+
+<style lang="less">
+.m-icons-radio {
+    .flex;
+    justify-content: center;
+    .mb(20px);
+}
+</style>
