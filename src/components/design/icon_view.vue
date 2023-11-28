@@ -1,10 +1,10 @@
 <template>
     <div class="m-icons-view">
-        <el-input placeholder="输入搜索条件" v-model="search" class="input-with-select" clearable>
-            <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input placeholder="输入搜索条件" v-model="search" class="input-with-select" clearable @keyup.enter.native="onSearch">
+            <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
         </el-input>
 
-        <div class="m-icons-matrix m-icons-matrix__view" v-loading="loading">
+        <div class="m-icons-matrix__view m-icons-matrix" v-loading="loading">
             <el-popover v-for="(icon, index) in icons" :key="index" trigger="hover" placement="top" popper-class="m-icon-pop" :visible-arrow="false">
                 <div class="m-icon-content">
                     <div class="m-icon-content__top">
@@ -70,7 +70,6 @@ export default {
             return {
                 per: this.per,
                 page: this.page,
-                search: this.search,
                 client: this.client
             };
         },
@@ -88,9 +87,20 @@ export default {
         },
     },
     methods: {
+        onSearch() {
+            if (this.page != 1) {
+                this.page =1
+            } else {
+                this.loadData()
+            }
+        },
         loadData() {
             this.loading = true;
-            getIcons(this.params).then((res) => {
+            const params = {
+                ...this.params,
+                search: this.search,
+            };
+            getIcons(params).then((res) => {
                 this.icons = res.data.list || [];
                 this.total = res.data.total;
             }).finally(() => {
@@ -118,7 +128,7 @@ export default {
     }
 }
 .m-icons-matrix__view {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(18, 1fr);
 
     .u-icons-item {
