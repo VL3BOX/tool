@@ -7,7 +7,7 @@
         <div class="m-bbs-top__content">
             <div class="m-bbs-top__item" v-for="item in data" :key="item.id">
                 <div class="m-item_left">
-                    <a class="u-title" v-html="item"></a>
+                    <div class="u-title" v-html="item"></div>
                 </div>
             </div>
         </div>
