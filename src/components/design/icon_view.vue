@@ -144,6 +144,7 @@ export default {
             });
         },
         onPageChange(page) {
+            this.page = page;
             this.start = (page - 1) * this.per + 1;
             this.end = page * this.per;
             this.loadData();
