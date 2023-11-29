@@ -65,7 +65,7 @@
 
 <script>
 import minirank from "./minirank.vue";
-import { getMenuGroups } from "@/service/helper.js";
+import { getMenuGroups, getMenuGroup } from "@/service/helper.js";
 export default {
     name: "list_side",
     props: [],
