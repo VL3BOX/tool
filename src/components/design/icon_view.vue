@@ -1,6 +1,6 @@
 <template>
     <div class="m-icons-view">
-        <el-input placeholder="输入搜索条件" v-model="search" class="input-with-select" clearable @keyup.enter.native="onSearch">
+        <el-input placeholder="输入搜索条件，按 enter 进行搜索" v-model="search" class="input-with-select" clearable @keyup.enter.native="onSearch" @clear="onClear">
             <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
         </el-input>
 
@@ -43,6 +43,7 @@
             </template>
         </div>
         <el-pagination
+            v-if="search == '' && done"
             class="u-pagination"
             background
             layout="prev, pager, next,jumper"
@@ -76,6 +77,7 @@ export default {
 
             per: 144,
             page: 1,
+            done: true
         };
     },
     computed: {
@@ -83,7 +85,7 @@ export default {
             return this.$store.state.client;
         },
         listIndex() {
-            return Array.from({ length: this.per }, (v, k) => k + this.start).filter((i) => i <= this.total);
+            return this.search ? this.icons.map(item => item.ID) : Array.from({ length: this.per }, (v, k) => k + this.start).filter((i) => i <= this.total);
         },
         listObj() {
             return this.listIndex.reduce((obj, i) => {
@@ -116,6 +118,11 @@ export default {
                 this.loadData();
             }
         },
+        onClear() {
+            this.start = 1;
+            this.end = this.per;
+            this.loadData();
+        },
         loadLatest() {
             getIconLatest().then((res) => {
                 this.total = res.data[0].ID;
@@ -123,6 +130,7 @@ export default {
         },
         loadData() {
             this.loading = true;
+            this.done = false;
             const params = {
                 start: this.start,
                 end: this.end,
@@ -132,6 +140,7 @@ export default {
                 this.icons = res.data || [];
             }).finally(() => {
                 this.loading = false;
+                this.done = true;
             });
         },
         onPageChange(page) {
