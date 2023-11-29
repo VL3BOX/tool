@@ -24,9 +24,9 @@
                         </a>
                     </div>
                 </el-collapse-item> -->
-                <el-collapse-item title="版规与要求" name="rule" class="m-tool-rule">
+                <!-- <el-collapse-item title="版规与要求" name="rule" class="m-tool-rule">
                     <div class="u-content" v-html="rules"></div>
-                </el-collapse-item>
+                </el-collapse-item> -->
                 <el-collapse-item title="入门指南" name="newbie">
                     <div class="u-docs">
                         <a v-for="(item, i) in jx3dat_newbie" :key="i" class="u-doc" :href="item.link" target="_blank">
@@ -164,7 +164,7 @@ export default {
     },
     mounted: function () {
         this.loadTags();
-        this.loadRules();
+        // this.loadRules();
         this.loadApis();
         this.loadMenu();
     },
