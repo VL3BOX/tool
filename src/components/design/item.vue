@@ -1,7 +1,8 @@
 <template>
     <div class="u-icons-item">
         <div class="u-pic">
-            <el-image class="u-img" :src="iconPath(icon)" @error="onImgError">
+            <el-image class="u-img" :src="iconPath(icon)">
+                <!-- @error="onImgError" -->
                 <i slot="error" class="el-icon-warning-outline u-error"></i>
             </el-image>
             <div class="u-mark" @click="setFav(icon)" v-if="!isFav">
@@ -110,6 +111,10 @@ export default {
             });
         },
         onImgError(e) {
+            if (e.target.src === this.iconPath(this.icon, "std")) {
+                console.log("error")
+                return;
+            }
             e.target.src = this.iconPath(this.icon, "std");
         },
     },
