@@ -81,7 +81,7 @@
                 </div>
                 <div class="u-data u-data-add">
                     <div class="u-feed" v-if="meta.github">
-                        <Mark :label="meta.github" value="@github" BGR="#3d454d" BGL="#24292e" @click.native="copy(meta.github + '@github')">
+                        <Mark :label="meta.github" value="@github" BGR="@color" BGL="#24292e" @click.native="copy(meta.github + '@github')">
                             <img class svg-inline src="@/assets/img/github.svg" />
                         </Mark>
                     </div>
