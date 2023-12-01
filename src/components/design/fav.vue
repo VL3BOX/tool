@@ -3,21 +3,23 @@
         <div class="m-title"><i class="el-icon-star-on u-icon"></i> 收藏图标</div>
         <el-alert class="m-icons-tips" v-if="!favList.length" title="没有收藏的图标，请搜索图标进行添加。" type="info" center show-icon :closable="false"></el-alert>
 
-        <div class="m-icons-matrix" v-else>
+        <draggable v-model="favList" key="icon" class="m-icons-matrix" v-else @end="onEnd">
             <icon-item v-for="(icon, index) in favList" :icon="icon" :isFav="true" :key="index"></icon-item>
-        </div>
+        </draggable>
     </div>
 </template>
 
 <script>
-import { getMyFavIcons } from "@/service/icons.js";
+import { getMyFavIcons, setMyFavIcons } from "@/service/icons.js";
 import User from "@jx3box/jx3box-common/js/user.js";
 import iconItem from "./item.vue";
+import draggable from "vuedraggable";
 export default {
     name: "fav",
     props: [],
     components: {
         iconItem,
+        draggable,
     },
     data() {
         return {
@@ -79,6 +81,15 @@ export default {
 
             localStorage.setItem("favList", JSON.stringify(Array.from(new Set([...favList, ...localFavList]))));
             this.$store.commit("storeFav", favList);
+        },
+        onEnd() {
+            localStorage.setItem("favList", JSON.stringify(this.favList));
+            this.$store.commit("storeFav", this.favList);
+            const icons = this.favList.join(",");
+
+            if (this.uid) {
+                setMyFavIcons(icons,  this.client)
+            }
         },
     },
     mounted() {
