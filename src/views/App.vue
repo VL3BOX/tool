@@ -42,7 +42,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/jx3dat" target="_blank">
+                            <a href="/dbm" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('jx3dat')" />
@@ -139,8 +139,23 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">专题导航</span>
+                                    <span class="u-name">资料片导航</span>
                                     <span class="u-desc">历届资料片专题</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/event" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('topic')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">活动导航</span>
+                                    <span class="u-desc">历届活动专题</span>
                                 </span>
                             </a>
                         </div>
@@ -547,21 +562,6 @@
                             </a>
                         </div>
                     </el-col>
-                    <!-- <el-col :span="6">
-                        <div class="u-item">
-                            <a href="/fb/map" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('fb-map')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">副本地图</span>
-                                    <span class="u-desc">高清副本地图大全</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col> -->
                     <el-col :span="6">
                         <div class="u-item">
                             <a href="/battle" target="_blank">
@@ -594,7 +594,7 @@
                     </el-col>
                     <el-col :span="6">
                         <div class="u-item">
-                            <a href="/fb/baizhan" target="_blank" class="disabled">
+                            <a href="/fb/baizhan" target="_blank">
                                 <span class="u-pic">
                                     <i class="u-icon">
                                         <img svg-inline :src="getIcon('bhhj')" />
@@ -603,6 +603,102 @@
                                 <span class="u-features">
                                     <span class="u-name">百战查询</span>
                                     <span class="u-desc">百战技能查询</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+
+            <div class="m-app-index-block">
+                <el-divider content-position="left"><i class="el-icon-box"></i> PVP·竞技</el-divider>
+                <el-row :gutter="20">
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvp" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('pvp')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">武学研习</span>
+                                    <span class="u-desc">技能音效、技能详解</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvp/post" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('bps')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">竞技技巧</span>
+                                    <span class="u-desc">竞技全攻略</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvp/changelog" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('dbm')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">技改历史</span>
+                                    <span class="u-desc">竞技全攻略</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvp/desert" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('pvp')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">绝境战场</span>
+                                    <span class="u-desc">吃鸡全指南</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/pvp/sandbox" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('sandbox')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">沙盘查询</span>
+                                    <span class="u-desc">全服攻防沙盘</span>
+                                </span>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="u-item">
+                            <a href="/jcl" target="_blank">
+                                <span class="u-pic">
+                                    <i class="u-icon">
+                                        <img svg-inline :src="getIcon('jcl')" />
+                                    </i>
+                                </span>
+                                <span class="u-features">
+                                    <span class="u-name">竞技分析</span>
+                                    <span class="u-desc">JCL战斗日志分析</span>
                                 </span>
                             </a>
                         </div>
@@ -991,57 +1087,6 @@
                                 <span class="u-features">
                                     <span class="u-name">万宝楼</span>
                                     <span class="u-desc">官方交易平台（缘起）</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-
-            <div class="m-app-index-block">
-                <el-divider content-position="left"><i class="el-icon-box"></i> PVP·竞技</el-divider>
-                <el-row :gutter="20">
-                    <el-col :span="6">
-                        <div class="u-item">
-                            <a href="/pvp" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('pvp')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">武学研习</span>
-                                    <span class="u-desc">竞技全攻略</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="u-item">
-                            <a href="/pvp/sandbox" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('sandbox')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">沙盘查询</span>
-                                    <span class="u-desc">全服攻防沙盘</span>
-                                </span>
-                            </a>
-                        </div>
-                    </el-col>
-                    <el-col :span="6">
-                        <div class="u-item">
-                            <a href="/jcl" target="_blank">
-                                <span class="u-pic">
-                                    <i class="u-icon">
-                                        <img svg-inline :src="getIcon('jcl')" />
-                                    </i>
-                                </span>
-                                <span class="u-features">
-                                    <span class="u-name">竞技分析</span>
-                                    <span class="u-desc">JCL战斗日志分析</span>
                                 </span>
                             </a>
                         </div>
