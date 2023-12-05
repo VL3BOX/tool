@@ -2,7 +2,7 @@
     <div class="m-single-meta m-tool-meta" v-if="hasFile">
         <div class="m-single-meta__main">
             <div class="m-meta-item" v-for="item in data" :key="item.name">
-                <template v-if="item.mode == 1">
+                <template v-if="item.mode == 1 || item.mode == undefined">
                     <span class="u-name"><i class="el-icon-box"></i>{{ item.name || "暂无资源" }}</span>
                     <span class="u-remark">{{ item.remark || "" }}</span>
                     <a
@@ -69,7 +69,13 @@ export default {
             return this.post?.post_subtype == "1";
         },
         data() {
-            return this.post?.post_meta?.data || [];
+            const data = this.post?.post_meta?.data || [];
+            if (data && this.post?.post_meta?.down) {
+                data.map((item) => {
+                    item.file = this.post?.post_meta?.down;
+                });
+            }
+            return data;
         },
         hasFile(){
             return this.post.post_subtype == '1' || this.post.post_subtype == '2'

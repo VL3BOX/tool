@@ -52,11 +52,13 @@ import User from "@jx3box/jx3box-common/js/user";
 const subtypes = {
     all: "",
     index: 1,
+    jx3dat: 2,
     game: 3,
     api: 4,
 }
 const _subtypes = {
     1: "index",
+    2: "jx3dat",
     3: "game",
     4: "api",
 }
