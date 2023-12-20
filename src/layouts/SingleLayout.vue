@@ -10,6 +10,8 @@
             :adminEnable="true"
             :feedbackEnable="true"
             :crumbEnable="true"
+            :show-extend="true"
+            :subtypeMap="subtypeMap"
         >
             <template #op-prepend>
                 <AdminDirectMessage :user-id="user_id" :sourceId="String(post.ID)" :sourceType="post.post_type"></AdminDirectMessage>
@@ -55,6 +57,13 @@ export default {
     data: function () {
         return {
             id: getAppID(),
+
+            subtypeMap: {
+                1: "工具资源",
+                2: "插件数据",
+                3: "教程指南",
+                4: "魔盒文档"
+            }
         };
     },
     computed: {
