@@ -247,7 +247,7 @@ export default {
 @media screen and (max-width: @phone) {
     .m-side-rank,
     .m-side-links {
-        .none;
+        // .none;
     }
 }
 

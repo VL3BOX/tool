@@ -22,7 +22,7 @@
                 <list-top v-if="showListTop"></list-top>
                 <slot></slot>
             </div>
-            <RightSidebar>
+            <RightSidebar :show-toggle="true">
                 <Side class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
