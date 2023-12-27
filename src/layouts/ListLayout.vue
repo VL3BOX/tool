@@ -22,7 +22,7 @@
                 <list-top v-if="showListTop"></list-top>
                 <slot></slot>
             </div>
-            <RightSidebar :show-toggle="true">
+            <RightSidebar class="m-tool-right-side" :show-toggle="true">
                 <Side class="m-extend" />
             </RightSidebar>
             <Footer></Footer>
@@ -74,4 +74,10 @@ export default {
 
 <style lang="less">
 @import "~@/assets/css/list.less";
+
+.m-tool-right-side {
+    .c-sidebar-right-inner {
+        background: #fff;
+    }
+}
 </style>
