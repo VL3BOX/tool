@@ -133,7 +133,7 @@ export default {
                 },
                 {
                     slug: 3,
-                    name: "教程指南",
+                    name: "技术笔札",
                     desc: "游戏调优/插件设置与指南",
                     icon: "game",
                     type: "tool",
