@@ -12,7 +12,7 @@
             <h3 class="m-side-title" style="border-bottom: none">
                 <div class="u-title">
                     <img class="u-icon" svg-inline src="@/assets/img/side/docs.svg" />
-                    帮助文档
+                    魔盒文档
                 </div>
             </h3>
             <el-collapse class="u-groups" v-model="activeDocGroup">
