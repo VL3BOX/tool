@@ -23,7 +23,7 @@
                             <i class="el-icon-video-play"></i> 云端同步刷新
                         </a>
                         <span class="u-desc">{{ feed.desc }}</span>
-                        <a class="u-down el-button el-button--default el-button--small is-plain" :href="feed.file" target="_blank">
+                        <a class="u-down el-button el-button--default el-button--small is-plain" :href="feed.file | showDown" target="_blank">
                             <i class="el-icon-download"></i>
                             <span>本地下载</span>
                         </a>
@@ -48,7 +48,7 @@
                             <i class="el-icon-video-play"></i> 云端同步刷新
                         </a>
                         <span class="u-desc">{{ feed.desc }}</span>
-                        <a class="u-down el-button el-button--default el-button--small is-plain" :href="feed.file" target="_blank">
+                        <a class="u-down el-button el-button--default el-button--small is-plain" :href="feed.file | showDown" target="_blank">
                             <i class="el-icon-download"></i>
                             <span>本地下载</span>
                         </a>
@@ -73,7 +73,7 @@
                             <i class="el-icon-video-play"></i> 云端同步刷新
                         </a>
                         <span class="u-desc">{{ feed.desc }}</span>
-                        <a class="u-down el-button el-button--default el-button--small is-plain" :href="feed.file" target="_blank">
+                        <a class="u-down el-button el-button--default el-button--small is-plain" :href="feed.file | showDown" target="_blank">
                             <i class="el-icon-download"></i>
                             <span>本地下载</span>
                         </a>
@@ -118,11 +118,10 @@ import { getPost } from "../../service/post.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat";
 import { jx3dat_types } from "../../assets/data/types.json";
 import { appKey } from "../../../setting.json";
-import { getAppIcon, getAppID } from "@jx3box/jx3box-common/js/utils";
+import { getAppIcon, getAppID,resolveImagePath, getLink } from "@jx3box/jx3box-common/js/utils";
 
 
 // 工具方法
-import { resolveImagePath, getLink } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 
 export default {

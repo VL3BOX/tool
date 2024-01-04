@@ -7,7 +7,7 @@
                     <span class="u-remark">{{ item.remark || "" }}</span>
                     <a
                         class="u-download-btn el-button el-button--primary el-button--small"
-                        :href="item.file"
+                        :href="resolveImagePath(item.file)"
                         target="_blank"
                         v-show="item.file"
                     >
@@ -50,6 +50,7 @@
 
 <script>
 import { getBreadcrumb } from '@jx3box/jx3box-common/js/api_misc';
+import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "single_meta",
     props: {
@@ -85,6 +86,7 @@ export default {
         this.loadToolDesc();
     },
     methods: {
+        resolveImagePath,
         loadToolDesc() {
             try {
                 const tips = sessionStorage.getItem("tool_download_warning");
