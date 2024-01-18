@@ -1,0 +1,37 @@
+.m-maps {
+    padding: 20px 30px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    .m-maps__title {
+        font-size: 24px;
+        font-weight: 500;
+        .x;
+        margin: 0 0 20px 0;
+        padding: 0;
+    }
+    @media screen and (max-width: @phone) {
+        .m-maps__title {
+            .none;
+        }
+    }
+    .m-toolbar {
+        .flex;
+        justify-content: center;
+    }
+
+    .m-map__wrap {
+        position: relative;
+        .flex;
+        align-items: center;
+        justify-content: center;
+        .m-map__world,
+        .m-map__simple {
+            .flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            .size(1024px, 896px);
+        }
+    }
+}

@@ -34,6 +34,11 @@ export default {
                     routeName: "emotion"
                 },
                 {
+                    icon: "el-icon-map-location",
+                    name: "剑三地图库",
+                    routeName: "map"
+                },
+                {
                     icon: "el-icon-cherry",
                     name: "魔盒矢量库",
                     routeName: "vector"

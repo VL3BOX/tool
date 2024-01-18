@@ -83,7 +83,12 @@ const routes = [
                 component: () => import("@/components/design/icons.vue"),
                 meta: {
                     hasRight: true,
-                }
+                },
+            },
+            {
+                name: "map",
+                path: "/app/design/map",
+                component: () => import("@/components/design/map.vue"),
             },
             {
                 name: "vector",
@@ -101,7 +106,7 @@ const routes = [
         name: "translator",
         path: "/app/translator",
         component: () => import("@/views/Translator.vue"),
-    }
+    },
 ];
 
 const router = new VueRouter({
