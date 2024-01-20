@@ -13,9 +13,16 @@
         <!-- mapId 为空时为世界地图，选择框选择地图和在世界地图中选择地图效果一致，都切换到具体地图。 -->
         <div class="m-map__wrap">
             <div class="m-map__world" v-if="!mapId">
-                世界地图
-                <div class="u-map" @click="toMap('1')">稻香村</div>
-                <div class="u-map" @click="toMap('2')">万花</div>
+                <img :src="map" alt="世界地图" />
+                <span
+                    class="u-map"
+                    @click="toMap(id)"
+                    v-for="(item, id) in mapData"
+                    :key="id"
+                    :style="`left:${item.left || 0}px;top:${item.top || 0}px`"
+                >
+                    {{ item.name }}
+                </span>
             </div>
             <!-- 具体地图 -->
             <div v-else class="m-map__simple">
@@ -27,6 +34,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import mapData from "@/assets/data/map.json";
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Map",
     data() {
@@ -34,12 +43,16 @@ export default {
             loading: false,
             mapId: "",
             maps: [],
+            mapData,
         };
     },
     computed: {
         ...mapState(["mapIndex"]),
         currentMap() {
-            return `https://img.jx3box.com/map/maps/map_${this.mapId}_0.png`;
+            return `${__imgPath}map/maps/map_${this.mapId}_0.png`;
+        },
+        map() {
+            return `${__imgPath}topic/pic/map.jpg`;
         },
     },
     watch: {

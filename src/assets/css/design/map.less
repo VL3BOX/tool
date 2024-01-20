@@ -25,13 +25,36 @@
         .flex;
         align-items: center;
         justify-content: center;
-        .m-map__world,
+
         .m-map__simple {
             .flex;
             align-items: center;
             justify-content: center;
             gap: 20px;
             .size(1024px, 896px);
+        }
+        .m-map__world {
+            .pr;
+            .mt(20px);
+            .size(1024px, 896px);
+            flex-shrink: 0;
+            .u-map {
+                .pa;
+                .lt(0);
+                .fz(12px);
+                .r(2px);
+                padding: 3px 0;
+                border: 1px solid #fff;
+                color: #fff;
+                writing-mode: vertical-rl;
+                background-color: #000;
+                &:hover {
+                    cursor: pointer;
+                    color: #000;
+                    background-color: #fff;
+                    z-index: 1;
+                }
+            }
         }
     }
 }
