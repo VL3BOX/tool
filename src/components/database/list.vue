@@ -3,8 +3,8 @@
         <!-- Type切换选项卡 -->
         <database-tabs :client="client" :type.sync="type" :hasRight="hasRight"></database-tabs>
         <el-tabs v-model="defaultSortBy" v-if="!isSearch">
-            <el-tab-pane label="最新数据" name="newest"></el-tab-pane>
-            <el-tab-pane label="引用指数" name="refCount"></el-tab-pane>
+            <el-tab-pane :label="$t('最新数据')" name="newest"></el-tab-pane>
+            <el-tab-pane :label="$t('引用指数')" name="refCount"></el-tab-pane>
         </el-tabs>
         <!-- 列表区域 -->
         <div class="m-list" v-if="data[type].length">
@@ -27,7 +27,7 @@
                     type="primary"
                     icon="el-icon-arrow-down"
                     @click="appendPage"
-                    >加载更多</el-button
+                    >{{ $t('加载更多') }}</el-button
                 >
                 <el-pagination
                     class="m-pager"
@@ -42,7 +42,7 @@
             </template>
         </div>
         <!-- 为空提示 -->
-        <div v-else-if="isEmpty" class="m-empty">QAQ 没有找到符合条件的条目</div>
+        <div v-else-if="isEmpty" class="m-empty">QAQ {{ $t('没有找到符合条件的条目') }}</div>
     </div>
 </template>
 

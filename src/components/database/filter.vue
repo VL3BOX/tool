@@ -1,24 +1,24 @@
 <template>
     <div class="m-database-filter">
-        <div class="w-card-title">筛选条件</div>
+        <div class="w-card-title">{{ $t('筛选条件') }}</div>
         <div class="m-filters">
             <div class="u-client">
                 <el-radio-group v-model="clientModel" size="small">
-                    <el-radio-button label="std">重制</el-radio-button>
-                    <el-radio-button label="origin">缘起</el-radio-button>
+                    <el-radio-button label="std">{{ $t('重制') }}</el-radio-button>
+                    <el-radio-button label="origin">{{ $t('缘起') }}</el-radio-button>
                 </el-radio-group>
             </div>
             <div class="u-keyword">
-                <div class="u-input-label">ID / 名称</div>
-                <el-input placeholder="请输入 ID 或 名称" v-model="queryModel.keyword" clearable> </el-input>
+                <div class="u-input-label">ID / {{ $t('名称') }}</div>
+                <el-input :placeholder="$t('请输入 ID 或 名称')" v-model="queryModel.keyword" clearable> </el-input>
             </div>
             <div class="u-level">
-                <div class="u-input-label">等级</div>
-                <el-input placeholder="请输入等级" v-model="queryModel.level" clearable> </el-input>
+                <div class="u-input-label">{{ $t('等级') }}</div>
+                <el-input :placeholder="$t('请输入等级')" v-model="queryModel.level" clearable> </el-input>
             </div>
             <div class="u-map" v-if="type == 'npc'">
-                <div class="u-input-label">地图</div>
-                <el-input placeholder="请输入NPC所在地图" v-model="queryModel.map" clearable> </el-input>
+                <div class="u-input-label">{{ $t('地图') }}</div>
+                <el-input :placeholder="$t('请输入NPC所在地图')" v-model="queryModel.map" clearable> </el-input>
             </div>
             <div v-for="(field, index) in extraField" :key="index" class="u-extra-field">
                 <template v-if="field == '_Types' && type == 'buff'">
@@ -41,7 +41,7 @@
                 clearable
                 multiple
                 collapse-tags
-                placeholder="添加查询条件"
+                :placeholder="$t('添加查询条件')"
                 @change="onAddField"
             >
                 <el-option
@@ -59,12 +59,12 @@
                 <div class="u-strict">
                     <el-switch
                         v-model.number="queryModel.strict"
-                        active-text="精确匹配"
+                        :active-text="$t('精确匹配')"
                         :inactive-value="0"
                         :active-value="1"
                     ></el-switch>
                 </div>
-                <el-button class="u-btn" type="primary" size="small">搜索</el-button>
+                <el-button class="u-btn" type="primary" size="small">{{ $t('搜索') }}</el-button>
             </div>
         </div>
     </div>

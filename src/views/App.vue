@@ -1,11 +1,11 @@
 <template>
     <div id="app" class="p-app-index">
         <Header></Header>
-        <Breadcrumb name="魔盒矩阵" slug="app" root="/app" :feedbackEnable="true">
+        <Breadcrumb :name="$t('魔盒矩阵')" slug="app" root="/app" :feedbackEnable="true">
             <img class="u-app-index" slot="logo" svg-inline src="@/assets/img/app.svg" />
         </Breadcrumb>
         <div class="m-app m-app-index" ref="appContent">
-            <h1 class="m-app-index-title">魔盒矩阵</h1>
+            <h1 class="m-app-index-title">{{ $t('魔盒矩阵') }}</h1>
 
             <div class="m-app-index-block">
                 <el-divider content-position="left"><i class="el-icon-box"></i> 通用</el-divider>
@@ -19,7 +19,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三数据库</span>
+                                    <span class="u-name">{{ $t('剑三数据库') }}</span>
                                     <span class="u-desc">技能/Buff/NPC/交互查询</span>
                                 </span>
                             </a>
@@ -34,7 +34,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">图标大全</span>
+                                    <span class="u-name">{{ $t('图标大全') }}</span>
                                     <span class="u-desc">剑三图标库/官方聊天表情</span>
                                 </span>
                             </a>
@@ -49,7 +49,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">数据中心</span>
+                                    <span class="u-name">{{ $t('数据中心') }}</span>
                                     <span class="u-desc">剑三插件数据/用户云数据</span>
                                 </span>
                             </a>
@@ -64,7 +64,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">工具教程</span>
+                                    <span class="u-name">{{ $t('工具教程') }}</span>
                                     <span class="u-desc">剑三小工具/插件指南</span>
                                 </span>
                             </a>
@@ -79,8 +79,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三茶馆</span>
-                                    <span class="u-desc">剑三攻略心得分享</span>
+                                    <span class="u-name">{{ $t('剑三茶馆') }}</span>
+                                    <span class="u-desc">{{ $t('剑三攻略心得分享') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -94,8 +94,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三骚话</span>
-                                    <span class="u-desc">剑三骚话大全</span>
+                                    <span class="u-name">{{ $t('剑三骚话') }}</span>
+                                    <span class="u-desc">{{ $t('剑三骚话大全') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -109,8 +109,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三表情</span>
-                                    <span class="u-desc">剑三表情大全</span>
+                                    <span class="u-name">{{ $t('剑三表情') }}</span>
+                                    <span class="u-desc">{{ $t('剑三表情大全') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -124,7 +124,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三铭牌</span>
+                                    <span class="u-name">{{ $t('剑三铭牌') }}</span>
                                     <span class="u-desc">剑网3.com</span>
                                 </span>
                             </a>
@@ -139,8 +139,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">资料片导航</span>
-                                    <span class="u-desc">历届资料片专题</span>
+                                    <span class="u-name">{{ $t('资料片导航') }}</span>
+                                    <span class="u-desc">{{ $t('历届资料片专题') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -154,8 +154,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">活动导航</span>
-                                    <span class="u-desc">历届活动专题</span>
+                                    <span class="u-name">{{ $t('活动导航') }}</span>
+                                    <span class="u-desc">{{ $t('历届活动专题') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -169,8 +169,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">积分商城</span>
-                                    <span class="u-desc">积分兑换好礼</span>
+                                    <span class="u-name">{{ $t('积分商城') }}</span>
+                                    <span class="u-desc">{{ $t('积分兑换好礼') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -190,8 +190,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">宏库</span>
-                                    <span class="u-desc">剑三全门派宏</span>
+                                    <span class="u-name">{{ $t('宏库') }}</span>
+                                    <span class="u-desc">{{ $t('剑三全门派宏') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -205,8 +205,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">宏编辑器</span>
-                                    <span class="u-desc">在线宏编辑器</span>
+                                    <span class="u-name">{{ $t('宏编辑器') }}</span>
+                                    <span class="u-desc">{{ $t('在线宏编辑器') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -220,7 +220,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">奇穴模拟器</span>
+                                    <span class="u-name">{{ $t('奇穴模拟器') }}</span>
                                     <span class="u-desc">奇穴模拟,多版本支持</span>
                                 </span>
                             </a>
@@ -235,7 +235,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">镇派模拟器</span>
+                                    <span class="u-name">{{ $t('镇派模拟器') }}</span>
                                     <span class="u-desc">镇派模拟,多版本支持</span>
                                 </span>
                             </a>
@@ -250,8 +250,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">白皮书</span>
-                                    <span class="u-desc">剑三全门派攻略</span>
+                                    <span class="u-name">{{ $t('白皮书') }}</span>
+                                    <span class="u-desc">{{ $t('剑三全门派攻略') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -265,8 +265,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">技能数据</span>
-                                    <span class="u-desc">门派技能原始数据</span>
+                                    <span class="u-name">{{ $t('技能数据') }}</span>
+                                    <span class="u-desc">{{ $t('门派技能原始数据') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -280,8 +280,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">秘籍大全</span>
-                                    <span class="u-desc">全门派秘籍大全</span>
+                                    <span class="u-name">{{ $t('秘籍大全') }}</span>
+                                    <span class="u-desc">{{ $t('全门派秘籍大全') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -295,8 +295,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">技能合集</span>
-                                    <span class="u-desc">技能分类集合</span>
+                                    <span class="u-name">{{ $t('技能合集') }}</span>
+                                    <span class="u-desc">{{ $t('技能分类集合') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -310,7 +310,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">配装器</span>
+                                    <span class="u-name">{{ $t('配装器') }}</span>
                                     <span class="u-desc">在线配装模拟/对比/分享</span>
                                 </span>
                             </a>
@@ -325,7 +325,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">日志分析</span>
+                                    <span class="u-name">{{ $t('日志分析') }}</span>
                                     <span class="u-desc">JCL战斗日志分析</span>
                                 </span>
                             </a>
@@ -340,8 +340,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">加速阈值</span>
-                                    <span class="u-desc">急速断点一览</span>
+                                    <span class="u-name">{{ $t('加速阈值') }}</span>
+                                    <span class="u-desc">{{ $t('急速断点一览') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -370,8 +370,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三小册</span>
-                                    <span class="u-desc">文集小册</span>
+                                    <span class="u-name">{{ $t('剑三小册') }}</span>
+                                    <span class="u-desc">{{ $t('文集小册') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -385,7 +385,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">经脉模拟器</span>
+                                    <span class="u-name">{{ $t('经脉模拟器') }}</span>
                                     <span class="u-desc">通你妹,原汁原味</span>
                                 </span>
                             </a>
@@ -400,8 +400,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">繁简转换</span>
-                                    <span class="u-desc">国际服剑三技能词库</span>
+                                    <span class="u-name">{{ $t('繁简转换') }}</span>
+                                    <span class="u-desc">{{ $t('国际服剑三技能词库') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -421,8 +421,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">副本攻略</span>
-                                    <span class="u-desc">开荒首发机制全解</span>
+                                    <span class="u-name">{{ $t('副本攻略') }}</span>
+                                    <span class="u-desc">{{ $t('开荒首发机制全解') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -436,8 +436,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">秘境百强</span>
-                                    <span class="u-desc">剑三秘境百强榜</span>
+                                    <span class="u-name">{{ $t('秘境百强') }}</span>
+                                    <span class="u-desc">{{ $t('剑三秘境百强榜') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -451,7 +451,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">团队平台</span>
+                                    <span class="u-name">{{ $t('团队平台') }}</span>
                                     <span class="u-desc">团队管理/快照/排表</span>
                                 </span>
                             </a>
@@ -466,8 +466,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">在线构建</span>
-                                    <span class="u-desc">团控数据在线构建</span>
+                                    <span class="u-name">{{ $t('在线构建') }}</span>
+                                    <span class="u-desc">{{ $t('团控数据在线构建') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -481,7 +481,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">首领数据</span>
+                                    <span class="u-name">{{ $t('首领数据') }}</span>
                                     <span class="u-desc">BOSS属性一览</span>
                                 </span>
                             </a>
@@ -496,7 +496,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">首领技能</span>
+                                    <span class="u-name">{{ $t('首领技能') }}</span>
                                     <span class="u-desc">BOSS技能一览</span>
                                 </span>
                             </a>
@@ -511,7 +511,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">特殊机制</span>
+                                    <span class="u-name">{{ $t('特殊机制') }}</span>
                                     <span class="u-desc">穿透/穿刺/贯体一览</span>
                                 </span>
                             </a>
@@ -526,8 +526,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">副本掉落</span>
-                                    <span class="u-desc">副本掉落大全</span>
+                                    <span class="u-name">{{ $t('副本掉落') }}</span>
+                                    <span class="u-desc">{{ $t('副本掉落大全') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -541,7 +541,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">副本瑰石</span>
+                                    <span class="u-name">{{ $t('副本瑰石') }}</span>
                                     <span class="u-desc">副本预测掉落,帮会瑰石大全</span>
                                 </span>
                             </a>
@@ -556,7 +556,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">副本传说</span>
+                                    <span class="u-name">{{ $t('副本传说') }}</span>
                                     <span class="u-desc">副本背景故事,官方资料</span>
                                 </span>
                             </a>
@@ -571,7 +571,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">战斗统计</span>
+                                    <span class="u-name">{{ $t('战斗统计') }}</span>
                                     <span class="u-desc">茗伊/官方战斗统计分析</span>
                                 </span>
                             </a>
@@ -586,8 +586,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">八荒衡鉴</span>
-                                    <span class="u-desc">八荒衡鉴模拟器</span>
+                                    <span class="u-name">{{ $t('八荒衡鉴') }}</span>
+                                    <span class="u-desc">{{ $t('八荒衡鉴模拟器') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -601,8 +601,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">百战查询</span>
-                                    <span class="u-desc">百战技能查询</span>
+                                    <span class="u-name">{{ $t('百战查询') }}</span>
+                                    <span class="u-desc">{{ $t('百战技能查询') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -622,7 +622,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">武学研习</span>
+                                    <span class="u-name">{{ $t('武学研习') }}</span>
                                     <span class="u-desc">技能音效、技能详解</span>
                                 </span>
                             </a>
@@ -637,8 +637,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">竞技技巧</span>
-                                    <span class="u-desc">竞技全攻略</span>
+                                    <span class="u-name">{{ $t('竞技技巧') }}</span>
+                                    <span class="u-desc">{{ $t('竞技全攻略') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -652,8 +652,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">技改历史</span>
-                                    <span class="u-desc">竞技全攻略</span>
+                                    <span class="u-name">{{ $t('技改历史') }}</span>
+                                    <span class="u-desc">{{ $t('竞技全攻略') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -667,8 +667,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">绝境战场</span>
-                                    <span class="u-desc">吃鸡全指南</span>
+                                    <span class="u-name">{{ $t('绝境战场') }}</span>
+                                    <span class="u-desc">{{ $t('吃鸡全指南') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -682,8 +682,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">沙盘查询</span>
-                                    <span class="u-desc">全服攻防沙盘</span>
+                                    <span class="u-name">{{ $t('沙盘查询') }}</span>
+                                    <span class="u-desc">{{ $t('全服攻防沙盘') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -697,7 +697,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">竞技分析</span>
+                                    <span class="u-name">{{ $t('竞技分析') }}</span>
                                     <span class="u-desc">JCL战斗日志分析</span>
                                 </span>
                             </a>
@@ -718,8 +718,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">成就百科</span>
-                                    <span class="u-desc">最新最全成就百科</span>
+                                    <span class="u-name">{{ $t('成就百科') }}</span>
+                                    <span class="u-desc">{{ $t('最新最全成就百科') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -733,7 +733,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">物品百科</span>
+                                    <span class="u-name">{{ $t('物品百科') }}</span>
                                     <span class="u-desc">物品百科,全服交易行价格</span>
                                 </span>
                             </a>
@@ -748,8 +748,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">任务百科</span>
-                                    <span class="u-desc">任务与剧情全流程指南</span>
+                                    <span class="u-name">{{ $t('任务百科') }}</span>
+                                    <span class="u-desc">{{ $t('任务与剧情全流程指南') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -763,8 +763,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">通识百科</span>
-                                    <span class="u-desc">剑三世界概念</span>
+                                    <span class="u-name">{{ $t('通识百科') }}</span>
+                                    <span class="u-desc">{{ $t('剑三世界概念') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -779,7 +779,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三考试</span>
+                                    <span class="u-name">{{ $t('剑三考试') }}</span>
                                     <span class="u-desc">趣味题目/试卷</span>
                                 </span>
                             </a>
@@ -794,8 +794,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">科举答题</span>
-                                    <span class="u-desc">最新剑三科举题库</span>
+                                    <span class="u-name">{{ $t('科举答题') }}</span>
+                                    <span class="u-desc">{{ $t('最新剑三科举题库') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -809,8 +809,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">书籍大全</span>
-                                    <span class="u-desc">我们都是读书人</span>
+                                    <span class="u-name">{{ $t('书籍大全') }}</span>
+                                    <span class="u-desc">{{ $t('我们都是读书人') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -824,8 +824,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">声望大全</span>
-                                    <span class="u-desc">声望剧情党手册</span>
+                                    <span class="u-name">{{ $t('声望大全') }}</span>
+                                    <span class="u-desc">{{ $t('声望剧情党手册') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -839,8 +839,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">外观大全</span>
-                                    <span class="u-desc">全外观预览</span>
+                                    <span class="u-name">{{ $t('外观大全') }}</span>
+                                    <span class="u-desc">{{ $t('全外观预览') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -855,8 +855,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">宠物大全</span>
-                                    <span class="u-desc">宠物获取攻略</span>
+                                    <span class="u-name">{{ $t('宠物大全') }}</span>
+                                    <span class="u-desc">{{ $t('宠物获取攻略') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -870,8 +870,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">坐骑大全</span>
-                                    <span class="u-desc">坐骑属性一览</span>
+                                    <span class="u-name">{{ $t('坐骑大全') }}</span>
+                                    <span class="u-desc">{{ $t('坐骑属性一览') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -885,8 +885,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">奇遇大全</span>
-                                    <span class="u-desc">奇遇触发一览</span>
+                                    <span class="u-name">{{ $t('奇遇大全') }}</span>
+                                    <span class="u-desc">{{ $t('奇遇触发一览') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -901,8 +901,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">奇遇查询</span>
-                                    <span class="u-desc">全服奇遇查询</span>
+                                    <span class="u-name">{{ $t('奇遇查询') }}</span>
+                                    <span class="u-desc">{{ $t('全服奇遇查询') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -917,8 +917,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">家具大全</span>
-                                    <span class="u-desc">家具数据大全</span>
+                                    <span class="u-name">{{ $t('家具大全') }}</span>
+                                    <span class="u-desc">{{ $t('家具数据大全') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -932,8 +932,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">家园花价</span>
-                                    <span class="u-desc">全服花价数据</span>
+                                    <span class="u-name">{{ $t('家园花价') }}</span>
+                                    <span class="u-desc">{{ $t('全服花价数据') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -947,8 +947,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">家园指南</span>
-                                    <span class="u-desc">家园地图与攻略</span>
+                                    <span class="u-name">{{ $t('家园指南') }}</span>
+                                    <span class="u-desc">{{ $t('家园地图与攻略') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -962,8 +962,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">蓝图数据</span>
-                                    <span class="u-desc">家园蓝图下载</span>
+                                    <span class="u-name">{{ $t('蓝图数据') }}</span>
+                                    <span class="u-desc">{{ $t('家园蓝图下载') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -978,8 +978,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">捏脸数据</span>
-                                    <span class="u-desc">捏脸数据下载</span>
+                                    <span class="u-name">{{ $t('捏脸数据') }}</span>
+                                    <span class="u-desc">{{ $t('捏脸数据下载') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -993,7 +993,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">妆容解析</span>
+                                    <span class="u-name">{{ $t('妆容解析') }}</span>
                                     <span class="u-desc">捏脸数据解析,支持双端</span>
                                 </span>
                             </a>
@@ -1008,8 +1008,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">剑三日历</span>
-                                    <span class="u-desc">剑三编年史</span>
+                                    <span class="u-name">{{ $t('剑三日历') }}</span>
+                                    <span class="u-desc">{{ $t('剑三编年史') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -1024,8 +1024,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">技艺助手</span>
-                                    <span class="u-desc">生活技艺模拟器</span>
+                                    <span class="u-name">{{ $t('技艺助手') }}</span>
+                                    <span class="u-desc">{{ $t('生活技艺模拟器') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -1039,8 +1039,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">开服监控</span>
-                                    <span class="u-desc">剑三服务器开服监控</span>
+                                    <span class="u-name">{{ $t('开服监控') }}</span>
+                                    <span class="u-desc">{{ $t('剑三服务器开服监控') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -1055,8 +1055,8 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">价格走势</span>
-                                    <span class="u-desc">全服金价物价</span>
+                                    <span class="u-name">{{ $t('价格走势') }}</span>
+                                    <span class="u-desc">{{ $t('全服金价物价') }}</span>
                                 </span>
                             </a>
                         </div>
@@ -1070,7 +1070,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">万宝楼</span>
+                                    <span class="u-name">{{ $t('万宝楼') }}</span>
                                     <span class="u-desc">官方交易平台（重制）</span>
                                 </span>
                             </a>
@@ -1085,7 +1085,7 @@
                                     </i>
                                 </span>
                                 <span class="u-features">
-                                    <span class="u-name">万宝楼</span>
+                                    <span class="u-name">{{ $t('万宝楼') }}</span>
                                     <span class="u-desc">官方交易平台（缘起）</span>
                                 </span>
                             </a>

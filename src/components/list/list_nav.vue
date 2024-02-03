@@ -8,8 +8,8 @@
     <div class="m-list-nav">
         <!-- 群号 -->
         <!-- <RightSideMsg>
-            <em>工具作者交流群</em> :
-            <strong @click="onQQClick" class="u-link" title="点击复制">
+            <em>{{ $t('工具作者交流群') }}</em> :
+            <strong @click="onQQClick" class="u-link" :title="$t('点击复制')">
                 <a>{{ qq }}</a>
             </strong>
         </RightSideMsg> -->
@@ -26,20 +26,20 @@
             </el-carousel>
         </div>
         <div class="m-nav-app">
-            <h5 class="u-title">在线应用</h5>
+            <h5 class="u-title">{{ $t('在线应用') }}</h5>
             <a href="/dbm" target="_blank">
                 <img class="u-icon" :src="getAppIcon('dbm')" />
-                <span>数据构建</span>
+                <span>{{ $t('数据构建') }}</span>
                 <em>JX3dat</em>
             </a>
             <a href="/app/database" target="_blank">
                 <img class="u-icon" :src="getAppIcon('database')" />
-                <span>数据库大全</span>
+                <span>{{ $t('数据库大全') }}</span>
                 <em>Database</em>
             </a>
             <a href="/app/design" target="_blank">
                 <img class="u-icon" :src="getAppIcon('design')" />
-                <span>美术资源</span>
+                <span>{{ $t('美术资源') }}</span>
                 <em>Design</em>
             </a>
         </div>
@@ -57,7 +57,7 @@
             </router-link> -->
             <!-- <router-link to="/userdata" class="u-item disabled">
                 <img src="@/assets/img/nav/userdata.svg" />
-                <span class="u-text">用户配置数据</span>
+                <span class="u-text">{{ $t('用户配置数据') }}</span>
             </router-link> -->
         <!-- </div> -->
 

@@ -1,15 +1,15 @@
 <!-- 数据库版本的组件 -->
 <template>
     <div class="m-versions">
-        <div class="m-versions-header w-card-title"><i class="u-icon el-icon-s-grid"></i> 数据库版本</div>
+        <div class="m-versions-header w-card-title"><i class="u-icon el-icon-s-grid"></i> {{ $t('数据库版本') }}</div>
         <div class="m-versions-content">
-            <div class="u-empty" v-if="version.length == 0">数据加载中...</div>
+            <div class="u-empty" v-if="version.length == 0">{{ $t('数据加载中...') }}</div>
             <div class="u-list">
                 <el-tooltip placement="top" v-for="_type in all_types" :key="_type" :enterable="true">
                     <div slot="content" class="m-versions-content__popover">
                         <p v-for="data in version.filter((v) => v.type == _type)" :key="data.name">
                             <span class="u-detail-label">{{ data.label }}</span>
-                            <span class="u-detail-time">更新于{{ showRecently(data.time) }}</span>
+                            <span class="u-detail-time">{{ $t('更新于') + showRecently(data.time) }}</span>
                             <br />
                         </p>
                     </div>

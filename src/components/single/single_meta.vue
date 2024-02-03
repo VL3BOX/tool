@@ -3,7 +3,7 @@
         <div class="m-single-meta__main">
             <div class="m-meta-item" v-for="item in data" :key="item.name">
                 <template v-if="item.mode == 1 || item.mode == undefined">
-                    <span class="u-name"><i class="el-icon-box"></i>{{ item.name || "暂无资源" }}</span>
+                    <span class="u-name"><i class="el-icon-box"></i>{{ item.name || $t('暂无资源') }}</span>
                     <span class="u-remark">{{ item.remark || "" }}</span>
                     <a
                         class="u-download-btn el-button el-button--primary el-button--small"
@@ -12,11 +12,11 @@
                         v-show="item.file"
                     >
                         <i class="el-icon-download"></i>
-                        <span>本地下载</span>
+                        <span>{{ $t('本地下载') }}</span>
                     </a>
                 </template>
                 <template v-if="item.mode == 0">
-                    <span class="u-name"><i class="el-icon-box"></i>{{ item.name || "暂无资源" }}</span>
+                    <span class="u-name"><i class="el-icon-box"></i>{{ item.name || $t('暂无资源') }}</span>
                     <span class="u-remark">{{ item.remark || "" }}</span>
                     <a
                         class="u-download-btn el-button el-button--primary el-button--small"
@@ -25,7 +25,7 @@
                         v-show="item.file"
                     >
                         <i class="el-icon-link"></i>
-                        <span>前往下载</span>
+                        <span>{{ $t('前往下载') }}</span>
                     </a>
                 </template>
             </div>
@@ -35,8 +35,8 @@
             <div class="m-single-notice">
                 <div class="m-notice-header">
                     <i class="el-icon-warning"></i>
-                    <span class="u-header">特别说明</span>
-                    <a class="u-report" :href="feedback" target="_blank">快捷举报</a>
+                    <span class="u-header">{{ $t('特别说明') }}</span>
+                    <a class="u-report" :href="feedback" target="_blank">{{ $t('快捷举报') }}</a>
                 </div>
                 <div class="m-description">
                     <div class="m-content" v-html="nl2br(content)">

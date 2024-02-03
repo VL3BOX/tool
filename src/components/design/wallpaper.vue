@@ -13,7 +13,7 @@
                                 v-for="size in item.sizes"
                                 :key="size"
                                 target="_blank"
-                                title="点击查看原图"
+                                :title="$t('点击查看原图')"
                                 >{{ format(size) }}</a
                             >
                         </div>

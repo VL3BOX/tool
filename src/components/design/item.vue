@@ -14,7 +14,7 @@
             <i v-if="isStar" class="el-icon-star-on" :class="{ on: onFav(icon) }"></i>
         </div>
 
-        <span class="u-copy" v-if="!isFav" @click.stop="onCopy(icon)" title="点击快速复制">{{ iconId(icon) }}</span>
+        <span class="u-copy" v-if="!isFav" @click.stop="onCopy(icon)" :title="$t('点击快速复制')">{{ iconId(icon) }}</span>
         <span v-else>{{ iconId(icon) }}</span>
     </div>
 </template>

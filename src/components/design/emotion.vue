@@ -1,6 +1,6 @@
 <template>
     <div class="m-emotion">
-        <h1 class="m-icons-title">剑三表情包</h1>
+        <h1 class="m-icons-title">{{ $t('剑三表情包') }}</h1>
         <div class="m-emotion-nav">
             <div
                 class="u-btn"
@@ -39,7 +39,7 @@
                 @click.native.stop="handleDownloadEmoji('zip')"
                 icon="el-icon-download"
             >
-                下载压缩包 (.zip)
+                {{ $t('下载压缩包') }} (.zip)
             </el-button>
             <el-button
                 class="u-btn"
@@ -48,7 +48,7 @@
                 @click.native.stop="handleDownloadEmoji('eif')"
                 icon="el-icon-download"
             >
-                下载QQ表情包 (.eif)
+                {{ $t('下载QQ表情包') }} (.eif)
             </el-button>
         </div>
     </div>

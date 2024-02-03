@@ -9,7 +9,7 @@
                 {{ showName(item) }}
             </a>
             <span class="u-id"> # {{ item.id }} </span>
-            <span class="u-status" v-if="item.status"> <i class="el-icon-lock"></i> 私有 </span>
+            <span class="u-status" v-if="item.status"> <i class="el-icon-lock"></i> {{ $t('私有') }} </span>
         </div>
         <div class="u-text" v-if="!isDBType(item)">{{ showContent(item.payload.szContent) }}</div>
         <div class="u-meta">
@@ -18,28 +18,28 @@
                 <span class="u-meta-value">{{ item.payload.dwID }}</span>
             </span>
             <span class="u-meta-item" v-if="isDBType(item)">
-                <em class="u-meta-label">等级</em>
+                <em class="u-meta-label">{{ $t('等级') }}</em>
                 <span class="u-meta-value">{{ item.payload.nLevel }}</span>
             </span>
             <span class="u-meta-item" v-if="item.map && item.map.length">
-                <em class="u-meta-label">地图</em>
+                <em class="u-meta-label">{{ $t('地图') }}</em>
                 <span class="u-meta-value">
                     {{ showMap(item.map) }}
                 </span>
             </span>
             <span class="u-meta-item">
-                <em class="u-meta-label">备注</em>
+                <em class="u-meta-label">{{ $t('备注') }}</em>
                 <span class="u-meta-value">
                     {{ item.szNote ? item.szNote.slice(0, 20) : "无" }}
                 </span>
             </span>
             <span class="u-meta-item" v-if="item.origin" @click.stop>
-                <em class="u-meta-label">引用</em>
+                <em class="u-meta-label">{{ $t('引用') }}</em>
                 <span class="u-meta-value">
                     <a v-if="item.origin > 0" :href="link(item.origin)" target="_blank">
-                        <i class="el-icon-link"></i> 查看引用源
+                        <i class="el-icon-link"></i> {{ $t('查看引用源') }}
                     </a>
-                    <span v-else><i class="el-icon-download"></i> 解析导入</span>
+                    <span v-else><i class="el-icon-download"></i> {{ $t('解析导入') }}</span>
                 </span>
             </span>
         </div>

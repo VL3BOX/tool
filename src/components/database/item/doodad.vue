@@ -7,25 +7,25 @@
                 <span class="u-name">{{ data.Name }}</span>
                 <div class="u-rt-tags">
                     <span v-if="refCount" class="u-ref-count">
-                        <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span
+                        <i class="el-icon-connection"></i> {{$t('引用指数') + refCount }}</span
                     >
                     <el-tag size="small" @click.stop="copy('ID')">
                         <i class="el-icon-document-copy u-copy"></i>
-                        <span class="u-id" title="点击快速复制">ID:{{ data.ID }}</span>
+                        <span class="u-id" :title="$t('点击快速复制')">ID:{{ data.ID }}</span>
                     </el-tag>
                 </div>
             </div>
             <div class="u-primary u-primary__doodad">
                 <span class="u-doodad-prop">
-                    <em>地图</em>
+                    <em>{{ $t('地图') }}</em>
                     {{ data.MapName }}
                 </span>
                 <span class="u-doodad-prop">
-                    <em>说明</em>
+                    <em>{{ $t('说明') }}</em>
                     {{ data.BarText }}
                 </span>
                 <span class="u-doodad-prop" v-if="data.Kind">
-                    <em>类型</em>
+                    <em>{{ $t('类型') }}</em>
                     {{ data.Kind }}
                 </span>
             </div>
@@ -36,8 +36,8 @@
                 @click="toggleProps"
             >
                 <i class="el-icon-view"></i>
-                <span v-if="showProps">收起属性</span>
-                <span v-else>查看属性</span>
+                <span v-if="showProps">{{ $t('收起属性') }}</span>
+                <span v-else>{{ $t('查看属性') }}</span>
             </el-button>
         </div>
         <!-- 项目详情，仅在单页展示 -->
@@ -62,7 +62,7 @@
                     plain
                     @click="star('doodad', data.ID)"
                 >
-                    收藏数据
+                    {{ $t('收藏数据') }}
                 </el-button>
                 <el-button
                     v-else-if="isLogin"
@@ -71,7 +71,7 @@
                     plain
                     @click="cancelStar"
                 >
-                    取消收藏
+                    {{ $t('取消收藏') }}
                 </el-button>
                 <el-button
                     class="u-button u-to-dbm"
@@ -79,7 +79,7 @@
                     plain
                     @click="toDbm('doodad', data.ID, data.Level)"
                 >
-                    在线构建
+                    {{ $t('在线构建') }}
                 </el-button>
             </div>
         </template>

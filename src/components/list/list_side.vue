@@ -1,8 +1,8 @@
 <template>
     <div class="m-extend-list">
         <RightSideMsg>
-            <em>工具作者交流群</em> :
-            <strong @click="onQQClick" class="u-link" title="点击复制">
+            <em>{{ $t('工具作者交流群') }}</em> :
+            <strong @click="onQQClick" class="u-link" :title="$t('点击复制')">
                 <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
@@ -12,11 +12,11 @@
             <h3 class="m-side-title" style="border-bottom: none">
                 <div class="u-title">
                     <img class="u-icon" svg-inline src="@/assets/img/side/docs.svg" />
-                    魔盒文档
+                    {{ $t('魔盒文档') }}
                 </div>
             </h3>
             <el-collapse class="u-groups" v-model="activeDocGroup">
-                <!-- <el-collapse-item title="发布指南" name="senior">
+                <!-- <el-collapse-item :title="$t('发布指南')" name="senior">
                     <div class="u-docs">
                         <a v-for="(item, i) in jx3dat_senior" :key="i" class="u-doc" :href="item.link" target="_blank">
                             <i class="el-icon-collection"></i>
@@ -24,10 +24,10 @@
                         </a>
                     </div>
                 </el-collapse-item> -->
-                <!-- <el-collapse-item title="版规与要求" name="rule" class="m-tool-rule">
+                <!-- <el-collapse-item :title="$t('版规与要求')" name="rule" class="m-tool-rule">
                     <div class="u-content" v-html="rules"></div>
                 </el-collapse-item> -->
-                <el-collapse-item title="入门指南" name="newbie">
+                <el-collapse-item :title="$t('入门指南')" name="newbie">
                     <div class="u-docs">
                         <a v-for="(item, i) in jx3dat_newbie" :key="i" class="u-doc" :href="item.link" target="_blank">
                             <i class="el-icon-collection"></i>
@@ -49,7 +49,7 @@
                         </a>
                     </div>
                 </el-collapse-item>
-                <el-collapse-item title="热门搜索" name="tags" class="m-tool-rule">
+                <el-collapse-item :title="$t('热门搜索')" name="tags" class="m-tool-rule">
                     <div class="m-nav-tags" v-if="tags && tags.length">
                         <!-- <h5 class="u-title"><i class="el-icon-collection-tag"></i> 热门搜索</h5> -->
                         <div class="u-list">

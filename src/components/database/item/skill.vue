@@ -10,11 +10,11 @@
                 </div>
                 <div class="u-rt-tags">
                     <span v-if="refCount" class="u-ref-count">
-                        <i class="el-icon-connection"></i> 引用指数 {{ refCount }}</span
+                        <i class="el-icon-connection"></i> {{ $t('引用指数') + refCount }}</span
                     >
                     <el-tag size="small" @click.stop="copy('SkillID')">
                         <i class="el-icon-document-copy u-copy"></i>
-                        <span class="u-id" title="点击快速复制">ID:{{ data.SkillID }}</span>
+                        <span class="u-id" :title="$t('点击快速复制')">ID:{{ data.SkillID }}</span>
                     </el-tag>
                 </div>
             </div>
@@ -37,8 +37,8 @@
                 @click="toggleProps"
             >
                 <i class="el-icon-view"></i>
-                <span v-if="showProps">收起属性</span>
-                <span v-else>查看属性</span>
+                <span v-if="showProps">{{ $t('收起属性') }}</span>
+                <span v-else>{{ $t('查看属性') }}</span>
             </el-button>
         </div>
         <!-- 项目详情，仅在单页展示 -->
@@ -65,7 +65,7 @@
                     plain
                     @click="star('skill', data.SkillID, data.Level)"
                 >
-                    收藏数据
+                    {{ $t('收藏数据') }}
                 </el-button>
                 <el-button
                     v-else-if="isLogin"
@@ -74,7 +74,7 @@
                     plain
                     @click="cancelStar"
                 >
-                    取消收藏
+                    {{ $t('取消收藏') }}
                 </el-button>
                 <el-button
                     class="u-button u-to-dbm"
@@ -82,7 +82,7 @@
                     plain
                     @click="toDbm('skill', data.SkillID, data.Level)"
                 >
-                    在线构建
+                    {{ $t('在线构建') }}
                 </el-button>
             </div>
         </template>

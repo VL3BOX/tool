@@ -10,7 +10,7 @@
                             class="u-download el-button el-button--default is-plain is-round"
                             :href="getImageUrl(item.name, img.id)"
                             target="_blank"
-                            title="点击下载"
+                            :title="$t('点击下载')"
                             ><i class="el-icon-download"></i><span>Download</span></a
                         >
                     </figure>

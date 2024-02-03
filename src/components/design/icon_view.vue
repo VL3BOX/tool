@@ -1,6 +1,6 @@
 <template>
     <div class="m-icons-view">
-        <el-input placeholder="输入搜索条件，按 enter 进行搜索" v-model="search" class="input-with-select" clearable @keyup.enter.native="onSearch" @clear="onClear">
+        <el-input :placeholder="$t('输入搜索条件，按 enter 进行搜索')" v-model="search" class="input-with-select" clearable @keyup.enter.native="onSearch" @clear="onClear">
             <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
         </el-input>
 
@@ -17,19 +17,19 @@
                         </div>
                         <div class="m-icon-content__bottom">
                             <div class="m-icon-content-item">
-                                <span class="u-label">类别<small>Kind</small></span>
+                                <span class="u-label">{{ $t('类别') }}<small>Kind</small></span>
                                 <span class="u-val">{{ listObj[index].Kind }}</span>
                             </div>
                             <div class="m-icon-content-item">
-                                <span class="u-label">子类别<small>SubKind</small></span>
+                                <span class="u-label">{{ $t('子类别') }}<small>SubKind</small></span>
                                 <span class="u-val">{{ listObj[index].SubKind }}</span>
                             </div>
                             <div class="m-icon-content-item" v-if="listObj[index].Tag1 || listObj[index].Tag2">
-                                <span class="u-label">标签<small>Tag</small></span>
+                                <span class="u-label">{{ $t('标签') }}<small>Tag</small></span>
                                 <span class="u-val">{{ iconTag(listObj[index]) }}</span>
                             </div>
                             <div class="m-icon-content-item">
-                                <span class="u-label">文件<small>FileName</small></span>
+                                <span class="u-label">{{ $t('文件') }}<small>FileName</small></span>
                                 <span class="u-val">{{ listObj[index].FileName }}</span>
                             </div>
                         </div>

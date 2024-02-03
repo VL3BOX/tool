@@ -7,10 +7,10 @@
                 <em class="u-count">{{ stat.buff }}</em>
             </span>
         </el-tab-pane>
-        <el-tab-pane label="技能" name="skill">
+        <el-tab-pane :label="$t('技能')" name="skill">
             <span slot="label">
                 <img class="u-icon" svg-inline src="@/assets/img/database/skill4.svg" />
-                <b>技能</b>
+                <b>{{ $t('技能') }}</b>
                 <em class="u-count">{{ stat.skill }}</em>
             </span>
         </el-tab-pane>
@@ -21,10 +21,10 @@
                 <em class="u-count">{{ stat.npc }}</em>
             </span>
         </el-tab-pane>
-        <el-tab-pane label="交互物件" name="doodad">
+        <el-tab-pane :label="$t('交互物件')" name="doodad">
             <span slot="label">
                 <img class="u-icon" svg-inline src="@/assets/img/database/doodad.svg" />
-                <b>交互物件</b>
+                <b>{{ $t('交互物件') }}</b>
                 <em class="u-count">{{ stat.doodad }}</em>
             </span>
         </el-tab-pane>

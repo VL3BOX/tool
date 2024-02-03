@@ -1,31 +1,31 @@
 <template>
     <div class="m-icons-search">
         <!-- 搜索框 -->
-        <el-input placeholder="输入搜索条件，例如：3089、1-100、幽月乱花" v-model="search" class="input-with-select" @keyup.enter.native="onSearch" @change.once="useSearchIcon">
+        <el-input :placeholder="$t('输入搜索条件，例如：3089、1-100、幽月乱花')" v-model="search" class="input-with-select" @keyup.enter.native="onSearch" @change.once="useSearchIcon">
             <el-button slot="append" icon="el-icon-search" @click="onSearch"></el-button>
         </el-input>
         <!-- 如何搜索图片（文字） -->
         <div class="m-icon-search-tip">
             <ul>
-                <li>输入单个数字，例如1，返回IconID为1的图标；</li>
-                <li>输入多个数字，例如2,4,6（支持中英文逗号“,”,顿号“、”,斜杠“/”,竖杠“|”），返回IconID分别为2,4,6的三个图标；</li>
-                <li>输入范围区间，例如1~100或1-100，返回IconID从1至100的100个图标；</li>
-                <li>可以同时输入多个数字和多个范围，例如2,3,11-14,17，返回IconID分别为2,3,11,12,13,14,17的7个图标；</li>
-                <li>输入单个图标名称，可以根据名称模糊搜索相关图标，例如：幽月、幽月乱花。</li>
-                <li>每次上限500个</li>
+                <li>{{ $t('输入单个数字，例如1，返回IconID为1的图标；') }}</li>
+                <li>{{ $t('输入多个数字，例如2,4,6（支持中英文逗号“,”,顿号“、”,斜杠“/”,竖杠“|”），返回IconID分别为2,4,6的三个图标；') }}</li>
+                <li>{{ $t('输入范围区间，例如1~100或1-100，返回IconID从1至100的100个图标；') }}</li>
+                <li>{{ $t('可以同时输入多个数字和多个范围，例如2,3,11-14,17，返回IconID分别为2,3,11,12,13,14,17的7个图标；') }}</li>
+                <li>{{ $t('输入单个图标名称，可以根据名称模糊搜索相关图标，例如：幽月、幽月乱花。') }}</li>
+                <li>{{ $t('每次上限500个') }}</li>
             </ul>
         </div>
 
         <!-- 展示图标 -->
-        <el-alert class="m-icons-tips" v-if="isNewbie" title="以下为部分图标展示，请在上方自定义搜索范围，点击图标即可收藏。" type="warning" center show-icon></el-alert>
-        <el-alert class="m-icons-tips" v-if="!searchList.length" title="没有找到对应的图标，请重新输入关键词搜索图标。" type="info" center show-icon></el-alert>
+        <el-alert class="m-icons-tips" v-if="isNewbie" :title="$t('以下为部分图标展示，请在上方自定义搜索范围，点击图标即可收藏。')" type="warning" center show-icon></el-alert>
+        <el-alert class="m-icons-tips" v-if="!searchList.length" :title="$t('没有找到对应的图标，请重新输入关键词搜索图标。')" type="info" center show-icon></el-alert>
 
         <div class="m-icons-matrix m-icons-matrix-main" v-if="searchList.length>0">
             <icon-item v-for="(icon, index) in searchList" :icon="icon" :isFav="false" :key="index"></icon-item>
         </div>
 
         <div class="m-more" v-if="isNumber">
-            <el-button @click="searchMore">查询后500个</el-button>
+            <el-button @click="searchMore">{{ $t('查询后500个') }}</el-button>
         </div>
     </div>
 </template>

@@ -1,22 +1,22 @@
 <template>
-    <ListLayout app-key="jx3dat" app-name="数据下载" :without-right="true">
+    <ListLayout app-key="jx3dat" :app-name="$t('数据下载')" :without-right="true">
         <div class="v-rank" v-loading="loading">
             <div class="m-plugins-header">
-                <h1 class="m-plugins-title"><i class="el-icon-box"></i>团队监控数据</h1>
+                <h1 class="m-plugins-title"><i class="el-icon-box"></i>{{ $t('团队监控数据') }}</h1>
             </div>
             <div class="m-jx3dat-rank-full m-jx3dat-rank">
                 <el-table :data="data" :default-sort="{ prop: '7days', order: 'descending' }" :row-class-name="highlight">
                     <el-table-column type="index" label="👑" width="48"> </el-table-column>
-                    <el-table-column prop="name" label="订阅号" sortable width="220px">
+                    <el-table-column prop="name" :label="$t('订阅号')" sortable width="220px">
                         <template slot-scope="scope">
                             <a class="u-feed" :href="postLink(scope.row.pid)" target="_blank">{{ scope.row.author }}{{ scope.row.v == "默认版" ? "" : "#" + scope.row.v }}</a>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="7days" label="7天" sortable> </el-table-column>
-                    <el-table-column prop="30days" label="30天" sortable> </el-table-column>
-                    <el-table-column prop="yesterday" label="昨日" sortable> </el-table-column>
-                    <el-table-column prop="before2" label="前日" sortable> </el-table-column>
-                    <el-table-column prop="trending" label="趋势" width="100" :formatter="trending">
+                    <el-table-column prop="7days" :label="'7' + $t('天')" sortable> </el-table-column>
+                    <el-table-column prop="30days" :label="'30' + $t('天')" sortable> </el-table-column>
+                    <el-table-column prop="yesterday" :label="$t('昨日')" sortable> </el-table-column>
+                    <el-table-column prop="before2" :label="$t('前日')" sortable> </el-table-column>
+                    <el-table-column prop="trending" :label="$t('趋势')" width="100" :formatter="trending">
                         <template slot-scope="scope">
                             <i class="el-icon-top u-trending" v-if="trending(scope.row) > 0">{{ (trending(scope.row) * 100).toFixed(2) + "%" }}</i>
                             <i class="el-icon-bottom u-trending" v-if="trending(scope.row) < 0">{{ (trending(scope.row) * 100).toFixed(2) + "%" }}</i>
@@ -25,11 +25,11 @@
                     </el-table-column>
                     <!-- <el-table-column
                         prop="view"
-                        label="详情"
+                        :label="$t('详情')"
                         width="120"
                     >
                         <template slot-scope="scope">
-                            <a :href="postLink(scope.row.pid)" class="el-button el-button--default is-plain el-button--mini">查看详情<i class="el-icon-arrow-right"></i></a>
+                            <a :href="postLink(scope.row.pid)" class="el-button el-button--default is-plain el-button--mini">{{ $t('查看详情') }}<i class="el-icon-arrow-right"></i></a>
                         </template>
                     </el-table-column> -->
                 </el-table>

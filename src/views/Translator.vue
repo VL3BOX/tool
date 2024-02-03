@@ -1,14 +1,14 @@
 <template>
-    <AppLayout slug="translator" icon="translator" name="簡繁轉換工具" :has-left="false" :has-right="false">
+    <AppLayout slug="translator" icon="translator" :name="$t('簡繁轉換工具')" :has-left="false" :has-right="false">
         <div class="m-translator">
-                <h1 class="title">簡繁轉換工具</h1>
-                <h3 class="title">將宏或插件數據等轉為劍網三國際服專用繁體</h3>
+                <h1 class="title">{{ $t('簡繁轉換工具') }}</h1>
+                <h3 class="title">{{ $t('將宏或插件數據等轉為劍網三國際服專用繁體') }}</h3>
                 <el-tabs type="card" class="translate-wrapper" :before-leave="tabClick" v-model="activeTabName">
-                    <el-tab-pane label="文字轉換" :disabled="isLoading" name="translate-str">
+                    <el-tab-pane :label="$t('文字轉換')" :disabled="isLoading" name="translate-str">
                         <div class="translate-content">
                             <el-input
                                 type="textarea"
-                                placeholder="请输入原文（简体）内容。建议不要超过1000个汉字。大段文字容易导致浏览器卡死，建议使用文件转换功能。"
+                                :placeholder="$t('请输入原文（简体）内容。建议不要超过1000个汉字。大段文字容易导致浏览器卡死，建议使用文件转换功能。')"
                                 v-model="preTranslateText"
                                 :validate-event="false"
                                 resize="none"
@@ -18,7 +18,7 @@
                             ></el-input>
                             <el-input
                                 type="textarea"
-                                placeholder="轉換（繁體）之後的內容"
+                                :placeholder="$t('轉換（繁體）之後的內容')"
                                 v-model="postTranslateText"
                                 :validate-event="false"
                                 resize="none"
@@ -26,22 +26,22 @@
                                 class="textarea-translate textarea-translate-post"
                             ></el-input>
                         </div>
-                        <el-button type="primary" :loading="isLoading" class="btn-convert" size="medium" @click="convertText" v-if="percentage < 0">{{ isLoading ? "正在加載" : "轉換" }}</el-button>
+                        <el-button type="primary" :loading="isLoading" class="btn-convert" size="medium" @click="convertText" v-if="percentage < 0">{{ isLoading ? $t('正在加載') : $t('轉換') }}</el-button>
                         <el-progress :text-inside="true" :stroke-width="20" :percentage="percentage" v-if="isLoading && percentage >= 0"></el-progress>
                     </el-tab-pane>
-                    <el-tab-pane label="文件轉換" :disabled="isLoading" name="translate-file">
+                    <el-tab-pane :label="$t('文件轉換')" :disabled="isLoading" name="translate-file">
                         <transition name="el-zoom-in-top">
-                            <el-alert title="转换成功!" type="success" show-icon v-if="downloadFileUrl !== ''">
-                                如果沒有自動下載的話,
-                                <el-button type="text" class="btn-download" @click="downloadByUrl">點此下載</el-button>
+                            <el-alert :title="$t('转换成功!')" type="success" show-icon v-if="downloadFileUrl !== ''">
+                                {{ $t('如果沒有自動下載的話') }},
+                                <el-button type="text" class="btn-download" @click="downloadByUrl">{{ $t('點此下載') }}</el-button>
                             </el-alert>
                         </transition>
-                        <h4>上传的文件编码</h4>
+                        <h4>{{ $t('上传的文件编码') }}</h4>
                         <el-radio-group v-model="fileEncoding">
                             <el-radio label="gbk" border>GBK</el-radio>
                             <el-radio label="utf-8" border>UTF-8</el-radio>
                         </el-radio-group>
-                        <h5 class="hint-inline">如果你不知道这是什么，请不要修改此选项</h5>
+                        <h5 class="hint-inline">{{ $t('如果你不知道这是什么，请不要修改此选项') }}</h5>
                         <div class="translate-content">
                             <el-upload
                                 class="upload-file"
@@ -50,21 +50,21 @@
                                 :auto-upload="true"
                                 :show-file-list="false"
                                 v-loading="isLoading"
-                                element-loading-text="正在轉換,請稍後"
+                                :element-loading-text="$t('正在轉換,請稍後')"
                                 :http-request="uploadFile"
                                 v-if="percentage < 0"
                             >
                                 <i class="el-icon-upload"></i>
                                 <div class="el-upload__text">
-                                    將文件拖到此處,或
-                                    <em>點擊上傳</em>
+                                    {{ $t('將文件拖到此處,或') }}
+                                    <em>{{ $t('點擊上傳') }}</em>
                                 </div>
-                                <div class="el-upload__tip" slot="tip">暫不支持word等帶樣式文檔</div>
+                                <div class="el-upload__tip" slot="tip">{{ $t('暫不支持word等帶樣式文檔') }}</div>
                             </el-upload>
                             <el-progress type="circle" :percentage="percentage" v-if="isLoading && percentage >= 0" :format="progressFormat"></el-progress>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="💖貢獻詞庫" :disabled="isLoading" name="add-dict"></el-tab-pane>
+                    <el-tab-pane :label="'💖' + $t('貢獻詞庫')" :disabled="isLoading" name="add-dict"></el-tab-pane>
                 </el-tabs>
             </div></AppLayout>
 </template>

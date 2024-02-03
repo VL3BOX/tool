@@ -12,7 +12,7 @@
 
             <!-- 标题文字 -->
             <a class="u-title" :style="showHighlight(item.color)" :href="postLink(item.ID)" :target="target">{{
-                item.post_title || "无标题"
+                item.post_title || $t('无标题')
             }}</a>
 
             <!-- 角标 -->
@@ -23,7 +23,7 @@
 
         <!-- 字段 -->
         <div class="u-content u-desc">
-            {{ item.post_excerpt || item.post_title || "这个作者很懒,什么都没有留下" }}
+            {{ item.post_excerpt || item.post_title || $t('这个作者很懒,什么都没有留下') }}
         </div>
 
         <!-- 作者 -->

@@ -1,5 +1,5 @@
 <template>
-    <ListLayout app-key="jx3dat" app-name="数据下载">
+    <ListLayout app-key="jx3dat" :app-name="$t('数据下载')">
         <!-- <el-tabs class="m-fb-tabs" v-model="view">
 
         </el-tabs> -->
@@ -13,15 +13,15 @@
 
             <!-- 搜索 -->
             <div class="m-archive-search" slot="search-before">
-                <a :href="publish_link" class="u-publish el-button el-button--primary">+ 发布作品</a>
+                <a :href="publish_link" class="u-publish el-button el-button--primary">+ {{ $t('发布作品') }}</a>
                 <el-input
-                    placeholder="请输入搜索内容"
+                    :placeholder="$t('请输入搜索内容')"
                     v-model.trim.lazy="search"
                     clearable
                     @clear="onSearch"
                     @keydown.native.enter="onSearch"
                 >
-                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">关键词</span></span>
+                    <span slot="prepend"><i class="el-icon-search"></i> <span class="u-search">{{ $t('关键词') }}</span></span>
                     <el-button slot="append" icon="el-icon-position" class="u-btn" @click="onSearch"></el-button>
                 </el-input>
             </div>
@@ -44,7 +44,7 @@
             </div>
 
             <!-- 空 -->
-            <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon></el-alert>
+            <el-alert v-else class="m-archive-null" :title="$t('没有找到相关条目')" type="info" center show-icon></el-alert>
 
             <!-- 下一页 -->
             <el-button
@@ -54,7 +54,7 @@
                 @click="appendPage"
                 :loading="loading"
                 icon="el-icon-arrow-down"
-                >加载更多</el-button
+                >{{ $t('加载更多') }}</el-button
             >
 
             <!-- 分页 -->

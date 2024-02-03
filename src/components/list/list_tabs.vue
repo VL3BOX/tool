@@ -1,47 +1,47 @@
 <template>
     <el-tabs class="m-tabs" v-model="view" @tab-click="changeView">
-        <el-tab-pane label="全部资源" name="all">
+        <el-tab-pane :label="$t('全部资源')" name="all">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/all.png" alt="">
-                <b>全部资源</b>
+                <b>{{ $t('全部资源') }}</b>
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="工具资源" name="index">
+        <el-tab-pane :label="$t('工具资源')" name="index">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/tool.png" alt="">
-                <b>工具资源</b>
-                <!-- <em class="u-secret">权威白皮书</em> -->
+                <b>{{ $t('工具资源') }}</b>
+                <!-- <em class="u-secret">{{ $t('权威白皮书') }}</em> -->
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="插件数据" name="jx3dat">
+        <el-tab-pane :label="$t('插件数据')" name="jx3dat">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/data.png" alt="">
-                <b>插件数据</b>
-                <!-- <em class="u-secret">优质作品</em> -->
+                <b>{{ $t('插件数据') }}</b>
+                <!-- <em class="u-secret">{{ $t('优质作品') }}</em> -->
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="技术笔札" name="game">
+        <el-tab-pane :label="$t('技术笔札')" name="game">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/code.png" alt="">
-                <b>技术笔札</b>
-                <!-- <em class="u-ready">签约</em> -->
+                <b>{{ $t('技术笔札') }}</b>
+                <!-- <em class="u-ready">{{ $t('签约') }}</em> -->
             </span>
         </el-tab-pane>
 
-        <el-tab-pane label="魔盒文档" name="api">
+        <el-tab-pane :label="$t('魔盒文档')" name="api">
             <span slot="label">
                 <img class="u-icon-img" src="@/assets/img/nav/api.png" alt="">
-                <b>魔盒文档</b>
+                <b>{{ $t('魔盒文档') }}</b>
             </span>
         </el-tab-pane>
 
-        <!-- <el-tab-pane label="魔盒助手" name="desktop">
+        <!-- <el-tab-pane :label="$t('魔盒助手')" name="desktop">
             <span slot="label">
                 <i class="el-icon-notebook-1"></i>
-                <b>魔盒助手</b>
+                <b>{{ $t('魔盒助手') }}</b>
             </span>
         </el-tab-pane> -->
     </el-tabs>

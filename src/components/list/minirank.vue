@@ -1,14 +1,14 @@
 <template>
     <div class="m-jx3dat-rank-mini m-jx3dat-rank">
         <h3 class="c-sidebar-right-title">
-            <img class="u-icon" svg-inline src="../../assets/img/rank.svg" />排行榜
-            <span class="u-more" @click="viewRank">查看更多 &raquo;</span>
+            <img class="u-icon" svg-inline src="../../assets/img/rank.svg" />{{ $t('排行榜') }}
+            <span class="u-more" @click="viewRank">{{ $t('查看更多') }} &raquo;</span>
         </h3>
         <el-tabs v-model="active" @tab-click="handleClick">
-            <el-tab-pane label="综合" name="mix"></el-tab-pane>
-            <el-tab-pane label="下载" name="download"></el-tab-pane>
-            <el-tab-pane label="订阅" name="subscribers"></el-tab-pane>
-            <el-tab-pane label="收藏" name="favorite"></el-tab-pane>
+            <el-tab-pane :label="$t('综合')" name="mix"></el-tab-pane>
+            <el-tab-pane :label="$t('下载')" name="download"></el-tab-pane>
+            <el-tab-pane :label="$t('订阅')" name="subscribers"></el-tab-pane>
+            <el-tab-pane :label="$t('收藏')" name="favorite"></el-tab-pane>
         </el-tabs>
         <ul class="u-list" v-loading="loading">
             <li v-for="(item, k) in data" :key="k">

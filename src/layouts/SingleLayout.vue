@@ -2,7 +2,7 @@
     <div class="p-layout p-layout--single">
         <Header></Header>
         <Breadcrumb
-            name="工具资源"
+            :name="$t('工具资源')"
             icon="jx3dat"
             slug="tool"
             root="/tool"

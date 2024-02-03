@@ -1,8 +1,8 @@
 <template>
     <div class="m-star">
-        <div class="m-star-header w-card-title"><i class="u-icon el-icon-star-on"></i> 我的收藏</div>
+        <div class="m-star-header w-card-title"><i class="u-icon el-icon-star-on"></i> {{ $t('我的收藏') }}</div>
         <div class="m-star-content">
-            <div class="u-empty" v-if="stars[type].length == 0">暂无收藏项目噢 (●'ω'●)丿❤</div>
+            <div class="u-empty" v-if="stars[type].length == 0">{{ $t('暂无收藏项目噢') }} (●'ω'●)丿❤</div>
             <div
                 class="u-item"
                 v-for="(item, index) in showList"

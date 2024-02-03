@@ -1,10 +1,10 @@
 <template>
-    <ListLayout app-key="jx3dat" app-name="数据下载" :without-right="true">
+    <ListLayout app-key="jx3dat" :app-name="$t('数据下载')" :without-right="true">
         <div class="m-userdata">
             <div class="m-plugins-header">
-                <h1 class="m-plugins-title"><i class="el-icon-user"></i>用户配置数据</h1>
+                <h1 class="m-plugins-title"><i class="el-icon-user"></i>{{ $t('用户配置数据') }}</h1>
             </div>
-            <div>即将登陆...</div>
+            <div>{{ $t('即将登陆...') }}</div>
         </div>
     </ListLayout>
 </template>
