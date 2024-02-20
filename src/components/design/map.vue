@@ -178,7 +178,7 @@ export default {
         handleWheel(event) {
             let { meter_zoom, click, isDragging } = this.scale;
             if (isDragging) return;
-            const delta = event.deltaY || event.detail || event.wheelDelta;
+            const delta = event.deltaY || event.deltaX;
             let scaleNum = 0.05;
             if (delta < 0) {
                 meter_zoom += scaleNum;
@@ -189,20 +189,17 @@ export default {
             }
 
             // 获取鼠标点击位置相对于地图容器的坐标
-            const boundingRect = this.$refs.mapWrap.getBoundingClientRect();
-            const mouseX = click ? (event.clientX - boundingRect.left) / meter_zoom : 0;
-            const mouseY = click ? (event.clientY - boundingRect.top) / meter_zoom : 0;
+            const boundingRect = this.$refs.map.getBoundingClientRect();
 
-            // 计算图片上的相对坐标
-            const relativeX = mouseX - parseFloat(this.$refs.map.style.left);
-            const relativeY = mouseY - parseFloat(this.$refs.map.style.top);
-            console.log(boundingRect, relativeX, relativeY);
+            const mouseX = click ? Math.floor(event.clientX - boundingRect.right * meter_zoom) : 0;
+            const mouseY = click ? Math.floor(event.clientY - boundingRect.bottom * meter_zoom) : 0;
+
             // 更新缩放比例
-            this.$refs.map.style.transformOrigin = `${relativeX}px ${relativeY}px`;
+            this.$refs.map.style.transformOrigin = `${mouseX}px ${mouseY}px`;
             this.$refs.map.style.transform = `scale(${meter_zoom})`;
 
-            this.scale.zoomOriginX = relativeX;
-            this.scale.zoomOriginY = relativeY;
+            this.scale.zoomOriginX = mouseX;
+            this.scale.zoomOriginY = mouseY;
             this.scale.meter_zoom = meter_zoom;
             event.preventDefault();
         },
