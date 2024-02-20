@@ -171,7 +171,7 @@ export default {
 
             this.loading = true;
             if (this.isSearch || this.defaultSortBy === "newest") {
-                getResourceList(this.client, this.type, params)
+                getResourceList(this.client, this.type, { ...params, include: "parse" })
                     .then((res) => {
                         const data = res.data.data;
                         this.total = data.total;
@@ -210,9 +210,11 @@ export default {
                     const { source_id: id, source_level: level } = item;
                     return level ? `${id}_${level}` : `${id}`;
                 });
-                const resource_res = await getResource(this.client, this.type, { ids }).finally(() => {
-                    this.loading = false;
-                });
+                const resource_res = await getResource(this.client, this.type, { ids }, { include: "parse" }).finally(
+                    () => {
+                        this.loading = false;
+                    }
+                );
                 const data = resource_res.data
                     .map(this.dataFieldFilter)
                     .filter(this.dataFilter)
@@ -294,8 +296,8 @@ export default {
 </script>
 
 <style lang="less">
-    .m-pager {
-        overflow-x: auto;
-        max-width: 100%;
-    }
+.m-pager {
+    overflow-x: auto;
+    max-width: 100%;
+}
 </style>
