@@ -48,3 +48,23 @@
         }
     }
 }
+
+.scrollbar(@w:4px,@color:#fafafa,@thumb:#eee) {
+    &::-webkit-scrollbar {
+        width: @w;
+    }
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-track-piece {
+        background-color: @color;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: @thumb;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+        display: none;
+    }
+}
