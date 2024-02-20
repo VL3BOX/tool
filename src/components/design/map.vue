@@ -21,7 +21,7 @@
                 >
                     <span
                         class="u-map"
-                        @click="changeMap(item.MapID)"
+                        @click="changeMap(item.mapid)"
                         v-for="(item, id) in mapData"
                         :key="id"
                         :style="`left:${item.x || 0}px;top:${item.y || 0}px`"
@@ -49,14 +49,14 @@
                 </el-button>
             </el-button-group>
             <div class="u-world-map" @click="changeMap(0)">世界地图</div>
-            <div class="m-mapList">
+            <div :class="[{ mapId }, 'm-mapList']">
                 <div
-                    class="u-item"
                     v-for="item in maps"
                     :key="item.ID"
                     :label="item.MapName"
                     :value="item.ID"
                     @click="changeMap(item.ID)"
+                    :class="['u-item', { active: item.ID == mapId }]"
                 >
                     {{ item.MapName || item.Name }}
                 </div>
@@ -79,8 +79,9 @@ export default {
 
             search: "",
             page: 1,
-            per: 18,
+            per: 17,
             count: 0,
+            title: "",
 
             scale: {
                 initWidth: 0, // 父元素的宽-自适应值
@@ -119,10 +120,6 @@ export default {
             if (this.search) _params.search = this.search;
             return _params;
         },
-        title() {
-            const item = this.maps.filter((item) => item.ID == this.mapId)[0];
-            return item?.Name || "剑三地图库";
-        },
     },
     watch: {
         params: {
@@ -133,6 +130,9 @@ export default {
         },
         mapId(val) {
             if (val === null || val === "" || val === undefined) this.mapId = 0;
+            const map_1 = this.maps.filter((item) => item.ID == val)[0];
+            const map_2 = this.mapData.filter((item) => item.mapid == val)[0];
+            this.title = map_1?.MapName || map_2?.comment || "世界地图";
         },
     },
     mounted() {
@@ -142,7 +142,7 @@ export default {
     },
     methods: {
         changeMap(mapId) {
-            this.mapId = mapId;
+            this.mapId = mapId || 0;
             this.scale = this.$options.data().scale;
         },
         changePage(key) {
