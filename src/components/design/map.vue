@@ -13,11 +13,11 @@
                 <div
                     class="m-map__world"
                     ref="map"
-                    :style="`left:${(0 * elWidth) / 100}px;top:${
-                        (25 * elHeight) / 100
-                    }px;transform-origin: ${zoomOriginX}px ${zoomOriginY}px; transform: scale(${meter_zoom});cursor: ${
-                        isDragging ? 'grabbing' : 'grab'
-                    }`"
+                    :style="`left:${(0 * scale.elWidth) / 100}px;top:${
+                        (25 * scale.elHeight) / 100
+                    }px;transform-origin: ${scale.zoomOriginX}px ${scale.zoomOriginY}px; transform: scale(${
+                        scale.meter_zoom
+                    });cursor: ${scale.isDragging ? 'grabbing' : 'grab'}`"
                 >
                     <span
                         class="u-map"
@@ -28,7 +28,8 @@
                     >
                         {{ item.comment }}
                     </span>
-                    <img class="u-img" :src="map" alt="世界地图" style="width: 3556px; height: 2195px" />
+                    <img class="u-img" :src="map" alt="世界地图" />
+                    <img class="u-traffic" :src="traffic" alt="交通路线" />
                 </div>
             </div>
             <img :src="currentMap" v-else />
@@ -65,7 +66,7 @@
 </template>
 
 <script>
-import { getMaps, getMapsIdPoint, getMapsTraffic } from "@/service/maps.js";
+import { getMaps, getMapsPoint } from "@/service/maps.js";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Map",
@@ -81,17 +82,19 @@ export default {
             per: 18,
             count: 0,
 
-            initWidth: 0, // 父元素的宽-自适应值
-            initHeight: 0, // 父元素的高-自适应值
-            elWidth: 0, // 元素宽
-            elHeight: 0, // 元素高
-            meter_zoom: 0.28, // 子元素缩放比例
-            isDragging: false,
-            dragStartX: 0,
-            dragStartY: 0,
-            zoomOriginX: 0,
-            zoomOriginY: 0,
-            click: false,
+            scale: {
+                initWidth: 0, // 父元素的宽-自适应值
+                initHeight: 0, // 父元素的高-自适应值
+                elWidth: 0, // 元素宽
+                elHeight: 0, // 元素高
+                meter_zoom: 0.28, // 子元素缩放比例
+                isDragging: false,
+                dragStartX: 0,
+                dragStartY: 0,
+                zoomOriginX: 0,
+                zoomOriginY: 0,
+                click: false,
+            },
         };
     },
     computed: {
@@ -100,6 +103,9 @@ export default {
         },
         map() {
             return `${__imgPath}topic/pic/map.jpg?123`;
+        },
+        traffic() {
+            return `${__imgPath}topic/pic/traffic.png?123`;
         },
         client() {
             return this.$store.state.client;
@@ -137,13 +143,7 @@ export default {
     methods: {
         changeMap(mapId) {
             this.mapId = mapId;
-            this.rest();
-        },
-        rest() {
-            this.meter_zoom = 0.28;
-            this.zoomOriginX = 0;
-            this.zoomOriginY = 0;
-            this.click = false;
+            this.scale = this.$options.data().scale;
         },
         changePage(key) {
             let page = this.page;
@@ -170,95 +170,78 @@ export default {
                 });
         },
         loadOther() {
-            getMapsIdPoint({ client: this.client }).then((res) => {
-                const data = res.data.data || [];
-                this.mapData = data
-                    .filter(
-                        (obj) =>
-                            obj.comment &&
-                            !obj.comment?.includes("测试") &&
-                            obj.x < 10000 &&
-                            obj.y < 10000 &&
-                            obj.x > 0 &&
-                            obj.y > 0 &&
-                            !obj.comment?.includes("扬州_")
-                    )
-                    .map((item) => {
-                        item.y = item.y + 50;
-                        item.x = item.x + 150;
-                        return item;
-                    });
+            getMapsPoint({ client: this.client }).then((res) => {
+                const data = res.data.data.city || [];
+                this.mapData = data.filter((obj) => obj.comment && !obj.comment?.includes("测试"));
             });
-            // getMapsTraffic({ client: this.client }).then((res) => {
-            //     // console.log(res.data.data);
-            // });
         },
         handleWheel(event) {
+            let { meter_zoom, click, isDragging } = this.scale;
+            if (isDragging) return;
             const delta = event.deltaY || event.detail || event.wheelDelta;
             let scaleNum = 0.05;
             if (delta < 0) {
-                // 向上滚动，放大元素
-                this.meter_zoom += scaleNum;
-                if (this.meter_zoom > 1.8) {
-                    this.meter_zoom = 1.8;
-                }
+                meter_zoom += scaleNum;
+                if (meter_zoom > 1.8) meter_zoom = 1.8;
             } else {
-                // 向下滚动，缩小元素
-                this.meter_zoom -= scaleNum;
-                if (this.meter_zoom < 0.28) {
-                    this.meter_zoom = 0.28;
-                }
+                meter_zoom -= scaleNum;
+                if (meter_zoom < 0.28) meter_zoom = 0.28;
             }
 
             // 获取鼠标点击位置相对于地图容器的坐标
             const boundingRect = this.$refs.mapWrap.getBoundingClientRect();
-            const mouseX = this.click ? (event.clientX - boundingRect.left) / this.meter_zoom : 0;
-            const mouseY = this.click ? (event.clientY - boundingRect.top) / this.meter_zoom : 0;
+            const mouseX = click ? (event.clientX - boundingRect.left) / meter_zoom : 0;
+            const mouseY = click ? (event.clientY - boundingRect.top) / meter_zoom : 0;
 
             // 计算图片上的相对坐标
             const relativeX = mouseX - parseFloat(this.$refs.map.style.left);
             const relativeY = mouseY - parseFloat(this.$refs.map.style.top);
-
-            // 更新缩放中心点的位置
-            this.zoomOriginX = relativeX;
-            this.zoomOriginY = relativeY;
-
+            console.log(boundingRect, relativeX, relativeY);
             // 更新缩放比例
-            this.$refs.map.style.transformOrigin = `${this.zoomOriginX}px ${this.zoomOriginY}px`;
-            this.$refs.map.style.transform = `scale(${this.meter_zoom})`;
+            this.$refs.map.style.transformOrigin = `${relativeX}px ${relativeY}px`;
+            this.$refs.map.style.transform = `scale(${meter_zoom})`;
+
+            this.scale.zoomOriginX = relativeX;
+            this.scale.zoomOriginY = relativeY;
+            this.scale.meter_zoom = meter_zoom;
             event.preventDefault();
         },
         initBodySize() {
-            const imageWidth = 3556;
-            const imageHeight = 2195;
+            const imageWidth = 4920;
+            const imageHeight = 3456;
 
-            this.initWidth = this.$refs.mapView.clientWidth;
-            this.initHeight = this.initWidth * (imageHeight / imageWidth);
-            this.elWidth = this.initWidth * (100 / (imageWidth / 2));
-            this.elHeight = this.initHeight * (100 / (imageHeight / 2));
+            let { initWidth, initHeight, elWidth } = this.scale;
+            initWidth = this.$refs.mapView.clientWidth;
+            initHeight = initWidth * (imageHeight / imageWidth);
+            elWidth = initWidth * (100 / (imageWidth / 2));
+
+            this.scale.initHeight = initHeight;
+            this.scale.elWidth = elWidth;
+            this.scale.elHeight = initHeight * (100 / (imageHeight / 2));
         },
         handleMouseDown(event) {
-            this.isDragging = true;
-            this.click = true;
-            this.dragStartX = event.clientX;
-            this.dragStartY = event.clientY;
+            this.scale.isDragging = true;
+            this.scale.click = true;
+            this.scale.dragStartX = event.clientX;
+            this.scale.dragStartY = event.clientY;
         },
         handleMouseMove(event) {
-            if (this.isDragging) {
-                const deltaX = event.clientX - this.dragStartX;
-                const deltaY = event.clientY - this.dragStartY;
+            const { isDragging, dragStartX, dragStartY } = this.scale;
+            if (isDragging) {
+                const deltaX = event.clientX - dragStartX;
+                const deltaY = event.clientY - dragStartY;
 
                 // 更新地图的 left 和 top 属性
                 const mapElement = this.$refs.map;
                 mapElement.style.left = `${parseFloat(mapElement.style.left) + deltaX}px`;
                 mapElement.style.top = `${parseFloat(mapElement.style.top) + deltaY}px`;
 
-                this.dragStartX = event.clientX;
-                this.dragStartY = event.clientY;
+                this.scale.dragStartX = event.clientX;
+                this.scale.dragStartY = event.clientY;
             }
         },
         handleMouseUp() {
-            this.isDragging = false;
+            this.scale.isDragging = false;
         },
     },
 };
