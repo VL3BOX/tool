@@ -6,7 +6,6 @@
                     <div class="m-map__world">
                         <span
                             class="u-map"
-                            @click="changeMap(item.mapid)"
                             v-for="(item, id) in maps"
                             :key="id"
                             :style="`left:${item.Left || 0}px;top:${item.Top || 0}px`"
@@ -145,7 +144,7 @@ export default {
             this.loading = true;
             getWorldMap()
                 .then((res) => {
-                    const list = res.data.data.zoning || []; 
+                    const list = res.data.data.zoning || [];
                     this.maps = list.filter((item) => item.szDisplayName);
                 })
                 .finally(() => {
