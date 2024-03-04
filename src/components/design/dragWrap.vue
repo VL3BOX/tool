@@ -21,14 +21,20 @@
 <script>
 export default {
     name: "dragWrap",
+    props: {
+        data: {
+            type: Object,
+            default: () => ({}),
+        },
+    },
     data() {
         return {
-            scale: 0.2,
+            scale: 1,
 
             isDragging: false,
             startPosition: { x: 0, y: 0 },
             offset: { x: 0, y: 0 },
-            position: { x: 0, y: -1400 },
+            position: { x: 0, y: 0 },
             velocity: { x: 0, y: 0 },
             lastPosition: { x: 0, y: 0 },
             lastTime: 0,
@@ -37,7 +43,19 @@ export default {
             containerBounds: null,
         };
     },
-    computed: {},
+    watch: {
+        data: {
+            handler({ x, y, scale }) {
+                if (x) {
+                    this.position.x = x;
+                    this.position.y = y;
+                    this.scale = scale;
+                }
+            },
+            deep: true,
+            immediate: true,
+        },
+    },
     mounted() {
         this.$nextTick(() => {
             const map = this.$refs.map;

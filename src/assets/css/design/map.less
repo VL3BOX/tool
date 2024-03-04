@@ -60,13 +60,13 @@
         }
     }
     .m-maps-pic {
-        .flex; 
+        .flex;
+        .clip;
         .size(1024px,896px);
         height: calc(100vh - 160px);
         flex-direction: column;
         align-items: center;
         cursor: move;
-        overflow: auto
     }
     .m-maps__title {
         .fz(24px,24px);
@@ -139,6 +139,17 @@
                     writing-mode: vertical-rl;
                 }
             }
+        }
+    }
+}
+
+.m-maps-dialog {
+    .m-city {
+        .flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        span {
+            .pointer;
         }
     }
 }

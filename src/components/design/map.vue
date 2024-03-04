@@ -2,13 +2,14 @@
     <div class="m-maps">
         <div class="m-maps-pic">
             <template v-if="!mapId">
-                <dragWrap>
+                <dragWrap :data="scale">
                     <div class="m-map__world">
                         <span
                             class="u-map"
                             v-for="(item, id) in maps"
                             :key="id"
                             :style="`left:${item.Left || 0}px;top:${item.Top || 0}px`"
+                            @click="showChild(item)"
                         >
                             {{ item.szDisplayName }}
                         </span>
@@ -35,7 +36,7 @@
                     <i class="el-icon-arrow-right el-icon--right"></i>
                 </el-button>
             </el-button-group>
-            <div class="u-world-map" @click="changeMap(0)">世界地图</div>
+            <div class="u-world-map" @click="changeWorldMap">世界地图</div>
             <div :class="[{ mapId }, 'm-mapList']">
                 <div
                     v-for="item in mapsList"
@@ -49,6 +50,15 @@
                 </div>
             </div>
         </div>
+
+        <el-dialog custom-class="m-maps-dialog" title="提示" :visible.sync="visible" width="600">
+            <div class="m-city">
+                <span v-for="(item, i) in children" :key="i" @click="showMap(item)">{{ item.szComment }}</span>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="visible = false">关 闭</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -56,6 +66,7 @@
 import { getWorldMap, getMaps } from "@/service/maps.js";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import dragWrap from "./dragWrap.vue";
+import { uniqBy } from "lodash";
 export default {
     name: "Map",
     components: { dragWrap },
@@ -63,6 +74,8 @@ export default {
         return {
             loading: false,
             mapId: 0,
+            city: [],
+            fb: [],
             maps: [],
             mapsList: [],
             search: "",
@@ -71,19 +84,9 @@ export default {
             count: 0,
             title: "世界地图",
 
-            scale: {
-                initWidth: 0, // 父元素的宽-自适应值
-                initHeight: 0, // 父元素的高-自适应值
-                elWidth: 0, // 元素宽
-                elHeight: 0, // 元素高
-                meter_zoom: 0.28, // 子元素缩放比例
-                isDragging: false,
-                dragStartX: 0,
-                dragStartY: 0,
-                zoomOriginX: 0,
-                zoomOriginY: 0,
-                click: false,
-            },
+            children: [],
+            visible: false,
+            scale: { x: -122, y: -1400, scale: 0.35 },
         };
     },
     computed: {
@@ -91,10 +94,10 @@ export default {
             return `${__imgPath}map/maps/map_${this.mapId}_0.png`;
         },
         map() {
-            return `${__imgPath}topic/pic/map.jpg?123`;
+            return `${__imgPath}topic/pic/map.jpg`;
         },
         traffic() {
-            return `${__imgPath}topic/pic/traffic.png?123`;
+            return `${__imgPath}topic/pic/traffic.png`;
         },
         client() {
             return this.$store.state.client;
@@ -120,7 +123,7 @@ export default {
             if (val === null || val === "" || val === undefined) this.mapId = 0;
             const map_1 = this.maps.filter((item) => item.ID == val)[0];
             const map_2 = this.mapsList.filter((item) => item.ID == val)[0];
-            this.title = map_1?.szDisplayName || map_2?.DisplayName || "世界地图";
+            this.title = map_1?.szDisplayName || map_2?.DisplayName || this.title;
         },
     },
     mounted() {
@@ -129,7 +132,16 @@ export default {
     methods: {
         changeMap(mapId) {
             this.mapId = mapId || 0;
-            this.scale = this.$options.data().scale;
+        },
+        showMap({ dwMapID, szComment }) {
+            this.changeMap(dwMapID);
+            this.title = szComment;
+            this.visible = false;
+        },
+        changeWorldMap() {
+            this.mapId = 0;
+            this.title = "世界地图";
+            this.scale = { ...this.$options.data().scale, map: Math.random() };
         },
         changePage(key) {
             let page = this.page;
@@ -144,8 +156,10 @@ export default {
             this.loading = true;
             getWorldMap()
                 .then((res) => {
-                    const list = res.data.data.zoning || [];
-                    this.maps = list.filter((item) => item.szDisplayName);
+                    const { zoning, city, copy } = res.data.data || [];
+                    this.city = city || [];
+                    this.fb = copy || [];
+                    this.maps = zoning.filter((item) => item.szDisplayName);
                 })
                 .finally(() => {
                     this.loading = true;
@@ -154,6 +168,24 @@ export default {
                 this.mapsList = res.data.data.list || [];
                 this.count = res.data.data.count;
             });
+        },
+        showChild({ szChildCityMaps, szChildCopyMaps }) {
+            let city = [];
+            let fb = [];
+            if (szChildCityMaps && szChildCityMaps.length) {
+                city = this.city.filter((item) => szChildCityMaps.includes(item.dwMapID));
+            }
+            if (szChildCopyMaps && szChildCopyMaps.length) {
+                fb = this.fb.filter((item) => szChildCopyMaps.includes(item.dwMapID));
+            }
+            const children = city.concat(fb).filter((item) => item.szComment) || [];
+            if (children.length) {
+                this.children = uniqBy(children, "dwMapID");
+                this.visible = true;
+            }
+        },
+        mapLink() {
+            return;
         },
     },
 };
