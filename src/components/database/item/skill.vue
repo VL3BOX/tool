@@ -19,7 +19,8 @@
                 </div>
             </div>
             <div class="u-desc-text">
-                <p class="u-desc-content">{{ filterRaw(data.Desc) }}</p>
+                <p class="u-desc-content">{{ desc }}</p>
+                <div class="u-desc-talent" v-if="show_parse && data.parse">{{ data.parse.talent_desc }}</div>
             </div>
             <div class="u-primary">
                 <span class="u-primary-items">
@@ -45,7 +46,7 @@
         <template v-if="showDetail">
             <!-- 详细字段列表 -->
             <div class="m-detail" v-if="showProps">
-                <template v-for="(val, key) in data">
+                <template v-for="(val, key) in second_filtered_data">
                     <span class="u-prop" :key="key">
                         <el-tooltip effect="dark" :content="key" placement="top">
                             <em>
@@ -90,10 +91,25 @@
 </template>
 <script>
 import itemMixin from "./mixin";
+import lodash from 'lodash';
 
 export default {
     name: "ItemSkill",
     mixins: [itemMixin],
+    data: () => ({
+        show_parse: true,
+    }),
+    computed: {
+        desc() {
+            if (this.show_parse && this.data.parse) {
+                return this.data.parse.desc;
+            }
+            return this.filterRaw(this.data.Desc);
+        },
+        second_filtered_data() {
+            return lodash.omit(this.data, ["parse"]);
+        },
+    },
     methods: {},
 };
 </script>
@@ -102,7 +118,12 @@ export default {
 .m-database-item__skill {
     .u-desc-text {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+    }
+
+    .u-desc-talent {
+        .fz(13px, 1.8);
+        white-space: pre-wrap;
     }
 
     .u-desc-content {

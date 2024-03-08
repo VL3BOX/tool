@@ -83,7 +83,7 @@ export default {
             });
 
             // 获取资源
-            let resources = (await getResource(this.client, this.type, { ids })).data;
+            let resources = (await getResource(this.client, this.type, { ids }, { include: "parse" })).data;
             if (!resources || !resources.length) resources = [resources];
             // 合并
             for (let item of list) {

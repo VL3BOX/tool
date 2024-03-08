@@ -1,38 +1,27 @@
 <template>
     <div class="m-maps">
-        <div class="m-maps-pic" ref="mapView">
-            <div
-                class="m-map__wrap"
-                ref="mapWrap"
-                @mousedown="handleMouseDown"
-                @mousemove="handleMouseMove"
-                @mouseup="handleMouseUp"
-                @wheel="handleWheel"
-                v-if="!mapId"
-            >
-                <div
-                    class="m-map__world"
-                    ref="map"
-                    :style="`left:${(0 * elWidth) / 100}px;top:${
-                        (25 * elHeight) / 100
-                    }px;transform-origin: ${zoomOriginX}px ${zoomOriginY}px; transform: scale(${meter_zoom});cursor: ${
-                        isDragging ? 'grabbing' : 'grab'
-                    }`"
-                >
-                    <span
-                        class="u-map"
-                        @click="changeMap(item.MapID)"
-                        v-for="(item, id) in mapData"
-                        :key="id"
-                        :style="`left:${item.x || 0}px;top:${item.y || 0}px`"
-                    >
-                        {{ item.comment }}
-                    </span>
-                    <img class="u-img" :src="map" :alt="$t('世界地图')" style="width: 3556px; height: 2195px" />
-                </div>
-            </div>
+        <div class="m-maps-pic">
+            <template v-if="!mapId">
+                <dragWrap :data="scale">
+                    <div class="m-map__world">
+                        <span
+                            class="u-map"
+                            v-for="(item, id) in maps"
+                            :key="id"
+                            :style="`left:${item.Left || 0}px;top:${item.Top || 0}px`"
+                            @click="showChild(item)"
+                        >
+                            {{ item.szDisplayName }}
+                        </span>
+                        <img class="u-img" :src="map" :alt="$t('世界地图')" />
+                        <img class="u-traffic" :src="traffic" alt="交通路线" />
+                    </div>
+                </dragWrap>
+            </template>
+
             <img :src="currentMap" v-else />
         </div>
+
         <div class="m-toolbar">
             <h1 class="m-maps__title">{{ title }}</h1>
             <el-input size="small" v-model="search" clearable>
@@ -47,51 +36,57 @@
                     <i class="el-icon-arrow-right el-icon--right"></i>
                 </el-button>
             </el-button-group>
-            <div class="u-world-map" @click="changeMap(0)">{{ $t('世界地图') }}</div>
-            <div class="m-mapList">
+            <div class="u-world-map" @click="changeWorldMap">{{ $t('世界地图') }}</div>
+            <div :class="[{ mapId }, 'm-mapList']">
                 <div
-                    class="u-item"
-                    v-for="item in maps"
+                    v-for="item in mapsList"
                     :key="item.ID"
                     :label="item.MapName"
                     :value="item.ID"
                     @click="changeMap(item.ID)"
+                    :class="['u-item', { active: item.ID == mapId }]"
                 >
-                    {{ item.MapName || item.Name }}
+                    {{ item.DisplayName }}
                 </div>
             </div>
         </div>
+
+        <el-dialog custom-class="m-maps-dialog" title="提示" :visible.sync="visible" width="600">
+            <div class="m-city">
+                <span v-for="(item, i) in children" :key="i" @click="showMap(item)">{{ item.szComment }}</span>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="visible = false">关 闭</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import { getMaps, getMapsIdPoint, getMapsTraffic } from "@/service/maps.js";
+import { getWorldMap, getMaps } from "@/service/maps.js";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import dragWrap from "./dragWrap.vue";
+import { uniqBy } from "lodash";
 export default {
     name: "Map",
+    components: { dragWrap },
     data() {
         return {
             loading: false,
             mapId: 0,
+            city: [],
+            fb: [],
             maps: [],
-            mapData: [],
-
+            mapsList: [],
             search: "",
             page: 1,
-            per: 18,
+            per: 17,
             count: 0,
+            title: "世界地图",
 
-            initWidth: 0, // 父元素的宽-自适应值
-            initHeight: 0, // 父元素的高-自适应值
-            elWidth: 0, // 元素宽
-            elHeight: 0, // 元素高
-            meter_zoom: 0.28, // 子元素缩放比例
-            isDragging: false,
-            dragStartX: 0,
-            dragStartY: 0,
-            zoomOriginX: 0,
-            zoomOriginY: 0,
-            click: false,
+            children: [],
+            visible: false,
+            scale: { x: -122, y: -1400, scale: 0.35 },
         };
     },
     computed: {
@@ -99,7 +94,10 @@ export default {
             return `${__imgPath}map/maps/map_${this.mapId}_0.png`;
         },
         map() {
-            return `${__imgPath}topic/pic/map.jpg?123`;
+            return `${__imgPath}topic/pic/map.jpg`;
+        },
+        traffic() {
+            return `${__imgPath}topic/pic/traffic.png`;
         },
         client() {
             return this.$store.state.client;
@@ -113,10 +111,6 @@ export default {
             if (this.search) _params.search = this.search;
             return _params;
         },
-        title() {
-            const item = this.maps.filter((item) => item.ID == this.mapId)[0];
-            return item?.Name || "剑三地图库";
-        },
     },
     watch: {
         params: {
@@ -127,23 +121,27 @@ export default {
         },
         mapId(val) {
             if (val === null || val === "" || val === undefined) this.mapId = 0;
+            const map_1 = this.maps.filter((item) => item.ID == val)[0];
+            const map_2 = this.mapsList.filter((item) => item.ID == val)[0];
+            this.title = map_1?.szDisplayName || map_2?.DisplayName || this.title;
         },
     },
     mounted() {
         this.load();
-        this.loadOther();
-        this.initBodySize();
     },
     methods: {
         changeMap(mapId) {
-            this.mapId = mapId;
-            this.rest();
+            this.mapId = mapId || 0;
         },
-        rest() {
-            this.meter_zoom = 0.28;
-            this.zoomOriginX = 0;
-            this.zoomOriginY = 0;
-            this.click = false;
+        showMap({ dwMapID, szComment }) {
+            this.changeMap(dwMapID);
+            this.title = szComment;
+            this.visible = false;
+        },
+        changeWorldMap() {
+            this.mapId = 0;
+            this.title = "世界地图";
+            this.scale = { ...this.$options.data().scale, map: Math.random() };
         },
         changePage(key) {
             let page = this.page;
@@ -156,109 +154,38 @@ export default {
         },
         load() {
             this.loading = true;
-            getMaps(this.params)
+            getWorldMap()
                 .then((res) => {
-                    const list = res.data.data.list || [];
-                    this.count = res.data.data.count;
-                    this.maps = list.map((item) => {
-                        if (!item.ID) item.MapName = "世界地图";
-                        return item;
-                    });
+                    const { zoning, city, copy } = res.data.data || [];
+                    this.city = city || [];
+                    this.fb = copy || [];
+                    this.maps = zoning.filter((item) => item.szDisplayName);
                 })
                 .finally(() => {
                     this.loading = true;
                 });
-        },
-        loadOther() {
-            getMapsIdPoint({ client: this.client }).then((res) => {
-                const data = res.data.data || [];
-                this.mapData = data
-                    .filter(
-                        (obj) =>
-                            obj.comment &&
-                            !obj.comment?.includes("测试") &&
-                            obj.x < 10000 &&
-                            obj.y < 10000 &&
-                            obj.x > 0 &&
-                            obj.y > 0 &&
-                            !obj.comment?.includes("扬州_")
-                    )
-                    .map((item) => {
-                        item.y = item.y + 50;
-                        item.x = item.x + 150;
-                        return item;
-                    });
+            getMaps(this.params).then((res) => {
+                this.mapsList = res.data.data.list || [];
+                this.count = res.data.data.count;
             });
-            // getMapsTraffic({ client: this.client }).then((res) => {
-            //     // console.log(res.data.data);
-            // });
         },
-        handleWheel(event) {
-            const delta = event.deltaY || event.detail || event.wheelDelta;
-            let scaleNum = 0.05;
-            if (delta < 0) {
-                // 向上滚动，放大元素
-                this.meter_zoom += scaleNum;
-                if (this.meter_zoom > 1.8) {
-                    this.meter_zoom = 1.8;
-                }
-            } else {
-                // 向下滚动，缩小元素
-                this.meter_zoom -= scaleNum;
-                if (this.meter_zoom < 0.28) {
-                    this.meter_zoom = 0.28;
-                }
+        showChild({ szChildCityMaps, szChildCopyMaps }) {
+            let city = [];
+            let fb = [];
+            if (szChildCityMaps && szChildCityMaps.length) {
+                city = this.city.filter((item) => szChildCityMaps.includes(item.dwMapID));
             }
-
-            // 获取鼠标点击位置相对于地图容器的坐标
-            const boundingRect = this.$refs.mapWrap.getBoundingClientRect();
-            const mouseX = this.click ? (event.clientX - boundingRect.left) / this.meter_zoom : 0;
-            const mouseY = this.click ? (event.clientY - boundingRect.top) / this.meter_zoom : 0;
-
-            // 计算图片上的相对坐标
-            const relativeX = mouseX - parseFloat(this.$refs.map.style.left);
-            const relativeY = mouseY - parseFloat(this.$refs.map.style.top);
-
-            // 更新缩放中心点的位置
-            this.zoomOriginX = relativeX;
-            this.zoomOriginY = relativeY;
-
-            // 更新缩放比例
-            this.$refs.map.style.transformOrigin = `${this.zoomOriginX}px ${this.zoomOriginY}px`;
-            this.$refs.map.style.transform = `scale(${this.meter_zoom})`;
-            event.preventDefault();
-        },
-        initBodySize() {
-            const imageWidth = 3556;
-            const imageHeight = 2195;
-
-            this.initWidth = this.$refs.mapView.clientWidth;
-            this.initHeight = this.initWidth * (imageHeight / imageWidth);
-            this.elWidth = this.initWidth * (100 / (imageWidth / 2));
-            this.elHeight = this.initHeight * (100 / (imageHeight / 2));
-        },
-        handleMouseDown(event) {
-            this.isDragging = true;
-            this.click = true;
-            this.dragStartX = event.clientX;
-            this.dragStartY = event.clientY;
-        },
-        handleMouseMove(event) {
-            if (this.isDragging) {
-                const deltaX = event.clientX - this.dragStartX;
-                const deltaY = event.clientY - this.dragStartY;
-
-                // 更新地图的 left 和 top 属性
-                const mapElement = this.$refs.map;
-                mapElement.style.left = `${parseFloat(mapElement.style.left) + deltaX}px`;
-                mapElement.style.top = `${parseFloat(mapElement.style.top) + deltaY}px`;
-
-                this.dragStartX = event.clientX;
-                this.dragStartY = event.clientY;
+            if (szChildCopyMaps && szChildCopyMaps.length) {
+                fb = this.fb.filter((item) => szChildCopyMaps.includes(item.dwMapID));
+            }
+            const children = city.concat(fb).filter((item) => item.szComment) || [];
+            if (children.length) {
+                this.children = uniqBy(children, "dwMapID");
+                this.visible = true;
             }
         },
-        handleMouseUp() {
-            this.isDragging = false;
+        mapLink() {
+            return;
         },
     },
 };

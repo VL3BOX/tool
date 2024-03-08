@@ -38,6 +38,9 @@
         flex-direction: column;
         gap: 10px;
         overflow: auto;
+        &.mapId {
+            height: auto;
+        }
         .u-item {
             .r(3px);
             .x;
@@ -58,47 +61,53 @@
     }
     .m-maps-pic {
         .flex;
+        .clip;
         .size(1024px,896px);
         height: calc(100vh - 160px);
         flex-direction: column;
         align-items: center;
+        cursor: move;
     }
     .m-maps__title {
         .fz(24px,24px);
         margin: 0;
         background-color: #fff;
     }
-    .m-map__wrap {
-        .size(1024px,896px);
-        .clip;
-        .m-map__world {
-            .pr;
-            .size(3556px, 2195px); 
-            .u-map {
-                .pa;
-                .lt(0);
-                .fz(12px);
-                .r(2px);
-                .db;
-                .w(16px);
-                .x;
-                padding: 3px;
-                border: 1px solid #fff;
-                color: #fff;
-                letter-spacing: 1px;
-                writing-mode: vertical-rl;
-                background-color: #000;
-                &:hover {
-                    cursor: pointer;
-                    color: #000;
-                    background-color: #fff;
-                    z-index: 1;
-                }
+    .m-map__world {
+        .pr;
+        .size(4920px, 3456px);
+        .u-traffic {
+            .pa;
+            .lt(1542px,1066px);
+            .w(2622px);
+            user-select: none;
+            pointer-events: none;
+        }
+        .u-map {
+            .pa;
+            .lt(0);
+            .fz(14px);
+            .r(2px);
+            .db;
+            .w(18px);
+            .x;
+            .z(1);
+            padding: 5px 3px;
+            border: 1px solid #fff;
+            color: #fff;
+            letter-spacing: 2px;
+            writing-mode: vertical-rl;
+            background-color: #000;
+            &:hover {
+                cursor: pointer;
+                color: #000;
+                background-color: #fff;
+                z-index: 1;
             }
-            .u-img {
-                .size(3556px, 2195px);
-                max-width: 3556px;
-            }
+        }
+        .u-img {
+            .size(4920px, 3456px);
+            max-width: 4920px;
         }
     }
 }
@@ -122,7 +131,7 @@
             .m-mapList {
                 flex-direction: row;
                 overflow: auto;
-                .m-item {
+                .u-item {
                     .w(2em);
                     .x;
                     padding: 5px;
@@ -130,6 +139,17 @@
                     writing-mode: vertical-rl;
                 }
             }
+        }
+    }
+}
+
+.m-maps-dialog {
+    .m-city {
+        .flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        span {
+            .pointer;
         }
     }
 }
