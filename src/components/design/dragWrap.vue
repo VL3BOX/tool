@@ -10,7 +10,7 @@
         <div
             class="m-list"
             ref="map"
-            :style="{ transform: `translate(${position.x}px, ${position.y}px) scale(${scale})` }"
+            :style="{ transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,transition: isDragging? '':'0.5s all' }"
             @click="preventClick"
         >
             <slot></slot>
