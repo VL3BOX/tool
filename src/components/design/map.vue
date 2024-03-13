@@ -137,14 +137,53 @@
             </div>
         </div>
 
-        <!-- <el-dialog custom-class="m-maps-dialog" title="提示" :visible.sync="visible" width="600">
-            <div class="m-city">
-                <span v-for="(item, i) in children" :key="i" @click="showMap(item)">{{ item.szComment }}</span>
-            </div>
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="visible = false">关 闭</el-button>
-            </span>
-        </el-dialog> -->
+        <!-- 移动端查看所有地图信息 -->
+        <div class="m-mobile-toolbar">
+            <div @click="mobileMapListDrawer = true" class="m-drawer_open">
+                所有地图
+                <i class="el-icon-search el-icon--right"></i
+            ></div>
+            <el-drawer title="所有地图" :visible.sync="mobileMapListDrawer">
+                <div class="m-m-drawer-body">
+                    <el-input size="small" v-model="search" clearable>
+                        <template slot="prepend">地图</template>
+                    </el-input>
+                    <div
+                        class="m-m-drawer-map m-m-item"
+                        @click="
+                            mobileMapListDrawer = false;
+                            changeWorldMap();
+                        "
+                    >
+                        世界地图
+                    </div>
+                    <div :class="[{ mapId }, 'm-m-mapList']">
+                        <div
+                            v-for="item in mapsList"
+                            :key="item.ID"
+                            :label="item.MapName"
+                            :value="item.ID"
+                            @click="
+                                mobileMapListDrawer = false;
+                                changeMap(item.ID);
+                            "
+                            :class="['m-m-item', { active: item.ID == mapId }]"
+                        >
+                            {{ item.DisplayName }}
+                        </div>
+                    </div>
+                    <el-button-group>
+                        <el-button type="primary" size="small" icon="el-icon-arrow-left" @click="changePage('prev')"
+                            >上一页</el-button
+                        >
+                        <el-button type="primary" size="small" @click="changePage('next')">
+                            下一页
+                            <i class="el-icon-arrow-right el-icon--right"></i>
+                        </el-button>
+                    </el-button-group>
+                </div>
+            </el-drawer>
+        </div>
     </div>
 </template>
 
@@ -166,7 +205,7 @@ export default {
             mapsList: [],
             search: "",
             page: 1,
-            per: 17,
+            per: 18,
             count: 0,
             title: "世界地图",
 
@@ -184,6 +223,7 @@ export default {
                 after: 0,
                 before: 0,
             },
+            mobileMapListDrawer: false,
         };
     },
     computed: {
