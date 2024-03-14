@@ -51,19 +51,47 @@
                         <img class="u-img" :src="getIcon('newworldmap_03_39')" />
                         <span class="u-text">周边城镇</span>
                     </div>
+                    <div class="m-select-arrow-box" v-if="selectMapCityOptions.maxCurrent">
+                        <img
+                            v-if="selectMapCityOptions.current != 1"
+                            @click="selectMapChange('after', 'city')"
+                            class="u-item-arrow u-item-arrow_left"
+                            :src="getIcon('newworldmap_03_29')"
+                        />
+                        <img
+                            v-else
+                            class="u-item-arrow u-item-arrow_left u-item-arrow_dis"
+                            :src="getIcon('newworldmap_03_31')"
+                        />
+                    </div>
                     <div class="u-item-option">
-                        <div
-                            class="u-item"
-                            v-for="(item, index) in selectMap.city"
-                            :key="index"
-                            @click="showMap(item)"
-                            :style="{
-                                backgroundImage: `url(${getIcon('newworldmap_03_33')})`,
-                            }"
-                        >
-                            <img class="u-img" :src="item.szButtonShowImg" />
-                            <span class="u-text">{{ item.szComment }}</span>
-                        </div>
+                        <template v-for="(item, index) in selectMap.city">
+                            <div
+                                v-if="index >= selectMapCityOptions.after && index < selectMapCityOptions.before"
+                                class="u-item"
+                                :key="index"
+                                @click="showMap(item)"
+                                :style="{
+                                    backgroundImage: `url(${getIcon('newworldmap_03_33')})`,
+                                }"
+                            >
+                                <img class="u-img" :src="item.szButtonShowImg" />
+                                <span class="u-text">{{ item.szShowName || item.szComment }}</span>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="m-select-arrow-box" v-if="selectMapCityOptions.maxCurrent">
+                        <img
+                            v-if="selectMapCityOptions.current != selectMapCityOptions.maxCurrent"
+                            @click="selectMapChange('before', 'city')"
+                            class="u-item-arrow u-item-right"
+                            :src="getIcon('newworldmap_03_25')"
+                        />
+                        <img
+                            v-else
+                            class="u-item-arrow u-item-right u-item-arrow_dis"
+                            :src="getIcon('newworldmap_03_28')"
+                        />
                     </div>
                 </div>
                 <div class="m-select__item" v-if="selectMap.fb.length">
@@ -74,7 +102,7 @@
                     <div class="m-select-arrow-box" v-if="selectMapOptions.maxCurrent">
                         <img
                             v-if="selectMapOptions.current != 1"
-                            @click="selectMapChange('after')"
+                            @click="selectMapChange('after', 'fb')"
                             class="u-item-arrow u-item-arrow_left"
                             :src="getIcon('newworldmap_03_29')"
                         />
@@ -103,7 +131,7 @@
                     <div class="m-select-arrow-box" v-if="selectMapOptions.maxCurrent">
                         <img
                             v-if="selectMapOptions.current != selectMapOptions.maxCurrent"
-                            @click="selectMapChange('before')"
+                            @click="selectMapChange('before', 'fb')"
                             class="u-item-arrow u-item-right"
                             :src="getIcon('newworldmap_03_25')"
                         />
@@ -239,6 +267,12 @@ export default {
                 after: 0,
                 before: 0,
             },
+            selectMapCityOptions: {
+                current: 1,
+                maxCurrent: 0,
+                after: 0,
+                before: 0,
+            },
             mobileMapListDrawer: false,
             isPhone: window.innerWidth < 720 ? true : false,
             isIpad: window.innerWidth < 1133 ? true : false,
@@ -358,10 +392,10 @@ export default {
                 });
                 this.selectMap = newChildren;
                 // 计算秘境是否可以左右切换
-                let defaultNum = this.isIpad ? 4 : 6;
-                let intervalValue = defaultNum - this.selectMap.city.length;
+                const defaultNum = this.isIpad ? 4 : 6;
+                let intervalValue = Math.max(defaultNum - this.selectMap.city.length, 1);
+                // 处理 selectMapOptions
                 if (this.selectMap.fb.length > intervalValue) {
-                    // 需要切换
                     this.selectMapOptions = {
                         current: 1,
                         maxCurrent: Math.ceil(this.selectMap.fb.length / intervalValue),
@@ -376,19 +410,37 @@ export default {
                         maxCurrent: 0,
                     };
                 }
+                // 处理 selectMapCityOptions
+                const cityIntervalValue = Math.min(2, this.selectMap.city.length);
+                if (this.selectMap.city.length > 2) {
+                    this.selectMapCityOptions = {
+                        current: 1,
+                        maxCurrent: Math.ceil(this.selectMap.city.length / 2),
+                        value: cityIntervalValue,
+                        after: 0,
+                        before: cityIntervalValue,
+                    };
+                } else {
+                    this.selectMapCityOptions = {
+                        after: 0,
+                        before: this.selectMap.city.length,
+                        maxCurrent: 0,
+                    };
+                }
                 this.selectMapOptions.actId = itemIndex;
                 this.visible = true;
             }
         },
-        selectMapChange(type) {
-            if (type == "after") {
-                this.selectMapOptions.current = this.selectMapOptions.current - 1;
-                this.selectMapOptions.after = this.selectMapOptions.after - this.selectMapOptions.value;
-                this.selectMapOptions.before = this.selectMapOptions.before - this.selectMapOptions.value;
-            } else if (type == "before") {
-                this.selectMapOptions.current = this.selectMapOptions.current + 1;
-                this.selectMapOptions.after = this.selectMapOptions.after + this.selectMapOptions.value;
-                this.selectMapOptions.before = this.selectMapOptions.before + this.selectMapOptions.value;
+        selectMapChange(type, from) {
+            const optionsToUpdate = from === "city" ? this.selectMapCityOptions : this.selectMapOptions;
+            if (type === "after") {
+                optionsToUpdate.current--;
+                optionsToUpdate.after -= optionsToUpdate.value;
+                optionsToUpdate.before -= optionsToUpdate.value;
+            } else if (type === "before") {
+                optionsToUpdate.current++;
+                optionsToUpdate.after += optionsToUpdate.value;
+                optionsToUpdate.before += optionsToUpdate.value;
             }
         },
         mapLink() {
