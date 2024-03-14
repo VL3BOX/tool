@@ -1,40 +1,43 @@
 <template>
     <div class="m-maps">
-        <div class="m-maps-pic">
-            <template v-if="!mapId">
-                <dragWrap :data="scale">
-                    <div class="m-map__world">
-                        <template v-for="(item, id) in maps">
-                            <div
-                                class="u-map"
-                                v-if="!(item.szDisplayName.includes('战乱') || item.szDisplayName.includes('乱世'))"
-                                :key="id"
-                                :style="`left:${item.Left || 0}px;top:${item.Top || 0}px`"
-                                @click="showChild(item, id)"
-                            >
-                                <div class="u-map-city_name">
-                                    <img
-                                        class="u-item_bg"
-                                        :style="{
-                                            opacity: visible && selectMapOptions.actId == id ? 1 : 0,
-                                        }"
-                                        :src="getIcon('newworldmap_03_10')"
-                                    />
-                                    <span class="u-item_text">{{ item.szDisplayName }}</span>
-                                </div>
-                                <!-- 暂时无用图标 -->
-                                <!-- <img :src="getIcon('newworldmap_03_3')" />
-                                <img :src="getIcon('newworldmap_03_8')" /> -->
-                                <img class="u-map-city_img" :src="item.szButtonShowImg" />
+        <div class="m-maps-pic" v-if="!mapId">
+            <dragWrap :data="scale">
+                <div class="m-map__world">
+                    <template v-for="(item, id) in maps">
+                        <div
+                            class="u-map"
+                            v-if="!(item.szDisplayName.includes('战乱') || item.szDisplayName.includes('乱世'))"
+                            :key="id"
+                            :style="`left:${item.Left || 0}px;top:${item.Top || 0}px`"
+                            @click="showChild(item, id)"
+                            @touchstart="showChild(item, id)"
+                        >
+                            <div class="u-map-city_name">
+                                <img
+                                    class="u-item_bg"
+                                    :style="{
+                                        opacity: visible && selectMapOptions.actId == id ? 1 : 0,
+                                    }"
+                                    :src="getIcon('newworldmap_03_10')"
+                                />
+                                <span class="u-item_text">{{ item.szDisplayName }}</span>
                             </div>
-                        </template>
-                        <img class="u-img" :src="map" @click="visible = false" alt="世界地图" />
-                        <img class="u-traffic" :src="traffic" alt="交通路线" />
-                    </div>
-                </dragWrap>
-            </template>
-
-            <img :src="currentMap" v-else />
+                            <!-- 暂时无用图标 -->
+                            <!-- <img :src="getIcon('newworldmap_03_3')" />
+                                <img :src="getIcon('newworldmap_03_8')" /> -->
+                            <img class="u-map-city_img" :src="item.szButtonShowImg" />
+                        </div>
+                    </template>
+                    <img
+                        class="u-img"
+                        :src="map"
+                        @click="visible = false"
+                        @touchstart="visible = false"
+                        alt="世界地图"
+                    />
+                    <img class="u-traffic" :src="traffic" alt="交通路线" />
+                </div>
+            </dragWrap>
 
             <!-- 世界地图选择弹框 -->
             <div
@@ -112,6 +115,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="m-map-other" v-else>
+            <img class="m-map-other_img" :src="currentMap" />
         </div>
         <div class="m-toolbar">
             <h1 class="m-maps__title">{{ title }}</h1>
@@ -235,6 +241,7 @@ export default {
             },
             mobileMapListDrawer: false,
             isPhone: window.innerWidth < 720 ? true : false,
+            isIpad: window.innerWidth < 1133 ? true : false,
         };
     },
     computed: {
@@ -351,7 +358,8 @@ export default {
                 });
                 this.selectMap = newChildren;
                 // 计算秘境是否可以左右切换
-                let intervalValue = 6 - this.selectMap.city.length;
+                let defaultNum = this.isIpad ? 4 : 6;
+                let intervalValue = defaultNum - this.selectMap.city.length;
                 if (this.selectMap.fb.length > intervalValue) {
                     // 需要切换
                     this.selectMapOptions = {

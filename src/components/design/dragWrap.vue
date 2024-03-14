@@ -6,11 +6,18 @@
         @mousemove="drag"
         @mouseup="stopDrag"
         @mouseleave="stopDrag"
+        @touchstart.prevent="startDrag"
+        @touchmove.prevent="drag"
+        @touchend.prevent="stopDrag"
+        @touchcancel.prevent="stopDrag"
     >
         <div
             class="m-list"
             ref="map"
-            :style="{ transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,transition: isDragging? '':'0.5s all' }"
+            :style="{
+                transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+                transition: isDragging ? '' : '0.5s all',
+            }"
             @click="preventClick"
         >
             <slot></slot>
@@ -41,6 +48,7 @@ export default {
             dampingFactor: 0.9, // 越小速度衰减的越快
             momentumMultiplier: 0, // 根据鼠标移动的距离动态计算惯性效果的远近
             containerBounds: null,
+            isIpad: window.innerWidth < 1133 ? true : false,
         };
     },
     watch: {
@@ -75,34 +83,44 @@ export default {
     methods: {
         startDrag(event) {
             this.isDragging = true;
-            this.startPosition.x = event.clientX;
-            this.startPosition.y = event.clientY;
-            this.offset.x = event.clientX - this.position.x;
-            this.offset.y = event.clientY - this.position.y;
+            if (this.isIpad) {
+                this.startPosition.x = event.changedTouches[0].clientX;
+                this.startPosition.y = event.changedTouches[0].clientY;
+            } else {
+                this.startPosition.x = event.clientX;
+                this.startPosition.y = event.clientY;
+            }
+            this.offset.x = this.startPosition.x - this.position.x;
+            this.offset.y = this.startPosition.y - this.position.y;
             this.velocity.x = 0;
             this.velocity.y = 0;
             this.lastTime = Date.now();
-            this.lastPosition.x = event.clientX;
-            this.lastPosition.y = event.clientY;
+            this.lastPosition.x = this.startPosition.x;
+            this.lastPosition.y = this.startPosition.y;
         },
         drag(event) {
             if (this.isDragging) {
                 const currentTime = Date.now();
                 const deltaTime = currentTime - this.lastTime;
-
-                this.velocity.x = (event.clientX - this.lastPosition.x) / deltaTime;
-                this.velocity.y = (event.clientY - this.lastPosition.y) / deltaTime;
-
-                this.position.x = event.clientX - this.offset.x;
-                this.position.y = event.clientY - this.offset.y;
+                let clientX, clientY;
+                if (this.isIpad) {
+                    clientX = event.changedTouches[0].clientX;
+                    clientY = event.changedTouches[0].clientY;
+                } else {
+                    clientX = event.clientX;
+                    clientY = event.clientY;
+                }
+                this.velocity.x = (clientX - this.lastPosition.x) / deltaTime;
+                this.velocity.y = (clientY - this.lastPosition.y) / deltaTime;
+                this.position.x = clientX - this.offset.x;
+                this.position.y = clientY - this.offset.y;
                 this.lastTime = currentTime;
-                this.lastPosition.x = event.clientX;
-                this.lastPosition.y = event.clientY;
-
-                this.updateMomentumMultiplier(event.clientX, event.clientY);
+                this.lastPosition.x = clientX;
+                this.lastPosition.y = clientY;
+                this.updateMomentumMultiplier(clientX, clientY);
             }
         },
-        stopDrag() {
+        stopDrag(event) {
             this.isDragging = false;
             this.applyMomentum();
         },
