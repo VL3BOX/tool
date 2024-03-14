@@ -10,10 +10,16 @@
                                 v-if="!(item.szDisplayName.includes('战乱') || item.szDisplayName.includes('乱世'))"
                                 :key="id"
                                 :style="`left:${item.Left || 0}px;top:${item.Top || 0}px`"
-                                @click="showChild(item)"
+                                @click="showChild(item, id)"
                             >
                                 <div class="u-map-city_name">
-                                    <img class="u-item_bg" :src="getIcon('newworldmap_03_10')" />
+                                    <img
+                                        class="u-item_bg"
+                                        :style="{
+                                            opacity: visible && selectMapOptions.actId == id ? 1 : 0,
+                                        }"
+                                        :src="getIcon('newworldmap_03_10')"
+                                    />
                                     <span class="u-item_text">{{ item.szDisplayName }}</span>
                                 </div>
                                 <!-- 暂时无用图标 -->
@@ -107,7 +113,6 @@
                 </div>
             </div>
         </div>
-
         <div class="m-toolbar">
             <h1 class="m-maps__title">{{ title }}</h1>
             <el-input size="small" v-model="search" clearable>
@@ -138,51 +143,56 @@
         </div>
 
         <!-- 移动端查看所有地图信息 -->
-        <div class="m-mobile-toolbar">
-            <div @click="mobileMapListDrawer = true" class="m-drawer_open">
-                所有地图
-                <i class="el-icon-search el-icon--right"></i
-            ></div>
-            <el-drawer title="所有地图" :visible.sync="mobileMapListDrawer">
-                <div class="m-m-drawer-body">
-                    <el-input size="small" v-model="search" clearable>
-                        <template slot="prepend">地图</template>
-                    </el-input>
-                    <div
-                        class="m-m-drawer-map m-m-item"
-                        @click="
-                            mobileMapListDrawer = false;
-                            changeWorldMap();
-                        "
-                    >
-                        世界地图
-                    </div>
-                    <div :class="[{ mapId }, 'm-m-mapList']">
+        <div class="m-mobile-layout">
+            <div class="m-mobile-header">
+                <h1 class="m-mobile_maps__title">{{ title }}</h1>
+                <div @click="mobileMapListDrawer = true" class="m-drawer_open">
+                    所有地图
+                    <i class="el-icon-search el-icon--right"></i>
+                </div>
+            </div>
+            <div class="m-mobile-toolbar">
+                <el-drawer title="所有地图" :visible.sync="mobileMapListDrawer">
+                    <div class="m-m-drawer-body">
+                        <el-input size="small" v-model="search" clearable>
+                            <template slot="prepend">地图</template>
+                        </el-input>
                         <div
-                            v-for="item in mapsList"
-                            :key="item.ID"
-                            :label="item.MapName"
-                            :value="item.ID"
+                            class="m-m-drawer-map m-m-item"
                             @click="
                                 mobileMapListDrawer = false;
-                                changeMap(item.ID);
+                                changeWorldMap();
                             "
-                            :class="['m-m-item', { active: item.ID == mapId }]"
                         >
-                            {{ item.DisplayName }}
+                            世界地图
                         </div>
+                        <div :class="[{ mapId }, 'm-m-mapList']">
+                            <div
+                                v-for="item in mapsList"
+                                :key="item.ID"
+                                :label="item.MapName"
+                                :value="item.ID"
+                                @click="
+                                    mobileMapListDrawer = false;
+                                    changeMap(item.ID);
+                                "
+                                :class="['m-m-item', { active: item.ID == mapId }]"
+                            >
+                                {{ item.DisplayName }}
+                            </div>
+                        </div>
+                        <el-button-group>
+                            <el-button type="primary" size="small" icon="el-icon-arrow-left" @click="changePage('prev')"
+                                >上一页</el-button
+                            >
+                            <el-button type="primary" size="small" @click="changePage('next')">
+                                下一页
+                                <i class="el-icon-arrow-right el-icon--right"></i>
+                            </el-button>
+                        </el-button-group>
                     </div>
-                    <el-button-group>
-                        <el-button type="primary" size="small" icon="el-icon-arrow-left" @click="changePage('prev')"
-                            >上一页</el-button
-                        >
-                        <el-button type="primary" size="small" @click="changePage('next')">
-                            下一页
-                            <i class="el-icon-arrow-right el-icon--right"></i>
-                        </el-button>
-                    </el-button-group>
-                </div>
-            </el-drawer>
+                </el-drawer>
+            </div>
         </div>
     </div>
 </template>
@@ -224,6 +234,7 @@ export default {
                 before: 0,
             },
             mobileMapListDrawer: false,
+            isPhone: window.innerWidth < 720 ? true : false,
         };
     },
     computed: {
@@ -264,10 +275,11 @@ export default {
         },
     },
     mounted() {
-        this.load();
+        this.load(true);
     },
     methods: {
         changeMap(mapId) {
+            this.visible = false;
             this.mapId = mapId || 0;
         },
         showMap({ dwMapID, szComment }) {
@@ -289,7 +301,7 @@ export default {
             }
             this.page = page < 0 ? 0 : page;
         },
-        load() {
+        load(firstLoad) {
             this.loading = true;
             getWorldMap()
                 .then((res) => {
@@ -308,10 +320,13 @@ export default {
                 });
             getMaps(this.params).then((res) => {
                 this.mapsList = res.data.data.list || [];
+                if (firstLoad && this.isPhone && this.mapsList.length) {
+                    this.changeMap(this.mapsList[0].ID);
+                }
                 this.count = res.data.data.count;
             });
         },
-        showChild({ szChildCityMaps, szChildCopyMaps, Left, Top }) {
+        showChild({ szChildCityMaps, szChildCopyMaps, Left, Top }, itemIndex) {
             // 定位地图位置到当前选择位置
             this.scale = { x: 4920 - Left - 2444, y: 3456 - Top - 2979, scale: 1 };
             let city = [];
@@ -353,6 +368,7 @@ export default {
                         maxCurrent: 0,
                     };
                 }
+                this.selectMapOptions.actId = itemIndex;
                 this.visible = true;
             }
         },
