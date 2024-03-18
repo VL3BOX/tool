@@ -233,9 +233,10 @@
 
 <script>
 import { getWorldMap, getMaps } from "@/service/maps.js";
+import { extractTextContent } from "@jx3box/jx3box-common/js/utils";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import dragWrap from "./dragWrap.vue";
-import { uniqBy } from "lodash";
+import { uniqBy, keyBy } from "lodash";
 export default {
     name: "Map",
     components: { dragWrap },
@@ -276,6 +277,7 @@ export default {
             mobileMapListDrawer: false,
             isPhone: window.innerWidth < 720 ? true : false,
             isIpad: window.innerWidth < 1133 ? true : false,
+            produce: {},
         };
     },
     computed: {
@@ -299,6 +301,14 @@ export default {
             };
             if (this.search) _params.search = this.search;
             return _params;
+        },
+        _search() {
+            return {
+                "no-page": 1,
+                "field-no-null-only": "Tip",
+                "like-Tip": "矿物,药草,牧草",
+                fields: "Tip,ID,MapName,MapType",
+            };
         },
     },
     watch: {
@@ -365,6 +375,34 @@ export default {
                     this.changeMap(this.mapsList[0].ID);
                 }
                 this.count = res.data.data.count;
+            });
+            getMaps(this._search).then((res) => {
+                const data = res.data.data.list || [];
+                // 将数组转换成ID为键的对象
+                const list = keyBy(data, "ID");
+                const result = {};
+                for (const key in list) {
+                    if (list.hasOwnProperty(key)) {
+                        // 将tips单独解析出来
+                        const tip = extractTextContent(list[key]["Tip"])[0]?.text + "";
+                        // 以折行分组
+                        const _list = tip.split("\\\\\\n").filter(Boolean);
+                        // 找到对应的索引位置
+                        const _result = {};
+                        let mineralIndex = _list.indexOf("矿物：");
+                        let herbIndex = _list.indexOf("草药：");
+                        let grassIndex = _list.indexOf("牧草：");
+                        // 根据索引截取数组
+                        _result["矿物"] = _list.slice(mineralIndex + 1, herbIndex);
+                        _result["草药"] = _list.slice(herbIndex + 1, grassIndex);
+                        if (grassIndex !== -1) {
+                            _result["牧草"] = _list.slice(grassIndex + 1);
+                        }
+                        // 将返回的数组替换tip
+                        result[key] = _result;
+                    }
+                }
+                this.produce = result; 
             });
         },
         showChild({ szChildCityMaps, szChildCopyMaps, Left, Top }, itemIndex) {
