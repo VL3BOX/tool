@@ -166,11 +166,11 @@ export default {
             } else {
                 // 向下滚动，缩小元素
                 this.scale -= scaleNum;
-                if (this.scale < 0.2) {
-                    this.scale = 0.2;
+                if (this.scale < 0.35) {
+                    this.scale = 0.35;
                 }
             }
-
+            this.$emit("change", this.scale);
             event.preventDefault();
         },
     },

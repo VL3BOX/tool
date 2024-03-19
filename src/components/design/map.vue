@@ -1,7 +1,7 @@
 <template>
     <div class="m-maps">
         <div class="m-maps-pic" v-if="!mapId">
-            <dragWrap :data="scale">
+            <dragWrap :data="scale" @change="wrapScaleChange">
                 <div class="m-map__world">
                     <template v-for="(item, id) in maps">
                         <div
@@ -20,7 +20,13 @@
                                     }"
                                     :src="getIcon('newworldmap_03_10')"
                                 />
-                                <span class="u-item_text">{{ item.szDisplayName }}</span>
+                                <span
+                                    :style="{
+                                        transform: `scale(${worldMapTextScale}) translateX(-50%) translateY(-50%)`,
+                                    }"
+                                    class="u-item_text"
+                                    >{{ item.szDisplayName }}</span
+                                >
                             </div>
                             <!-- 暂时无用图标 -->
                             <!-- <img :src="getIcon('newworldmap_03_3')" />
@@ -275,7 +281,7 @@ export default {
 
             children: [],
             visible: false,
-            scale: { x: -122, y: -1400, scale: 0.7 },
+            scale: { x: -122, y: -1400, scale: 0.35 },
 
             selectMap: {
                 city: [],
@@ -297,6 +303,7 @@ export default {
             isPhone: window.innerWidth < 720 ? true : false,
             isIpad: window.innerWidth < 1133 ? true : false,
             produce: {},
+            worldMapTextScale: 1,
         };
     },
     computed: {
@@ -346,6 +353,7 @@ export default {
     },
     mounted() {
         this.load(true);
+        this.wrapScaleChange(this.scale.scale);
     },
     methods: {
         changeMap(mapId) {
@@ -414,7 +422,8 @@ export default {
                         let grassIndex = _list.indexOf("牧草：");
                         // 根据索引截取数组
                         _result["矿物"] = _list.slice(mineralIndex + 1, herbIndex);
-                        _result["草药"] = _list.slice(herbIndex + 1, grassIndex);
+                        _result["草药"] =
+                            grassIndex === -1 ? _list.slice(herbIndex + 1) : _list.slice(herbIndex + 1, grassIndex);
                         if (grassIndex !== -1) {
                             _result["牧草"] = _list.slice(grassIndex + 1);
                         }
@@ -432,6 +441,7 @@ export default {
             } else {
                 this.scale = { x: 4920 - Left - 2444, y: 3456 - Top - 3150, scale: 1 };
             }
+            this.wrapScaleChange(this.scale.scale)
             let city = [];
             let fb = [];
             if (szChildCityMaps && szChildCityMaps.length) {
@@ -504,6 +514,15 @@ export default {
                 optionsToUpdate.after += optionsToUpdate.value;
                 optionsToUpdate.before += optionsToUpdate.value;
             }
+        },
+        wrapScaleChange(scale) {
+            const A1 = 0.35;
+            const B1 = 2.35;
+            const A2 = 1;
+            const B2 = 1;
+            const m = (B2 - B1) / (A2 - A1);
+            const b = B1 - m * A1;
+            this.worldMapTextScale = m * (scale * 1) + b;
         },
         mapLink() {
             return;
