@@ -154,7 +154,7 @@
                 }"
                 v-if="selectMap.city.length"
             >
-                <template v-for="(val, key) in produce[selectMap.city[0].dwMapID]">
+                <template v-for="(val, key) in natural[selectMap.city[0].dwMapID]">
                     <div class="m-resource__item" :key="key">
                         <div class="u-item__title">
                             <span>{{ key }}</span>
@@ -177,7 +177,7 @@
             <div class="u-world-map" @click="changeWorldMap">世界地图</div>
             <div :class="[{ mapId }, 'm-mapList']">
                 <div
-                    v-for="item in mapsList"
+                    v-for="item in showList"
                     :key="item.ID"
                     :label="item.MapName"
                     :value="item.ID"
@@ -253,7 +253,6 @@ export default {
             maps: [],
             mapsList: [],
             search: "",
-            mapsOriginList: [],
             title: "世界地图",
 
             children: [],
@@ -279,7 +278,7 @@ export default {
             mobileMapListDrawer: false,
             isPhone: window.innerWidth < 720 ? true : false,
             isIpad: window.innerWidth < 1133 ? true : false,
-            produce: {},
+            natural: {},
             worldMapTextScale: 1,
         };
     },
@@ -303,19 +302,16 @@ export default {
                 fields: "Tip,ID,MapName,MapType",
             };
         },
+        showList() {
+            return this.search ? this.mapsList.filter((item) => item.MapName.indexOf(this.search) > -1) : this.mapsList;
+        },
     },
     watch: {
         mapId(val) {
-            if (val === null || val === "" || val === undefined) this.mapId = 0;
-            const map_1 = this.maps.filter((item) => item.ID == val)[0];
-            const map_2 = this.mapsList.filter((item) => item.ID == val)[0];
-            this.title = map_1?.szDisplayName || map_2?.DisplayName || this.title;
-        },
-        search(val) {
-            if (val === "") {
-                this.mapsList = this.mapsOriginList;
-            } else {
-                this.mapsList = this.mapsOriginList.filter((item) => item.MapName.indexOf(val) > -1);
+            if (val) {
+                const map_1 = this.maps.filter((item) => item.ID == val)[0];
+                const map_2 = this.mapsList.filter((item) => item.ID == val)[0];
+                this.title = map_1?.szDisplayName || map_2?.DisplayName || this.title;
             }
         },
     },
@@ -335,6 +331,7 @@ export default {
         },
         changeWorldMap() {
             this.mapId = 0;
+            this.search = "";
             this.title = "世界地图";
             this.scale = { ...this.$options.data().scale, map: Math.random() };
         },
@@ -356,41 +353,42 @@ export default {
                     this.loading = true;
                 });
             getMaps(this._search).then((res) => {
-                this.mapsList = res.data.data.list || [];
-                this.mapsOriginList = this.mapsList;
+                const list = res.data.data.list || [];
+                this.mapsList = list.reverse();
+                list.length && this.trNatural(list);
+                
                 if (firstLoad && this.isPhone && this.mapsList.length) {
                     this.changeMap(this.mapsList[0].ID);
                 }
-                // 资源======
-                const data = res.data.data.list || [];
-                // 将数组转换成ID为键的对象
-                const list = keyBy(data, "ID");
-                const result = {};
-                for (const key in list) {
-                    if (list.hasOwnProperty(key)) {
-                        // 将tips单独解析出来
-                        let tip = extractTextContent(list[key]["Tip"])[0]?.text + "";
-                        tip = tip.replace(/\\/g, "");
-                        // 以折行分组
-                        const _list = tip.split("n").filter(Boolean);
-                        // // 找到对应的索引位置
-                        const _result = {};
-                        let mineralIndex = _list.indexOf("矿物：");
-                        let herbIndex = _list.indexOf("草药：");
-                        let grassIndex = _list.indexOf("牧草：");
-                        // 根据索引截取数组
-                        _result["矿物"] = _list.slice(mineralIndex + 1, herbIndex);
-                        _result["草药"] =
-                            grassIndex === -1 ? _list.slice(herbIndex + 1) : _list.slice(herbIndex + 1, grassIndex);
-                        if (grassIndex !== -1) {
-                            _result["牧草"] = _list.slice(grassIndex + 1);
-                        }
-                        // 将返回的数组替换tip
-                        result[key] = _result;
-                    }
-                }
-                this.produce = result;
             });
+        },
+        trNatural(data) {
+            const list = keyBy(data, "ID");
+            const result = {};
+            for (const key in list) {
+                if (list.hasOwnProperty(key)) {
+                    // 将tips单独解析出来
+                    let tip = extractTextContent(list[key]["Tip"])[0]?.text + "";
+                    tip = tip.replace(/\\/g, "");
+                    // 以折行分组
+                    const _list = tip.split("n").filter(Boolean);
+                    // // 找到对应的索引位置
+                    const _result = {};
+                    let mineralIndex = _list.indexOf("矿物：");
+                    let herbIndex = _list.indexOf("草药：");
+                    let grassIndex = _list.indexOf("牧草：");
+                    // 根据索引截取数组
+                    _result["矿物"] = _list.slice(mineralIndex + 1, herbIndex);
+                    _result["草药"] =
+                        grassIndex === -1 ? _list.slice(herbIndex + 1) : _list.slice(herbIndex + 1, grassIndex);
+                    if (grassIndex !== -1) {
+                        _result["牧草"] = _list.slice(grassIndex + 1);
+                    }
+                    // 将返回的数组替换tip
+                    result[key] = _result;
+                }
+            }
+            this.natural = result;
         },
         showChild({ szChildCityMaps, szChildCopyMaps, Left, Top }, itemIndex) {
             // 定位地图位置到当前选择位置
