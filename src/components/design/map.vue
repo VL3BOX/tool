@@ -28,8 +28,6 @@
                                 <span class="u-item_text">{{ item.szDisplayName }}</span>
                             </div>
                             <!-- 暂时无用图标 -->
-                            <!-- <img :src="getIcon('newworldmap_03_3')" />
-                                <img :src="getIcon('newworldmap_03_8')" /> -->
                             <img class="u-map-city_img" :src="item.szButtonShowImg" draggable="false" />
                         </div>
                     </template>
@@ -176,15 +174,6 @@
             <el-input size="small" v-model="search" clearable>
                 <template slot="prepend">地图</template>
             </el-input>
-            <el-button-group>
-                <el-button type="primary" size="small" icon="el-icon-arrow-left" @click="changePage('prev')"
-                    >上一页</el-button
-                >
-                <el-button type="primary" size="small" @click="changePage('next')">
-                    下一页
-                    <i class="el-icon-arrow-right el-icon--right"></i>
-                </el-button>
-            </el-button-group>
             <div class="u-world-map" @click="changeWorldMap">世界地图</div>
             <div :class="[{ mapId }, 'm-mapList']">
                 <div
@@ -195,7 +184,7 @@
                     @click="changeMap(item.ID)"
                     :class="['u-item', { active: item.ID == mapId }]"
                 >
-                    {{ item.DisplayName }}
+                    {{ item.MapName }}
                 </div>
             </div>
         </div>
@@ -236,18 +225,9 @@
                                 "
                                 :class="['m-m-item', { active: item.ID == mapId }]"
                             >
-                                {{ item.DisplayName }}
+                                {{ item.MapName }}
                             </div>
                         </div>
-                        <el-button-group>
-                            <el-button type="primary" size="small" icon="el-icon-arrow-left" @click="changePage('prev')"
-                                >上一页</el-button
-                            >
-                            <el-button type="primary" size="small" @click="changePage('next')">
-                                下一页
-                                <i class="el-icon-arrow-right el-icon--right"></i>
-                            </el-button>
-                        </el-button-group>
                     </div>
                 </el-drawer>
             </div>
@@ -273,9 +253,6 @@ export default {
             maps: [],
             mapsList: [],
             search: "",
-            page: 1,
-            per: 18,
-            count: 0,
             title: "世界地图",
 
             children: [],
@@ -318,31 +295,15 @@ export default {
         client() {
             return this.$store.state.client;
         },
-        params() {
-            const _params = {
-                per: this.per,
-                page: this.page,
-                client: this.client,
-            };
-            if (this.search) _params.search = this.search;
-            return _params;
-        },
         _search() {
             return {
                 "no-page": 1,
                 "field-no-null-only": "Tip",
-                "like-Tip": "矿物,药草,牧草",
                 fields: "Tip,ID,MapName,MapType",
             };
         },
     },
     watch: {
-        params: {
-            deep: true,
-            handler: function () {
-                this.load();
-            },
-        },
         mapId(val) {
             if (val === null || val === "" || val === undefined) this.mapId = 0;
             const map_1 = this.maps.filter((item) => item.ID == val)[0];
@@ -369,15 +330,6 @@ export default {
             this.title = "世界地图";
             this.scale = { ...this.$options.data().scale, map: Math.random() };
         },
-        changePage(key) {
-            let page = this.page;
-            if (key === "prev") {
-                page--;
-            } else if (page < this.count / this.per) {
-                page++;
-            }
-            this.page = page < 0 ? 0 : page;
-        },
         load(firstLoad) {
             this.loading = true;
             getWorldMap()
@@ -395,14 +347,12 @@ export default {
                 .finally(() => {
                     this.loading = true;
                 });
-            getMaps(this.params).then((res) => {
+            getMaps(this._search).then((res) => {
                 this.mapsList = res.data.data.list || [];
                 if (firstLoad && this.isPhone && this.mapsList.length) {
                     this.changeMap(this.mapsList[0].ID);
                 }
-                this.count = res.data.data.count;
-            });
-            getMaps(this._search).then((res) => {
+                // 资源======
                 const data = res.data.data.list || [];
                 // 将数组转换成ID为键的对象
                 const list = keyBy(data, "ID");
