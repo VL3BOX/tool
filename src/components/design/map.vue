@@ -253,7 +253,6 @@ export default {
             maps: [],
             mapsList: [],
             search: "",
-            title: "世界地图",
 
             children: [],
             visible: false,
@@ -305,16 +304,10 @@ export default {
         showList() {
             return this.search ? this.mapsList.filter((item) => item.MapName.indexOf(this.search) > -1) : this.mapsList;
         },
-    },
-    watch: {
-        mapId(val) {
-            if (val) {
-                const map_1 = this.maps.filter((item) => item.ID == val)[0];
-                const map_2 = this.mapsList.filter((item) => item.ID == val)[0];
-                this.title = map_1?.szDisplayName || map_2?.DisplayName || this.title;
-            }
+        title() {
+            return this.mapId ? this.mapsList.filter((item) => item.ID == this.mapId)[0].MapName : "世界地图";
         },
-    },
+    }, 
     mounted() {
         this.load(true);
         this.wrapScaleChange(this.scale.scale);
@@ -324,15 +317,12 @@ export default {
             this.visible = false;
             this.mapId = mapId || 0;
         },
-        showMap({ dwMapID, szComment }) {
+        showMap({ dwMapID }) {
             this.changeMap(dwMapID);
-            this.title = szComment;
-            this.visible = false;
         },
         changeWorldMap() {
             this.mapId = 0;
             this.search = "";
-            this.title = "世界地图";
             this.scale = { ...this.$options.data().scale, map: Math.random() };
         },
         load(firstLoad) {
@@ -356,7 +346,7 @@ export default {
                 const list = res.data.data.list || [];
                 this.mapsList = list.reverse();
                 list.length && this.trNatural(list);
-                
+
                 if (firstLoad && this.isPhone && this.mapsList.length) {
                     this.changeMap(this.mapsList[0].ID);
                 }
