@@ -160,8 +160,8 @@ export default {
             if (delta < 0) {
                 // 向上滚动，放大元素
                 this.scale += scaleNum;
-                if (this.scale > 1.8) {
-                    this.scale = 1.8;
+                if (this.scale > 1) {
+                    this.scale = 1;
                 }
             } else {
                 // 向下滚动，缩小元素

@@ -147,10 +147,11 @@
             <div
                 class="m-resource-box"
                 :class="{
-                    'm-resource-box__hide': !(visible && produce[selectMapOptions.actId]),
+                    'm-resource-box__hide': !visible,
                 }"
+                v-if="selectMap.city.length"
             >
-                <template v-for="(val, key) in produce[selectMapOptions.actId]">
+                <template v-for="(val, key) in produce[selectMap.city[0].dwMapID]">
                     <div class="m-resource__item" :key="key">
                         <div class="u-item__title">
                             <span>{{ key }}</span>
@@ -274,7 +275,7 @@ export default {
 
             children: [],
             visible: false,
-            scale: { x: -122, y: -1400, scale: 0.35 },
+            scale: { x: -122, y: -1400, scale: 0.7 },
 
             selectMap: {
                 city: [],
@@ -402,10 +403,11 @@ export default {
                 for (const key in list) {
                     if (list.hasOwnProperty(key)) {
                         // 将tips单独解析出来
-                        const tip = extractTextContent(list[key]["Tip"])[0]?.text + "";
+                        let tip = extractTextContent(list[key]["Tip"])[0]?.text + "";
+                        tip = tip.replace(/\\/g, "");
                         // 以折行分组
-                        const _list = tip.split("\\\\\\n").filter(Boolean);
-                        // 找到对应的索引位置
+                        const _list = tip.split("n").filter(Boolean);
+                        // // 找到对应的索引位置
                         const _result = {};
                         let mineralIndex = _list.indexOf("矿物：");
                         let herbIndex = _list.indexOf("草药：");
@@ -425,7 +427,11 @@ export default {
         },
         showChild({ szChildCityMaps, szChildCopyMaps, Left, Top }, itemIndex) {
             // 定位地图位置到当前选择位置
-            this.scale = { x: 4920 - Left - 2444, y: 3456 - Top - 2979, scale: 1 };
+            if (this.isIpad) {
+                this.scale = { x: 4920 - Left - 2550, y: 3456 - Top - 3150, scale: 1 };
+            } else {
+                this.scale = { x: 4920 - Left - 2444, y: 3456 - Top - 3150, scale: 1 };
+            }
             let city = [];
             let fb = [];
             if (szChildCityMaps && szChildCityMaps.length) {
