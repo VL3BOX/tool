@@ -12,7 +12,12 @@
                             @click="showChild(item, id)"
                             @touchstart="showChild(item, id)"
                         >
-                            <div class="u-map-city_name">
+                            <div
+                                class="u-map-city_name"
+                                :style="{
+                                    transform: `scale(${worldMapTextScale})`,
+                                }"
+                            >
                                 <img
                                     class="u-item_bg"
                                     :style="{
@@ -20,13 +25,7 @@
                                     }"
                                     :src="getIcon('newworldmap_03_10')"
                                 />
-                                <span
-                                    :style="{
-                                        transform: `scale(${worldMapTextScale}) translateX(-50%) translateY(-50%)`,
-                                    }"
-                                    class="u-item_text"
-                                    >{{ item.szDisplayName }}</span
-                                >
+                                <span class="u-item_text">{{ item.szDisplayName }}</span>
                             </div>
                             <!-- 暂时无用图标 -->
                             <!-- <img :src="getIcon('newworldmap_03_3')" />
@@ -441,7 +440,7 @@ export default {
             } else {
                 this.scale = { x: 4920 - Left - 2444, y: 3456 - Top - 3150, scale: 1 };
             }
-            this.wrapScaleChange(this.scale.scale)
+            this.wrapScaleChange(this.scale.scale);
             let city = [];
             let fb = [];
             if (szChildCityMaps && szChildCityMaps.length) {

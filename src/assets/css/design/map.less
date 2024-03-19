@@ -241,6 +241,7 @@
             cursor: pointer;
             .u-map-city_name {
                 position: relative;
+                transition: 0.5s all;
                 .u-item_bg {
                     display: block;
                     opacity: 0;
@@ -250,9 +251,9 @@
                     position: absolute;
                     top: 50%;
                     left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
                     white-space: nowrap;
                     font-weight: bold;
-                    transition: 0.5s all;
                 }
                 &:hover {
                     .u-item_bg {
