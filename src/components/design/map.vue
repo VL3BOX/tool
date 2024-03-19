@@ -143,6 +143,24 @@
                     </div>
                 </div>
             </div>
+            <!-- 世界地图资源展示 -->
+            <div
+                class="m-resource-box"
+                :class="{
+                    'm-resource-box__hide': !(visible && produce[selectMapOptions.actId]),
+                }"
+            >
+                <template v-for="(val, key) in produce[selectMapOptions.actId]">
+                    <div class="m-resource__item" :key="key">
+                        <div class="u-item__title">
+                            <span>{{ key }}</span>
+                        </div>
+                        <div class="u-item__list" v-for="(item, index) in val" :key="index">
+                            <span>{{ item }}</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
         </div>
         <div class="m-map-other" v-else>
             <img class="m-map-other_img" :src="currentMap" />
@@ -402,7 +420,7 @@ export default {
                         result[key] = _result;
                     }
                 }
-                this.produce = result; 
+                this.produce = result;
             });
         },
         showChild({ szChildCityMaps, szChildCopyMaps, Left, Top }, itemIndex) {
