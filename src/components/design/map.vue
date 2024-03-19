@@ -253,6 +253,7 @@ export default {
             maps: [],
             mapsList: [],
             search: "",
+            mapsOriginList: [],
             title: "世界地图",
 
             children: [],
@@ -310,6 +311,13 @@ export default {
             const map_2 = this.mapsList.filter((item) => item.ID == val)[0];
             this.title = map_1?.szDisplayName || map_2?.DisplayName || this.title;
         },
+        search(val) {
+            if (val === "") {
+                this.mapsList = this.mapsOriginList;
+            } else {
+                this.mapsList = this.mapsOriginList.filter((item) => item.MapName.indexOf(val) > -1);
+            }
+        },
     },
     mounted() {
         this.load(true);
@@ -349,6 +357,7 @@ export default {
                 });
             getMaps(this._search).then((res) => {
                 this.mapsList = res.data.data.list || [];
+                this.mapsOriginList = this.mapsList;
                 if (firstLoad && this.isPhone && this.mapsList.length) {
                     this.changeMap(this.mapsList[0].ID);
                 }
@@ -472,9 +481,6 @@ export default {
             const m = (B2 - B1) / (A2 - A1);
             const b = B1 - m * A1;
             this.worldMapTextScale = m * (scale * 1) + b;
-        },
-        mapLink() {
-            return;
         },
         getGoMapImg(itemData) {
             let finalResult = "";
