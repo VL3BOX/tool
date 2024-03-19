@@ -30,7 +30,7 @@
                             <!-- 暂时无用图标 -->
                             <!-- <img :src="getIcon('newworldmap_03_3')" />
                                 <img :src="getIcon('newworldmap_03_8')" /> -->
-                            <img class="u-map-city_img" :src="item.szButtonShowImg" />
+                            <img class="u-map-city_img" :src="item.szButtonShowImg" draggable="false" />
                         </div>
                     </template>
                     <img
